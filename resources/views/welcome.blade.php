@@ -12,7 +12,8 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700&display=swap" rel="stylesheet">    <body class="antialiased">
         <div id="app">
-            <example-component></example-component>
+            <the-header></the-header>
+            <the-sidebar> </the-sidebar>
 
         </div>
         <script src="{{ mix('js/app.js') }}"></script>
