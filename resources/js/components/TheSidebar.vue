@@ -1,5 +1,5 @@
 <template>
-    <div :class="['sidebar-div', isDarkMode ? 'sidebar-div-dark' : '']">
+    <div v-if="isSidebarVisible" :class="['sidebar-div', isDarkMode ? 'sidebar-div-dark' : '']">
         <div class="sidebar-flex">
             <img class="logo" :src="logoUrl" alt="Top Logo">
             <div class="top-box">
@@ -24,7 +24,6 @@
                 </div>
             </div>
             <div class="bottom-div">
-
                 <div class="toggle-theme-div"> 
                     <img src="/assets/icon-light-theme.svg" alt="light theme">
                     <button class="toggle-switch" :class="{ 'active': isDarkMode }" @click="toggleTheme">
@@ -32,13 +31,15 @@
                     </button>
                     <img  src="/assets/icon-dark-theme.svg" alt="Dark Theme">
                 </div>
-                <div class="toggle-sidebar-div"> 
+                <div @click="toggleSidebar" class="toggle-sidebar-div"> 
                     <img  src="/assets/icon-hide-sidebar.svg" alt="Toggle Sidebar">
                     <h2 class="heading-m"> Hide Sidebar</h2>
                 </div>
-                
             </div>
         </div>
+    </div>
+    <div v-else :class="['sidebar-div-collapsed', isDarkMode ? 'sidebar-collapsed-dark' : '']">
+        <img class="logo" :src="logoUrl" alt="Top Logo">
     </div>
 </template>
 
@@ -52,14 +53,13 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isDarkMode']),
+    ...mapGetters(['isDarkMode', 'isSidebarVisible']),
     logoUrl(){
         return this.isDarkMode ? '/assets/logo-light.svg' : '/assets/logo-dark.svg';
-
     }
   },
   methods: {
-    ...mapMutations(['toggleDarkMode']),
+    ...mapMutations(['toggleDarkMode', 'toggleSidebar']),
     setActiveBoard(boardName) {
       this.activeBoard = boardName;
     },
@@ -85,10 +85,21 @@ export default {
     border-right: 0.25px solid $platinum-lightest;
 }
 
+.sidebar-div-collapsed{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 96px;
+    width: 300px;
+    border-bottom: 0.25px solid $platinum-lightest;
+    background-color: $white-light;
+
+}
+
 .logo{
     position: absolute;
-    padding-top: 2rem;
-    padding-left: 2rem;
+    top: 2rem;
+    left: 2rem;
 }
 .sidebar-flex{
     display: flex;
@@ -228,8 +239,26 @@ export default {
     border-right: 0.25px solid $platinum-dark;
     .toggle-theme-div{
         background-color: $navy-light;
+    } 
+}
+.sidebar-collapsed-dark{
+    background-color: $platinum-darkest;
+    border-bottom: 0.25px solid $platinum-dark
+
+}
+
+// Tablet Design
+@media(max-width: 768px){
+    .sidebar-div-collapsed, .sidebar-div{
+        width: 260px;
     }
-    
+}
+
+// Mobile Design
+@media(max-width: 680px){
+    .sidebar-div-collapsed, .sidebar-div{
+        width: 260px;
+    }
 }
 
   

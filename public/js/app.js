@@ -18506,7 +18506,8 @@ function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" 
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(['isDarkMode']))
+  methods: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapMutations)(['toggleSidebar'])),
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(['isDarkMode', 'isSidebarVisible']))
 });
 
 /***/ }),
@@ -18559,12 +18560,12 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       activeBoard: 'Board 1'
     };
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(['isDarkMode'])), {}, {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(['isDarkMode', 'isSidebarVisible'])), {}, {
     logoUrl: function logoUrl() {
       return this.isDarkMode ? '/assets/logo-light.svg' : '/assets/logo-dark.svg';
     }
   }),
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapMutations)(['toggleDarkMode'])), {}, {
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapMutations)(['toggleDarkMode', 'toggleSidebar'])), {}, {
     setActiveBoard: function setActiveBoard(boardName) {
       this.activeBoard = boardName;
     },
@@ -18592,20 +18593,35 @@ __webpack_require__.r(__webpack_exports__);
 var _withScopeId = function _withScopeId(n) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-1ea9e373"), n = n(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)(), n;
 };
-var _hoisted_1 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "no-boards-div"
-  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
+var _hoisted_1 = {
+  "class": "no-boards-div"
+};
+var _hoisted_2 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
     "class": "heading-l"
-  }, "This board is empty. Create a new column to get started."), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    "class": "btn-primary-s"
-  }, " + Add New Column")], -1 /* HOISTED */);
+  }, "This board is empty. Create a new column to get started.", -1 /* HOISTED */);
 });
-var _hoisted_2 = [_hoisted_1];
+var _hoisted_3 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    "class": "btn-primary-s"
+  }, " + Add New Column", -1 /* HOISTED */);
+});
+var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    src: "/assets/icon-show-sidebar.svg",
+    alt: "light theme"
+  }, null, -1 /* HOISTED */);
+});
+var _hoisted_5 = [_hoisted_4];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(['content-div', _ctx.isDarkMode ? 'content-div-dark' : ''])
-  }, [].concat(_hoisted_2), 2 /* CLASS */);
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(['content-div', _ctx.isDarkMode ? 'content-div-dark' : '', _ctx.isSidebarVisible ? '' : 'content-expanded'])
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [_hoisted_2, _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "toggle-sidebar-btn",
+    onClick: _cache[0] || (_cache[0] = function () {
+      return _ctx.toggleSidebar && _ctx.toggleSidebar.apply(_ctx, arguments);
+    })
+  }, [].concat(_hoisted_5))])], 2 /* CLASS */);
 }
 
 /***/ }),
@@ -18725,16 +18741,18 @@ var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   src: "/assets/icon-dark-theme.svg",
   alt: "Dark Theme"
 }, null, -1 /* HOISTED */);
-var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "toggle-sidebar-div"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
   src: "/assets/icon-hide-sidebar.svg",
   alt: "Toggle Sidebar"
-}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
+}, null, -1 /* HOISTED */);
+var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
   "class": "heading-m"
-}, " Hide Sidebar")], -1 /* HOISTED */);
+}, " Hide Sidebar", -1 /* HOISTED */);
+var _hoisted_23 = [_hoisted_21, _hoisted_22];
+var _hoisted_24 = ["src"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+  return _ctx.isSidebarVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+    key: 0,
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(['sidebar-div', _ctx.isDarkMode ? 'sidebar-div-dark' : ''])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     "class": "logo",
@@ -18772,7 +18790,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[3] || (_cache[3] = function () {
       return $options.toggleTheme && $options.toggleTheme.apply($options, arguments);
     })
-  }, [].concat(_hoisted_19), 2 /* CLASS */), _hoisted_20]), _hoisted_21])])], 2 /* CLASS */);
+  }, [].concat(_hoisted_19), 2 /* CLASS */), _hoisted_20]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    onClick: _cache[4] || (_cache[4] = function () {
+      return _ctx.toggleSidebar && _ctx.toggleSidebar.apply(_ctx, arguments);
+    }),
+    "class": "toggle-sidebar-div"
+  }, [].concat(_hoisted_23))])])], 2 /* CLASS */)) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+    key: 1,
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(['sidebar-div-collapsed', _ctx.isDarkMode ? 'sidebar-collapsed-dark' : ''])
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    "class": "logo",
+    src: $options.logoUrl,
+    alt: "Top Logo"
+  }, null, 8 /* PROPS */, _hoisted_24)], 2 /* CLASS */));
 }
 
 /***/ }),
@@ -18817,16 +18847,30 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vuex__WEBPACK_IMPORTED_MODULE_0__.createStore)({
   state: {
-    isDarkMode: false
+    isDarkMode: false,
+    isSidebarVisible: true,
+    isMobileView: false
   },
   mutations: {
     toggleDarkMode: function toggleDarkMode(state) {
       state.isDarkMode = !state.isDarkMode;
+    },
+    toggleSidebar: function toggleSidebar(state) {
+      state.isSidebarVisible = !state.isSidebarVisible;
+    },
+    setIsMobileView: function setIsMobileView(state, value) {
+      state.isMobileView = value;
     }
   },
   getters: {
     isDarkMode: function isDarkMode(state) {
       return state.isDarkMode;
+    },
+    isSidebarVisible: function isSidebarVisible(state) {
+      return state.isSidebarVisible;
+    },
+    isMobileView: function isMobileView(state) {
+      return state.isMobileView;
     }
   }
 }));
@@ -18849,7 +18893,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".content-div[data-v-1ea9e373] {\n  position: absolute;\n  width: calc(100vw - 300px);\n  height: calc(100vh - 96px);\n  top: 96px;\n  left: 300px;\n  display: flex;\n  align-content: center;\n  justify-content: center;\n}\n.heading-l[data-v-1ea9e373] {\n  color: #828FA3;\n}\n.no-boards-div[data-v-1ea9e373] {\n  display: flex;\n  flex-direction: column;\n  gap: 2rem;\n  align-items: center;\n  text-align: center;\n  justify-content: center;\n}\n.content-div-dark[data-v-1ea9e373] {\n  background-color: #20212C;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".content-div[data-v-1ea9e373] {\n  position: absolute;\n  width: calc(100vw - 300px);\n  height: calc(100vh - 96px);\n  top: 96px;\n  left: 300px;\n  display: flex;\n  align-content: center;\n  justify-content: center;\n}\n.heading-l[data-v-1ea9e373] {\n  color: #828FA3;\n}\n.no-boards-div[data-v-1ea9e373] {\n  display: flex;\n  flex-direction: column;\n  gap: 2rem;\n  align-items: center;\n  text-align: center;\n  justify-content: center;\n  padding: 2rem;\n}\n.toggle-sidebar-btn[data-v-1ea9e373] {\n  display: none;\n  position: absolute;\n  left: 0;\n  bottom: 50px;\n  background-color: #635FC7;\n  width: 70px;\n  height: 50px;\n  border-radius: 2rem;\n  align-items: center;\n  justify-content: center;\n  padding-left: 1rem;\n  transform: translateX(-20px);\n  overflow: hidden;\n}\n.toggle-sidebar-btn[data-v-1ea9e373] :hover {\n  cursor: pointer;\n}\n.content-expanded[data-v-1ea9e373] {\n  width: 100vw;\n  left: 0;\n  overflow: hidden;\n}\n.content-expanded .toggle-sidebar-btn[data-v-1ea9e373] {\n  display: flex;\n}\n.content-div-dark[data-v-1ea9e373] {\n  background-color: #20212C;\n}\n@media (max-width: 768px) {\n.content-div[data-v-1ea9e373] {\n    width: calc(100vw - 260px);\n    height: calc(100vh - 80px);\n    top: 80px;\n    left: 260px;\n}\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -18872,7 +18916,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".header-div {\n  position: absolute;\n  top: 0;\n  left: 300px;\n  height: 96px;\n  width: calc(100vw - 300px);\n  background-color: white;\n  border-bottom: 0.25px solid #E4EBFA;\n}\n.header-flex {\n  height: 100%;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding-left: 32px;\n  padding-right: 32px;\n}\n.side-flex {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 1.5rem;\n}\n.header-div-dark {\n  background-color: #2B2C37;\n  border-bottom: 0.25px solid #3E3F4E;\n}\n.header-div-dark .heading-xl {\n  color: #FFFFFF;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".header-div {\n  position: absolute;\n  top: 0;\n  left: 300px;\n  height: 96px;\n  width: calc(100vw - 300px);\n  background-color: white;\n  border-bottom: 0.25px solid #E4EBFA;\n}\n.header-flex {\n  height: 100%;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding-left: 32px;\n  padding-right: 32px;\n}\n.side-flex {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 1.5rem;\n}\n.header-div-dark {\n  background-color: #2B2C37;\n  border-bottom: 0.25px solid #3E3F4E;\n}\n.header-div-dark .heading-xl {\n  color: #FFFFFF;\n}\n@media (max-width: 768px) {\n.header-div {\n    left: 260px;\n    height: 80px;\n    width: calc(100vw - 260px);\n}\n.header-div .heading-xl {\n    font-size: 20px;\n}\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -18895,7 +18939,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".sidebar-div {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 300px;\n  height: 100vh;\n  background-color: #FFFFFF;\n  border-right: 0.25px solid #E4EBFA;\n}\n.logo {\n  position: absolute;\n  padding-top: 2rem;\n  padding-left: 2rem;\n}\n.sidebar-flex {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  height: 100%;\n}\n.top-box {\n  display: flex;\n  flex-direction: column;\n  padding-top: 112px;\n  padding-left: 2rem;\n}\n.boards-flex {\n  display: flex;\n  flex-direction: column;\n}\n.boards-flex .heading-s {\n  padding-bottom: 0.5rem;\n}\n.boards-flex :hover {\n  cursor: pointer;\n}\n.board-item {\n  align-items: center;\n  display: flex;\n  justify-content: center;\n  background-color: transparent;\n  border-radius: 2rem;\n  padding: 0.75rem;\n  gap: 0.75rem;\n  width: 150%;\n  transform: translateX(-40%);\n}\n.board-item .board-icon {\n  fill: #828FA3;\n}\n.board-item h2 {\n  color: #828FA3;\n  font-size: 15px;\n  margin-bottom: 0px;\n}\n.board-item.active {\n  background-color: #635FC7;\n  fill: #FFFFFF;\n}\n.board-item.active h2 {\n  color: #FFFFFF;\n}\n.board-item.active .board-icon {\n  fill: #FFFFFF;\n}\n.create-board-div {\n  margin-top: 0.75rem;\n  align-items: center;\n  display: flex;\n  color: #635FC7;\n  gap: 0.75rem;\n}\n.create-board-div h2 {\n  font-size: 15px;\n  margin-bottom: 0px;\n  font-weight: 700;\n}\n.create-board-div .create-board-icon {\n  fill: #635FC7;\n}\n.bottom-div {\n  display: flex;\n  flex-direction: column;\n  padding: 1rem;\n  padding-bottom: 2rem;\n}\n.bottom-div .toggle-theme-div {\n  background-color: #F4F7FD;\n  border-radius: 0.25rem;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 0.75rem;\n  padding: 1rem;\n}\n.toggle-switch {\n  position: relative;\n  background-color: #A8A4FF;\n  border: none;\n  border-radius: 9999px;\n  width: 50px;\n  height: 25px;\n  padding: 5px;\n  display: flex;\n  align-items: center;\n  transition: background-color 0.3s;\n  cursor: pointer;\n}\n.toggle-switch .switch-circle {\n  position: absolute;\n  left: 5px;\n  background-color: #FFFFFF;\n  border-radius: 50%;\n  width: 20px;\n  height: 20px;\n  transition: transform 0.3s;\n}\n.toggle-switch.active .switch-circle {\n  transform: translateX(20px);\n}\n.toggle-sidebar-div {\n  display: flex;\n  align-content: center;\n  gap: 0.5rem;\n  padding-left: 1rem;\n  padding-top: 1rem;\n}\n.toggle-sidebar-div .heading-m {\n  color: #828FA3;\n}\n.toggle-sidebar-div :hover {\n  cursor: pointer;\n}\n.sidebar-div-dark {\n  background-color: #2B2C37;\n  border-right: 0.25px solid #3E3F4E;\n}\n.sidebar-div-dark .toggle-theme-div {\n  background-color: #20212C;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".sidebar-div {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 300px;\n  height: 100vh;\n  background-color: #FFFFFF;\n  border-right: 0.25px solid #E4EBFA;\n}\n.sidebar-div-collapsed {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 96px;\n  width: 300px;\n  border-bottom: 0.25px solid #E4EBFA;\n  background-color: #FFFFFF;\n}\n.logo {\n  position: absolute;\n  top: 2rem;\n  left: 2rem;\n}\n.sidebar-flex {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  height: 100%;\n}\n.top-box {\n  display: flex;\n  flex-direction: column;\n  padding-top: 112px;\n  padding-left: 2rem;\n}\n.boards-flex {\n  display: flex;\n  flex-direction: column;\n}\n.boards-flex .heading-s {\n  padding-bottom: 0.5rem;\n}\n.boards-flex :hover {\n  cursor: pointer;\n}\n.board-item {\n  align-items: center;\n  display: flex;\n  justify-content: center;\n  background-color: transparent;\n  border-radius: 2rem;\n  padding: 0.75rem;\n  gap: 0.75rem;\n  width: 150%;\n  transform: translateX(-40%);\n}\n.board-item .board-icon {\n  fill: #828FA3;\n}\n.board-item h2 {\n  color: #828FA3;\n  font-size: 15px;\n  margin-bottom: 0px;\n}\n.board-item.active {\n  background-color: #635FC7;\n  fill: #FFFFFF;\n}\n.board-item.active h2 {\n  color: #FFFFFF;\n}\n.board-item.active .board-icon {\n  fill: #FFFFFF;\n}\n.create-board-div {\n  margin-top: 0.75rem;\n  align-items: center;\n  display: flex;\n  color: #635FC7;\n  gap: 0.75rem;\n}\n.create-board-div h2 {\n  font-size: 15px;\n  margin-bottom: 0px;\n  font-weight: 700;\n}\n.create-board-div .create-board-icon {\n  fill: #635FC7;\n}\n.bottom-div {\n  display: flex;\n  flex-direction: column;\n  padding: 1rem;\n  padding-bottom: 2rem;\n}\n.bottom-div .toggle-theme-div {\n  background-color: #F4F7FD;\n  border-radius: 0.25rem;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 0.75rem;\n  padding: 1rem;\n}\n.toggle-switch {\n  position: relative;\n  background-color: #A8A4FF;\n  border: none;\n  border-radius: 9999px;\n  width: 50px;\n  height: 25px;\n  padding: 5px;\n  display: flex;\n  align-items: center;\n  transition: background-color 0.3s;\n  cursor: pointer;\n}\n.toggle-switch .switch-circle {\n  position: absolute;\n  left: 5px;\n  background-color: #FFFFFF;\n  border-radius: 50%;\n  width: 20px;\n  height: 20px;\n  transition: transform 0.3s;\n}\n.toggle-switch.active .switch-circle {\n  transform: translateX(20px);\n}\n.toggle-sidebar-div {\n  display: flex;\n  align-content: center;\n  gap: 0.5rem;\n  padding-left: 1rem;\n  padding-top: 1rem;\n}\n.toggle-sidebar-div .heading-m {\n  color: #828FA3;\n}\n.toggle-sidebar-div :hover {\n  cursor: pointer;\n}\n.sidebar-div-dark {\n  background-color: #2B2C37;\n  border-right: 0.25px solid #3E3F4E;\n}\n.sidebar-div-dark .toggle-theme-div {\n  background-color: #20212C;\n}\n.sidebar-collapsed-dark {\n  background-color: #2B2C37;\n  border-bottom: 0.25px solid #3E3F4E;\n}\n@media (max-width: 768px) {\n.sidebar-div-collapsed, .sidebar-div {\n    width: 260px;\n}\n}\n@media (max-width: 680px) {\n.sidebar-div-collapsed, .sidebar-div {\n    width: 260px;\n}\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
