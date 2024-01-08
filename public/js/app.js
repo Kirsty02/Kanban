@@ -5091,8 +5091,13 @@ module.exports = {
 /*!*****************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TheSidebar.vue?vue&type=script&lang=js& ***!
   \*****************************************************************************************************************************************************************************************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 //
 //
 //
@@ -5119,6 +5124,37 @@ module.exports = {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      activeBoard: 'Board 1'
+    };
+  },
+  methods: {
+    setActiveBoard: function setActiveBoard(boardName) {
+      this.activeBoard = boardName;
+    }
+  }
+});
 
 /***/ }),
 
@@ -9669,7 +9705,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".sidebar-div[data-v-1d6090d6] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 300px;\n  height: 100vh;\n  background-color: #FFFFFF;\n  border-right: 2px solid #F4F7FD;\n}\n.logo[data-v-1d6090d6] {\n  position: absolute;\n  padding-top: 2rem;\n  padding-left: 2rem;\n}\n.sidebar-flex[data-v-1d6090d6] {\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  margin-top: 112px;\n}\n.top-box[data-v-1d6090d6] {\n  margin-top: 2rem;\n  margin-left: 2rem;\n  display: flex;\n  flex-direction: column;\n  gap: 3rem;\n}\n.boards-flex[data-v-1d6090d6] {\n  display: flex;\n  flex-direction: column;\n}\n.board-item[data-v-1d6090d6] {\n  display: flex;\n  background-color: #635FC7;\n  align-content: center;\n  padding: 10px;\n  color: #FFFFFF;\n  gap: 1rem;\n}\n.board-item h2[data-v-1d6090d6] {\n  font-size: 15px;\n  margin-bottom: 0;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".sidebar-div[data-v-1d6090d6] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 300px;\n  height: 100vh;\n  background-color: #FFFFFF;\n  border-right: 2px solid #F4F7FD;\n}\n.logo[data-v-1d6090d6] {\n  position: absolute;\n  padding-top: 2rem;\n  padding-left: 2rem;\n}\n.sidebar-flex[data-v-1d6090d6] {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  height: 100%;\n}\n.top-box[data-v-1d6090d6] {\n  display: flex;\n  flex-direction: column;\n  padding-top: 112px;\n  padding-left: 2rem;\n}\n.boards-flex[data-v-1d6090d6] {\n  display: flex;\n  flex-direction: column;\n}\n.boards-flex .heading-s[data-v-1d6090d6] {\n  padding-bottom: 0.5rem;\n}\n.boards-flex[data-v-1d6090d6] :hover {\n  cursor: pointer;\n}\n.board-item[data-v-1d6090d6] {\n  align-items: center;\n  display: flex;\n  justify-content: center;\n  background-color: transparent;\n  border-radius: 2rem;\n  padding: 0.75rem;\n  gap: 0.75rem;\n  width: 150%;\n  transform: translateX(-40%);\n}\n.board-item .board-icon[data-v-1d6090d6] {\n  fill: #828FA3;\n}\n.board-item h2[data-v-1d6090d6] {\n  color: #828FA3;\n  font-size: 15px;\n  margin-bottom: 0px;\n}\n.board-item.active[data-v-1d6090d6] {\n  background-color: #635FC7;\n  fill: #FFFFFF;\n}\n.board-item.active h2[data-v-1d6090d6] {\n  color: #FFFFFF;\n}\n.board-item.active .board-icon[data-v-1d6090d6] {\n  fill: #FFFFFF;\n}\n.create-board-div[data-v-1d6090d6] {\n  margin-top: 0.75rem;\n  align-items: center;\n  display: flex;\n  color: #635FC7;\n  gap: 0.75rem;\n}\n.create-board-div h2[data-v-1d6090d6] {\n  font-size: 15px;\n  margin-bottom: 0px;\n  font-weight: 700;\n}\n.create-board-div .create-board-icon[data-v-1d6090d6] {\n  fill: #635FC7;\n}\n.bottom-div[data-v-1d6090d6] {\n  display: flex;\n  flex-direction: column;\n  padding: 1rem;\n  padding-bottom: 2rem;\n}\n.bottom-div .toggle-theme-div[data-v-1d6090d6] {\n  background-color: #F4F7FD;\n  border-radius: 0.25rem;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 0.25rem;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -27591,9 +27627,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _TheSidebar_vue_vue_type_template_id_1d6090d6_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TheSidebar.vue?vue&type=template&id=1d6090d6&scoped=true& */ "./resources/js/components/TheSidebar.vue?vue&type=template&id=1d6090d6&scoped=true&");
 /* harmony import */ var _TheSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TheSidebar.vue?vue&type=script&lang=js& */ "./resources/js/components/TheSidebar.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
-/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _TheSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _TheSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[__WEBPACK_IMPORT_KEY__]
-/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
 /* harmony import */ var _TheSidebar_vue_vue_type_style_index_0_id_1d6090d6_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TheSidebar.vue?vue&type=style&index=0&id=1d6090d6&scoped=true&lang=scss& */ "./resources/js/components/TheSidebar.vue?vue&type=style&index=0&id=1d6090d6&scoped=true&lang=scss&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
@@ -27654,11 +27687,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TheSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./TheSidebar.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TheSidebar.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TheSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TheSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
-/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TheSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TheSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
-/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TheSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default())); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TheSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -27787,41 +27816,170 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "sidebar-div" }, [
+  return _c("div", { staticClass: "sidebar-div" }, [
+    _c("div", { staticClass: "sidebar-flex" }, [
       _c("img", {
         staticClass: "logo",
         attrs: { src: "/assets/logo-dark.svg", alt: "Top Logo" },
       }),
       _vm._v(" "),
-      _c("div", { staticClass: "sidebar-flex" }, [
-        _c("div", { staticClass: "top-box" }, [
-          _c("div", { staticClass: "boards-flex" }, [
-            _c("h2", { staticClass: "heading-s" }, [
-              _vm._v("  ALL BOARDS (3) "),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "board-item" }, [
-              _c("img", {
-                attrs: { src: "/assets/icon-board.svg", alt: "Top Logo" },
-              }),
+      _c("div", { staticClass: "top-box" }, [
+        _c("div", { staticClass: "boards-flex" }, [
+          _c("h1", { staticClass: "heading-s" }, [_vm._v("  ALL BOARDS (3) ")]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "board-item",
+              class: { active: _vm.activeBoard === "Board 1" },
+              on: {
+                click: function ($event) {
+                  return _vm.setActiveBoard("Board 1")
+                },
+              },
+            },
+            [
+              _c(
+                "svg",
+                {
+                  staticClass: "board-icon",
+                  attrs: {
+                    width: "16",
+                    height: "16",
+                    xmlns: "http://www.w3.org/2000/svg",
+                  },
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d: "M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z",
+                    },
+                  }),
+                ]
+              ),
               _vm._v(" "),
               _c("h2", [_vm._v("Board 1")]),
-            ]),
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "board-item",
+              class: { active: _vm.activeBoard === "Board 2" },
+              on: {
+                click: function ($event) {
+                  return _vm.setActiveBoard("Board 2")
+                },
+              },
+            },
+            [
+              _c(
+                "svg",
+                {
+                  staticClass: "board-icon",
+                  attrs: {
+                    width: "16",
+                    height: "16",
+                    xmlns: "http://www.w3.org/2000/svg",
+                  },
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d: "M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z",
+                    },
+                  }),
+                ]
+              ),
+              _vm._v(" "),
+              _c("h2", [_vm._v("Board 2")]),
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "board-item",
+              class: { active: _vm.activeBoard === "Board 3" },
+              on: {
+                click: function ($event) {
+                  return _vm.setActiveBoard("Board 3")
+                },
+              },
+            },
+            [
+              _c(
+                "svg",
+                {
+                  staticClass: "board-icon",
+                  attrs: {
+                    width: "16",
+                    height: "16",
+                    xmlns: "http://www.w3.org/2000/svg",
+                  },
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d: "M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z",
+                    },
+                  }),
+                ]
+              ),
+              _vm._v(" "),
+              _c("h2", [_vm._v("Board 3")]),
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "create-board-div" }, [
+            _c(
+              "svg",
+              {
+                staticClass: "create-board-icon",
+                attrs: {
+                  width: "16",
+                  height: "16",
+                  xmlns: "http://www.w3.org/2000/svg",
+                },
+              },
+              [
+                _c("path", {
+                  attrs: {
+                    d: "M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z",
+                  },
+                }),
+              ]
+            ),
+            _vm._v(" "),
+            _c("h2", [_vm._v("+ Create New Board")]),
           ]),
         ]),
-        _vm._v(" "),
-        _c("div", [_c("h1", [_vm._v("bottom")])]),
       ]),
-    ])
-  },
-]
+      _vm._v(" "),
+      _c("div", { staticClass: "bottom-div" }, [
+        _c("div", { staticClass: "toggle-theme-div" }, [
+          _c("img", {
+            attrs: { src: "/assets/icon-light-theme.svg", alt: "Top Logo" },
+          }),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "toggle-switch", on: { click: _vm.toggleSwitch } },
+            [_c("span", { staticClass: "switch-circle" })]
+          ),
+          _vm._v(" "),
+          _c("img", {
+            attrs: { src: "/assets/icon-dark-theme.svg", alt: "Top Logo" },
+          }),
+        ]),
+        _vm._v(" "),
+        _c("h1", [_vm._v("bottom")]),
+      ]),
+    ]),
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
