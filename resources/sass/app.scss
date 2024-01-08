@@ -36,6 +36,7 @@ body{
     font-size: 15px;
     font-weight: 700;
     line-height: 19px;
+    margin-bottom: 0px;
 }
 
 .heading-s{
@@ -81,7 +82,8 @@ body{
     background-color: $purple-dark;
     border-radius: 24px;
     color: $white-light;
-    width: 255px;
+    font-size: 15px;
+    width: 164px;
     height: 40px;
     flex-shrink: 0;
     border: none;
@@ -119,5 +121,5 @@ body{
 }
 
 
-// Inputs 
+
 

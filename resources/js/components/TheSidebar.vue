@@ -1,10 +1,10 @@
 <template>
-    <div class="sidebar-div">
+    <div :class="['sidebar-div', isDarkMode ? 'sidebar-div-dark' : '']">
         <div class="sidebar-flex">
-            <img class="logo" src="/assets/logo-dark.svg" alt="Top Logo">
+            <img class="logo" :src="logoUrl" alt="Top Logo">
             <div class="top-box">
                 <div class="boards-flex"> 
-                    <h1 class="heading-s">  ALL BOARDS (3) </h1>
+                    <h1 :class="['heading-s', {'heading-l': isDarkMode}]">  ALL BOARDS (3) </h1>
                     <div class="board-item" :class="{ active: activeBoard === 'Board 1' }" @click="setActiveBoard('Board 1')"> 
                         <svg class="board-icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg"><path d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z" /></svg>
                         <h2>Board 1</h2>
@@ -26,39 +26,55 @@
             <div class="bottom-div">
 
                 <div class="toggle-theme-div"> 
-                    <img src="/assets/icon-light-theme.svg" alt="Top Logo">
-                    <button class="toggle-switch" @click="toggleSwitch">
+                    <img src="/assets/icon-light-theme.svg" alt="light theme">
+                    <button class="toggle-switch" :class="{ 'active': isDarkMode }" @click="toggleTheme">
                         <span class="switch-circle"></span>
                     </button>
-                    <img  src="/assets/icon-dark-theme.svg" alt="Top Logo">
-
+                    <img  src="/assets/icon-dark-theme.svg" alt="Dark Theme">
                 </div>
-                <h1>bottom</h1>
-
+                <div class="toggle-sidebar-div"> 
+                    <img  src="/assets/icon-hide-sidebar.svg" alt="Toggle Sidebar">
+                    <h2 class="heading-m"> Hide Sidebar</h2>
+                </div>
+                
             </div>
-
         </div>
-
     </div>
 </template>
 
 <script>
+import { mapMutations, mapGetters } from 'vuex';
+
 export default {
   data() {
     return {
       activeBoard: 'Board 1',
     };
   },
+  computed: {
+    ...mapGetters(['isDarkMode']),
+    logoUrl(){
+        return this.isDarkMode ? '/assets/logo-light.svg' : '/assets/logo-dark.svg';
+
+    }
+  },
   methods: {
+    ...mapMutations(['toggleDarkMode']),
     setActiveBoard(boardName) {
       this.activeBoard = boardName;
+    },
+    toggleTheme(){
+        this.toggleDarkMode();
+        this.$emit('themeToggled');
     }
   }
 };
+
 </script>
 
-<style scoped lang="scss">
+<style  lang="scss">
 @import '../../sass/variables';
+
 .sidebar-div{
     position: absolute;
     top: 0;
@@ -66,7 +82,7 @@ export default {
     width: 300px;
     height: 100vh;
     background-color: $white-light;
-    border-right: 2px solid $white-dark;
+    border-right: 0.25px solid $platinum-lightest;
 }
 
 .logo{
@@ -158,9 +174,65 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 0.25rem;
+        gap: 0.75rem;
+        padding: 1rem;
     }
 }
+
+/// Toggle switch
+
+.toggle-switch {
+    position: relative;
+    background-color: $purple-light;
+    border: none;
+    border-radius: 9999px;
+    width: 50px; 
+    height: 25px; 
+    padding: 5px; 
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s;
+    cursor: pointer;
+    .switch-circle {
+        position: absolute;
+        left: 5px;
+        background-color: $white-light; 
+        border-radius: 50%;
+        width: 20px;
+        height: 20px; 
+        transition: transform 0.3s;
+    }
+    &.active .switch-circle {
+    transform: translateX(20px); 
+  }
+}
+
+//Toggle Sidebar
+.toggle-sidebar-div{
+    display: flex;
+    align-content: center;
+    gap: .5rem;
+    padding-left: 1rem;
+    padding-top: 1rem;
+    .heading-m{
+        color: $platinum-light;
+    }
+    :hover{
+        cursor: pointer;
+    }
+}
+
+///Dark Mode
+.sidebar-div-dark{
+    background-color: $platinum-darkest;
+    border-right: 0.25px solid $platinum-dark;
+    .toggle-theme-div{
+        background-color: $navy-light;
+    }
+    
+}
+
+  
 
 
 </style>

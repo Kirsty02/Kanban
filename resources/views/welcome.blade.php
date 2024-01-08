@@ -10,12 +10,14 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700&display=swap" rel="stylesheet">    <body class="antialiased">
-        <div id="app">
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700&display=swap" rel="stylesheet">    
+        <body class="antialiased">
+        <div id="app" :class="{ 'dark-mode': $store.state.isDarkMode }">
             <the-header></the-header>
             <the-sidebar> </the-sidebar>
+            <the-content> <the-content>
 
         </div>
         <script src="{{ mix('js/app.js') }}"></script>
-    </body>
+        </body>
 </html>

@@ -1,11 +1,12 @@
 <template>
-    <div class="header-div">
+    <div :class="['header-div', isDarkMode ? 'header-div-dark' : '']">
         <div class="header-flex"> 
             
             <h1 class="heading-xl">Platform Launch</h1>
            
             <div class="side-flex">
-                <button class="btn-primary-s"> + Add New Item</button>
+                
+                <button :class="['btn-primary-s', isDarkMode ? 'btn-dark' : '']"> + Add New Item</button>
                 <img src="/assets/icon-vertical-ellipsis.svg" alt="Board Icon">
             </div>
         </div>  
@@ -13,10 +14,19 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
+export default {
+  computed: {
+    ...mapGetters(['isDarkMode']),
+  },
+};
 
 </script>
 
-<style scoped>
+<style  lang="scss">
+@import '../../sass/variables';
+
 .header-div{
     position: absolute;
     top: 0;
@@ -24,6 +34,7 @@
     height: 96px;
     width: calc(100vw - 300px);
     background-color: white;
+    border-bottom: 0.25px solid $platinum-lightest;
 }
 
 .header-flex{
@@ -41,7 +52,13 @@
     gap: 1.5rem;
 }
 
-.btn-primary-s{
-    width: 164px;
+
+.header-div-dark{
+    background-color: $platinum-darkest;
+    border-bottom: 0.25px solid $platinum-dark;
+    .heading-xl{
+        color: $white-light;
+    }
 }
+
 </style>
