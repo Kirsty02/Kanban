@@ -13,8 +13,9 @@ export default createStore({
         toggleSidebar(state){
             state.isSidebarVisible = !state.isSidebarVisible;
         },
-        setIsMobileView(state, value) { 
-            state.isMobileView = value;
+        updateIsMobileView(state, isMobileView) { 
+            state.isMobileView = isMobileView;
+            
         },
 
     },

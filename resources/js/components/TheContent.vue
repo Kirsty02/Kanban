@@ -94,6 +94,23 @@ export default {
         top: 80px;
         left: 260px;
     }
+    .content-expanded{
+        width: 100vw;
+        left: 0;
+    }
+}
+
+@media(max-width: 680px) {
+    .content-expanded{
+        height: calc(100vh - 64px);
+        top: 64px;
+
+        .toggle-sidebar-btn{
+            display: none;
+        }
+    }
+
+    
 }
 
 

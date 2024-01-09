@@ -1,5 +1,5 @@
 <template>
-    <div v-if="isSidebarVisible" :class="['sidebar-div', isDarkMode ? 'sidebar-div-dark' : '']">
+    <div v-if="isSidebarVisible && !isMobileView" :class="['sidebar-div', isDarkMode ? 'sidebar-div-dark' : '']">
         <div class="sidebar-flex">
             <img class="logo" :src="logoUrl" alt="Top Logo">
             <div class="top-box">
@@ -38,8 +38,11 @@
             </div>
         </div>
     </div>
-    <div v-else :class="['sidebar-div-collapsed', isDarkMode ? 'sidebar-collapsed-dark' : '']">
+    <div v-else-if="!isSidebarVisible && !isMobileView" :class="['sidebar-div-collapsed', isDarkMode ? 'sidebar-collapsed-dark' : '']">
         <img class="logo" :src="logoUrl" alt="Top Logo">
+    </div>
+    <div v-else> 
+        <h1> Testing logic</h1>
     </div>
 </template>
 
@@ -53,7 +56,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isDarkMode', 'isSidebarVisible']),
+    ...mapGetters(['isDarkMode', 'isSidebarVisible', 'isMobileView']),
     logoUrl(){
         return this.isDarkMode ? '/assets/logo-light.svg' : '/assets/logo-dark.svg';
     }
@@ -251,6 +254,13 @@ export default {
 @media(max-width: 768px){
     .sidebar-div-collapsed, .sidebar-div{
         width: 260px;
+    }
+    .sidebar-div-collapsed{
+        height: 80px;
+    }
+    .logo{
+        top: 1.5rem;
+        left: 1.5rem;
     }
 }
 

@@ -11977,6 +11977,15 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+/* Utility Classes*/
+/* Remove default margin */
+* {
+  margin: 0;
+  margin-bottom: 0;
+  padding: 0;
+  font: inherit;
+}
+
 body {
   font-family: "Plus Jakarta Sans", sans-serif;
   background-color: #F4F7FD;
@@ -11987,6 +11996,7 @@ body {
   font-size: 24px;
   font-weight: 700;
   line-height: 30px;
+  margin-bottom: 0;
 }
 
 .heading-l {
@@ -11994,6 +12004,7 @@ body {
   font-size: 18px;
   font-weight: 700;
   line-height: 23px;
+  margin-bottom: 0;
 }
 
 .heading-m {
@@ -12010,6 +12021,7 @@ body {
   font-weight: 700;
   line-height: 15px;
   letter-spacing: 2.4px;
+  margin-bottom: 0;
 }
 
 .body-l {
@@ -12017,6 +12029,7 @@ body {
   font-size: 13px;
   font-weight: 500;
   line-height: 23px;
+  margin-bottom: 0;
 }
 
 .body-m {
@@ -12024,6 +12037,7 @@ body {
   font-size: 12px;
   font-weight: 700;
   line-height: normal;
+  margin-bottom: 0;
 }
 
 .btn-primary-l {
