@@ -5,6 +5,7 @@ export default createStore({
         isDarkMode: false,
         isSidebarVisible: true,
         isMobileView: false,
+        isMobileSidebarVisible: false,
     },
     mutations:{
         toggleDarkMode(state){
@@ -15,7 +16,12 @@ export default createStore({
         },
         updateIsMobileView(state, isMobileView) { 
             state.isMobileView = isMobileView;
-            
+            if (isMobileView) {
+                state.isSidebarVisible = false;
+            }
+        },
+        toggleMobileSidebar(state){
+            state.isMobileSidebarVisible = !state.isMobileSidebarVisible;
         },
 
     },
@@ -29,5 +35,8 @@ export default createStore({
         isMobileView(state) { 
             return state.isMobileView;
         },
+        isMobileSidebarVisible(state){
+            return state.isMobileSidebarVisible;
+        }
     }
 });

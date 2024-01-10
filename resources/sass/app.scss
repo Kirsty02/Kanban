@@ -102,6 +102,9 @@ body{
     height: 40px;
     flex-shrink: 0;
     border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-secondary{

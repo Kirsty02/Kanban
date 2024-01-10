@@ -19,7 +19,7 @@ export default {
         ...mapMutations(['toggleSidebar']),
     },
     computed: {
-        ...mapGetters(['isDarkMode', 'isSidebarVisible']),
+        ...mapGetters(['isDarkMode', 'isSidebarVisible', 'isMobileView']),
     },
 };
 

@@ -2,29 +2,34 @@
     <div v-if="!isMobileView" :class="['header-div', isDarkMode ? 'header-div-dark' : '']">
         <div class="header-flex"> 
             <h1 class="heading-xl">Platform Launch</h1>    
-            <span v-if="isMobileView">Mobile View</span> 
             <div class="side-flex">            
                 <button :class="['btn-primary-s', isDarkMode ? 'btn-dark' : '']"> + Add New Item</button>
                 <img src="/assets/icon-vertical-ellipsis.svg" alt="Board Icon">
             </div>
         </div>  
     </div>
-    <div v-else class="mobile-header-div"> 
+    <div v-else :class="['mobile-header-div', isDarkMode ? 'mobile-header-div-dark' : '']"> 
         <div class="header-flex mobile-padding"> 
-            <div class="side-flex"> 
+            <div @click="toggleMobileSidebar"  class="side-flex mobile-menu-click" > 
                 <img src="/assets/logo-mobile.svg" alt="Mobile Logo">
                 <h3 class="heading-l"> Platform Launch</h3>
+                <img  src="/assets/icon-chevron-down.svg" alt="Mobile Menu Button">
+            </div>
+            <div class="side-flex">
+                <button class="btn-primary-s mobile-add-btn"> <img src="/assets/icon-add-task-mobile.svg" alt="Mobile Logo"></button>
+                
+                <img src="/assets/icon-vertical-ellipsis.svg" alt="Board Icon">
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
     computed: {
-        ...mapGetters(['isDarkMode','isMobileView']),
+        ...mapGetters(['isDarkMode','isMobileView', 'isMobileSidebarVisible']),
     },
     mounted() {
         window.addEventListener('resize', this.handleResize);
@@ -34,10 +39,12 @@ export default {
         window.removeEventListener('resize', this.handleResize);
     },
     methods: {
+        ...mapMutations(['toggleMobileSidebar']),
         handleResize() {
         const isMobileView = window.innerWidth <= 680;
         this.$store.commit('updateIsMobileView', isMobileView);
-        }
+        },
+
     }
 };
 
@@ -101,8 +108,32 @@ export default {
     background-color: $white-light;
 }
 
+
+.mobile-header-div-dark{
+    background-color: $platinum-darkest;
+    .heading-l{
+        color: $white-light;
+    }
+}
 .mobile-padding{
     padding-left: 16px;
     padding-right: 16px;
+    gap: .5rem;
+}
+
+.mobile-add-btn{
+    width: 48px;
+    height: 32px;
+}
+
+.mobile-menu-click{
+    cursor: pointer;
+}
+
+@media(max-width: 680px){
+    .side-flex{
+        gap: 0.5rem;
+
+    }
 }
 </style>
