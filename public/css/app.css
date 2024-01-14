@@ -12046,6 +12046,7 @@ body {
   color: #FFFFFF;
   width: 255px;
   height: 48px;
+  font-size: 13px;
   flex-shrink: 0;
   border: none;
 }
@@ -12059,7 +12060,7 @@ body {
   background-color: #635FC7;
   border-radius: 24px;
   color: #FFFFFF;
-  font-size: 15px;
+  font-size: 13px;
   width: 164px;
   height: 40px;
   flex-shrink: 0;
@@ -12075,6 +12076,7 @@ body {
   color: #635FC7;
   width: 255px;
   height: 40px;
+  font-size: 13px;
   font-weight: 700;
   flex-shrink: 0;
   border: none;
@@ -12091,6 +12093,7 @@ body {
   color: #FFFFFF;
   width: 255px;
   height: 40px;
+  font-size: 13px;
   flex-shrink: 0;
   border: none;
 }
@@ -12098,4 +12101,81 @@ body {
 .btn-destructive:hover {
   cursor: pointer;
   background-color: #FF9898;
+}
+
+.side-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.add-edit-board-container {
+  background: #fff;
+  padding: 2rem;
+  width: 416px;
+  border-radius: 8px;
+  text-align: left;
+}
+.add-edit-board-container .heading-l {
+  margin-bottom: 1rem;
+}
+.add-edit-board-container .btn-primary-s, .add-edit-board-container .btn-secondary {
+  width: 100%;
+}
+.add-edit-board-container .description {
+  width: 100%;
+  padding: 5px;
+  color: #828FA3;
+}
+.add-edit-board-container .status-select {
+  width: 100%;
+  padding: 8px 16px;
+  border: 1px solid #D1D5DB; /* this is a light gray color */
+  border-radius: 6px;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none; /* Remove default arrow icon */
+  background-color: white;
+  background-image: url("/assets/icon-chevron-down.svg"); /* Path to your dropdown arrow icon */
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px; /* Size of your icon */
+}
+.add-edit-board-container .btn-destructive {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input[type=text] {
+  width: 100%;
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #828FA3;
+}
+
+.form-group .columns, .form-group .subtasks {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 10px;
+}
+
+.form-group .columns input[type=text], .form-group .subtasks input[type=text] {
+  flex-grow: 1;
+}
+
+.form-group input[type=text]:focus, textarea:focus, .status-select:focus {
+  border-color: #635FC7;
+  outline: none;
 }

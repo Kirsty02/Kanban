@@ -3,6 +3,12 @@
         <div class="no-boards-div">
             <h2 class="heading-l">This board is empty. Create a new column to get started.</h2>
             <button class="btn-primary-s"> + Add New Column</button>
+            <AddBoard></AddBoard>
+            <EditBoard></EditBoard>
+            <Delete></Delete>
+            <AddTask></AddTask>
+            <EditTask></EditTask>
+            <ViewTask> </ViewTask>
             <div class="toggle-sidebar-btn" @click="toggleSidebar">
                 <img src="/assets/icon-show-sidebar.svg" alt="light theme">
             </div>
@@ -13,8 +19,22 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex';
+import AddBoard from './AddBoard.vue';
+import EditBoard from './EditBoard.vue';
+import Delete from './Delete.vue';
+import AddTask from './AddTask.vue';
+import EditTask from './EditTask.vue';
+import ViewTask from './ViewTask.vue';
 
 export default {
+    components: {
+        AddBoard,
+        EditBoard,
+        Delete,
+        AddTask,
+        EditTask,
+        ViewTask
+    },
     methods: {
         ...mapMutations(['toggleSidebar']),
     },

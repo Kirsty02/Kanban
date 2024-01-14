@@ -71,12 +71,7 @@ export default {
     padding-left: 32px;
     padding-right: 32px;
 }
-.side-flex{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5rem;
-}
+
 .header-div-dark{
     background-color: $platinum-darkest;
     border-bottom: 0.25px solid $platinum-dark;
