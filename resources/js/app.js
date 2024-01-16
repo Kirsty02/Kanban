@@ -1,11 +1,14 @@
+import { createApp } from 'vue';
+import TheHeader from './components/TheHeader.vue';
+import TheSidebar from './components/TheSidebar.vue';
+import TheContent from './components/TheContent.vue';
+import store from './store';
 
-require('./bootstrap');
+const app = createApp({});
+app.use(store);
 
-window.Vue = require('vue').default;
+app.component('the-header', TheHeader);
+app.component('the-sidebar', TheSidebar);
+app.component('the-content', TheContent);
 
-
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-
-const app = new Vue({
-    el: '#app',
-});
+app.mount('#app');

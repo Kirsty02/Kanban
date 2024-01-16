@@ -7,6 +7,215 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+/* Utility Classes*/
+
+/* Remove default margin */
+*{
+    margin: 0;
+    margin-bottom: 0;
+    padding: 0;
+    font: inherit;
+}
+
+// Global Styles
 
 
+//Typography
+body{
+    font-family: $ff-primary;
+    background-color: $white-dark;
+}
 
+.heading-xl{
+    color: $navy-dark;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 30px;
+    margin-bottom: 0;
+}
+
+.heading-l{
+    color: $navy-dark;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 23px;
+    margin-bottom: 0;
+
+}
+
+.heading-m{
+    color: $navy-dark;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 19px;
+    margin-bottom: 0px;
+}
+
+.heading-s{
+    color: $platinum-light;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 15px;
+    letter-spacing: 2.4px;
+    margin-bottom: 0;
+}
+
+.body-l{
+    color: $platinum-darkest;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 23px;
+    margin-bottom: 0;
+}
+
+.body-m{
+    color: $platinum-darkest;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: normal;
+    margin-bottom: 0;
+}
+
+
+//Buttons - light
+
+.btn-primary-l{
+    background-color: $purple-dark;
+    border-radius: 24px;
+    color: $white-light;
+    width: 255px;
+    height: 48px;
+    font-size: 13px;
+    flex-shrink: 0;
+    border: none;
+}
+.btn-primary-l:hover, .btn-primary-s:hover{
+    background-color: $purple-light;
+    cursor: pointer;
+}
+
+.btn-primary-s{
+    background-color: $purple-dark;
+    border-radius: 24px;
+    color: $white-light;
+    font-size: 13px;
+    width: 164px;
+    height: 40px;
+    flex-shrink: 0;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-secondary{
+    background-color: rgba($purple-dark, 0.1);
+    border-radius: 24px;
+    color: $purple-dark;
+    width: 255px;
+    height: 40px;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+    border: none;
+}
+
+.btn-secondary:hover{
+    cursor: pointer;
+    background-color: rgba($purple-dark, 0.25);
+}
+
+.btn-destructive{
+    background-color: $salmon-dark;
+    border-radius: 24px;
+    color: $white-light;
+    width: 255px;
+    height: 40px;
+    font-size: 13px;
+    flex-shrink: 0;
+    border: none;
+}
+
+.btn-destructive:hover{
+    cursor: pointer;
+    background-color: $salmon-light;
+}
+
+//The header // global styles
+.side-flex{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+// Styles for Add Board
+.add-edit-board-container {
+    background: #fff;
+    padding: 2rem;
+    width: 416px;
+    border-radius: 8px;
+    text-align: left;
+    .heading-l{
+        margin-bottom: 1rem;
+
+    }
+    .btn-primary-s, .btn-secondary{
+        width: 100%;
+    }
+    .description{
+        width: 100%;
+        padding: 5px;
+        color: $platinum-light;
+    }
+    .status-select {
+        width: 100%;
+        padding: 8px 16px;
+        border: 1px solid #D1D5DB; /* this is a light gray color */
+        border-radius: 6px;
+        appearance: none; /* Remove default arrow icon */
+        background-color: white;
+        background-image: url('/assets/icon-chevron-down.svg'); /* Path to your dropdown arrow icon */
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        background-size: 12px; /* Size of your icon */
+      }
+      .btn-destructive{
+        width: 100%;
+        margin-top: 0.5rem;
+      }
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input[type="text"] {
+    width: 100%;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid $platinum-light;
+  }
+  
+  .form-group .columns, .form-group .subtasks {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 10px;
+  }
+  
+  .form-group .columns input[type="text"] , .form-group .subtasks input[type="text"] {
+    flex-grow: 1;
+  }
+  
+  .form-group input[type="text"]:focus , textarea:focus, .status-select:focus{
+    border-color: $purple-dark;
+    outline: none;
+  }
