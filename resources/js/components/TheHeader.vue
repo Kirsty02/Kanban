@@ -1,9 +1,9 @@
 <template>
     <div v-if="!isMobileView" :class="['header-div', isDarkMode ? 'header-div-dark' : '']">
         <div class="header-flex"> 
-            <h1 class="heading-xl">Platform Launch</h1>    
+            <h1 class="heading-xl">{{ activeBoard?.name || 'Select a Board' }}</h1>    
             <div class="side-flex">            
-                <button :class="['btn-primary-s', isDarkMode ? 'btn-dark' : '']"> + Add New Item</button>
+                <button :class="['btn-primary-s', isDarkMode ? 'btn-dark' : '']"> + Add New Column</button>
                 <img src="/assets/icon-vertical-ellipsis.svg" alt="Board Icon">
             </div>
         </div>  
@@ -29,7 +29,7 @@ import { mapGetters, mapMutations } from 'vuex';
 
 export default {
     computed: {
-        ...mapGetters(['isDarkMode','isMobileView', 'isMobileSidebarVisible']),
+        ...mapGetters(['isDarkMode','isMobileView', 'isMobileSidebarVisible', 'activeBoard']),
     },
     mounted() {
         window.addEventListener('resize', this.handleResize);

@@ -1,4 +1,5 @@
 import { createStore } from 'vuex';
+import axios from 'axios';
 
 export default createStore({
     state: {
@@ -6,6 +7,8 @@ export default createStore({
         isSidebarVisible: true,
         isMobileView: false,
         isMobileSidebarVisible: false,
+        boards: [], 
+        activeBoard: null,
     },
     mutations:{
         toggleDarkMode(state){
@@ -23,7 +26,25 @@ export default createStore({
         toggleMobileSidebar(state){
             state.isMobileSidebarVisible = !state.isMobileSidebarVisible;
         },
+        SET_BOARDS(state, boards) {
+            state.boards = boards;
+        },
+        SET_ACTIVE_BOARD(state, board) {
+            state.activeBoard = board;
+        },
 
+    },
+    actions:{
+        fetchBoards({ commit }) {
+            axios.get('/api/boards') // Adjust the URL as needed for your API
+                .then(response => {
+                    commit('SET_BOARDS', response.data);
+                })
+                .catch(error => console.error(error)); 
+        },
+        setActiveBoard({ commit }, board) {
+            commit('SET_ACTIVE_BOARD', board);
+        },
     },
     getters: {
         isDarkMode(state){
@@ -37,6 +58,13 @@ export default createStore({
         },
         isMobileSidebarVisible(state){
             return state.isMobileSidebarVisible;
+        },
+        boards(state) {
+            return state.boards;
+        },
+        activeBoard(state){
+            return state.activeBoard;
         }
-    }
+    },
+    
 });

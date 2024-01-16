@@ -1,34 +1,32 @@
 <template>
     <div :class="['content-div', isDarkMode ? 'content-div-dark' : '', isSidebarVisible ? '' : 'content-expanded']">
-        <Board> </Board>
-        <div class="toggle-sidebar-btn" @click="toggleSidebar">
-            <img src="/assets/icon-show-sidebar.svg" alt="light theme">
-        </div>
-      
-
-            
-
-            
-   
+      <board v-for="board in boards" :key="board.id" :board="board"></board>
+      <div class="toggle-sidebar-btn" @click="toggleSidebar">
+        <img src="/assets/icon-show-sidebar.svg" alt="light theme">
+      </div>
     </div>
-    
-</template>
+  </template>
+  
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 import Board from './Board.vue';
 
 
 export default {
     components: {
         Board
-        
+    },
+    created(){
+        this.fetchBoards();
+
     },
     methods: {
+        ...mapActions(['fetchBoards']), 
         ...mapMutations(['toggleSidebar']),
     },
     computed: {
-        ...mapGetters(['isDarkMode', 'isSidebarVisible', 'isMobileView']),
+        ...mapGetters(['isDarkMode', 'isSidebarVisible', 'isMobileView', 'boards']),
     },
 };
 

@@ -5,15 +5,9 @@
             <div class="status-circle"> </div>
             <p class="heading-s"> To Do (5) </p>
         </div>
-
         <TaskWidget></TaskWidget>
         <TaskWidget></TaskWidget>
         <TaskWidget></TaskWidget>
-
-        
-
-        
-
     </div>
     
 </template>

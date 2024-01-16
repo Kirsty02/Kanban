@@ -1,31 +1,35 @@
 <template>
-    <div class="board-div">
-        <column></column>
-        <column></column>
-        <column></column>
-
-        <div :class="['add-column-div', isDarkMode ? 'add-column-div-dark' : '']"> 
-            <h2 class="heading-xl"> + New Column</h2>
-        </div>
-        
-
+    <div class="board-div" v-if="board">
+      <!-- Use board data here, e.g., board.name -->
+      <div v-for="column in board.columns" :key="column.id" class="column">
+        <!-- Display column data -->
+      </div>
+  
+      <div :class="['add-column-div', isDarkMode ? 'add-column-div-dark' : '']"> 
+          <h2 class="heading-xl"> + New Column</h2>
+      </div>
     </div>
-</template>
-
-<script>
-import Column from './Column.vue';
-import { mapGetters } from 'vuex';
-export default {
-    components: {
-        Column,
-    },
-    computed: {
-        ...mapGetters(['isDarkMode','isMobileView', 'isMobileSidebarVisible']),
-    }
-}
-
-
-</script>
+  </template>
+  
+  <script>
+  import Column from './Column.vue';
+  import { mapGetters } from 'vuex';
+  
+  export default {
+      components: {
+          Column,
+      },
+      props: {
+        board: {
+          type: Object,
+          required: true
+        }
+      },
+      computed: {
+          ...mapGetters(['isDarkMode','isMobileView', 'isMobileSidebarVisible']),
+      }
+  };
+  </script>
 
 <style lang="scss">
 @import '../../sass/variables';
