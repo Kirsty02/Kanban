@@ -31,7 +31,7 @@
                     </button>
                     <img  src="/assets/icon-dark-theme.svg" alt="Dark Theme">
                 </div>
-                <div class="toggle-sidebar-div" @click="toggle"> 
+                <div class="toggle-sidebar-div" @click="toggleSidebar"> 
                     <img  src="/assets/icon-hide-sidebar.svg" alt="Toggle Sidebar">
                     <h2 class="heading-m"> Hide Sidebar</h2>
                 </div>
