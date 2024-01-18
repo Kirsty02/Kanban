@@ -9,6 +9,7 @@ export default createStore({
         isMobileSidebarVisible: false,
         boards: [], 
         activeBoard: null,
+        activeTask: null, 
     },
     mutations:{
         toggleDarkMode(state){
@@ -32,6 +33,9 @@ export default createStore({
         SET_ACTIVE_BOARD(state, board) {
             state.activeBoard = board;
         },
+        SET_ACTIVE_TASK(state, task){
+            state.activeTask = task;
+        },
 
     },
     actions:{
@@ -44,6 +48,9 @@ export default createStore({
         },
         setActiveBoard({ commit }, board) {
             commit('SET_ACTIVE_BOARD', board);
+        },
+        setActiveTask( { commit }, task){
+            commit('SET_ACTIVE_TASK', task);
         },
     },
     getters: {
@@ -64,6 +71,9 @@ export default createStore({
         },
         activeBoard(state){
             return state.activeBoard;
+        },
+        activeTask(state) {
+            return state.activeTask;
         }
     },
     

@@ -109,6 +109,7 @@ export default {
     height: 100vh;
     background-color: $white-light;
     border-right: 0.25px solid $platinum-lightest;
+    z-index: 99;
 }
 
 .sidebar-div-collapsed{

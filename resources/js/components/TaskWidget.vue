@@ -1,7 +1,7 @@
 <template>
-    <div :class="['task-widget-container', isDarkMode ? 'task-widget-container-dark' : '']">
-        <h2 class="heading-m"> Build UI for onboarding flow</h2>
-        <p class="body-m"> 0 of 1 subtasks complete</p>
+    <div :class="['task-widget-container', isDarkMode ? 'task-widget-container-dark' : '']"  @click="selectTask">
+        <h2 class="heading-m">{{task.title}}</h2>
+        <p class="body-m">{{ completedSubtasksCount }} of {{ totalSubtasksCount }} subtasks complete</p>
     </div>
     
 </template>
@@ -12,6 +12,27 @@ import { mapGetters } from 'vuex';
 export default {
     computed: {
         ...mapGetters(['isDarkMode','isMobileView', 'isMobileSidebarVisible']),
+        completedSubtasksCount() {
+            return this.subtasks ? this.subtasks.filter(subtask => subtask.isCompleted).length : 0;
+        },
+        totalSubtasksCount() {
+            return this.subtasks ? this.subtasks.length : 0;
+        },
+    },
+    props: {
+        task: {
+            type: Object,
+            required: true
+        },
+        subtasks: {
+            type: Array, 
+            default: () => []
+        }
+    },
+    methods:{
+        selectTask(){
+            this.$store.dispatch('setActiveTask', this.task)
+        }
     }
 }
 </script>
@@ -35,6 +56,9 @@ export default {
     }
 }
 
+.task-widget-container:hover{
+    cursor: pointer;
+}
 .task-widget-container-dark{
     background-color: $platinum-darkest;
     .heading-m{

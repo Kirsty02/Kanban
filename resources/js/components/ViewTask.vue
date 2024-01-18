@@ -1,5 +1,9 @@
 <template>
-    <div class="add-edit-board-container">
+    <div class="grey-box" v-if="activeTask" @click="!activeTask"> </div>
+  
+    <div class="view-task-modal">
+
+      <div class="add-edit-board-container" v-if="activeTask">
         <div class="side-flex">
             <h2 class="heading-l">Research pricing points of various competitors
             and trial different business models</h2>
@@ -31,10 +35,16 @@
             </select>
         </div>
     </div>
+
+    </div>
+    
   </template>
   
   <script>
+  import { mapGetters } from 'vuex';
+
   export default {
+
     data() {
       return {
         selectedStatus: 'doing',
@@ -46,9 +56,10 @@
       };
     },
     computed: {
-        completedSubtasks() {
+      ...mapGetters(['activeTask']),
+      completedSubtasks() {
         return this.subtasks.filter(subtask => subtask.completed).length;
-        },
+      },
     },
     
     };  
@@ -83,4 +94,25 @@ text-decoration: line-through;
 color: #aaa;
 }
 
+.view-task-modal {
+    position: fixed; /* Fixed position */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust to exact center */
+    z-index: 999; /* Make sure it's above other elements */
+    /* Add more styling as needed */
+}
+
+.grey-box{
+    position: absolute;
+    top: -60px;
+    left: -80px;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(0, 0, 0, 0.5);
+    z-index: 998;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
 </style>

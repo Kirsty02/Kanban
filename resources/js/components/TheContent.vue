@@ -1,6 +1,6 @@
 <template>
     <div :class="['content-div', isDarkMode ? 'content-div-dark' : '', isSidebarVisible ? '' : 'content-expanded']">
-      <board v-for="board in boards" :key="board.id" :board="board"></board>
+        <board v-if="activeBoard" :key="activeBoard.id" :board="activeBoard"></board>
       <div class="toggle-sidebar-btn" @click="toggleSidebar">
         <img src="/assets/icon-show-sidebar.svg" alt="light theme">
       </div>
@@ -26,7 +26,7 @@ export default {
         ...mapMutations(['toggleSidebar']),
     },
     computed: {
-        ...mapGetters(['isDarkMode', 'isSidebarVisible', 'isMobileView', 'boards']),
+        ...mapGetters(['isDarkMode', 'isSidebarVisible', 'isMobileView', 'boards', 'activeBoard']),
     },
 };
 

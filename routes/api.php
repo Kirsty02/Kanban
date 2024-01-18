@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\ColumnController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\SubtaskController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,8 +17,9 @@ use App\Http\Controllers\TaskController;
 |
 */
 Route::get('/boards', [BoardController::class, 'index']);
-Route::get('/boards/{board}/columns', 'ColumnController@index');
-Route::get('/columns/{column}/tasks', 'TaskController@index');
+Route::get('/boards/{board}/columns', [ColumnController::class, 'index']);
+Route::get('/columns/{column}/tasks', [TaskController::class, 'index']);
+Route::get('/tasks/{task}/subtasks', [SubtaskController::class, 'index']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

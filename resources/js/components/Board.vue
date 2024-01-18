@@ -1,23 +1,28 @@
 <template>
     <div class="board-div" v-if="board">
-      <!-- Use board data here, e.g., board.name -->
+ 
       <div v-for="column in board.columns" :key="column.id" class="column">
-        <!-- Display column data -->
+        <Column :column="column"></Column>
       </div>
+ 
   
       <div :class="['add-column-div', isDarkMode ? 'add-column-div-dark' : '']"> 
           <h2 class="heading-xl"> + New Column</h2>
       </div>
     </div>
+    <ViewTask v-if="activeTask"></ViewTask>
   </template>
   
   <script>
+   import { mapGetters } from 'vuex';
   import Column from './Column.vue';
-  import { mapGetters } from 'vuex';
+  import ViewTask from './ViewTask.vue';
+ 
   
   export default {
       components: {
           Column,
+          ViewTask,
       },
       props: {
         board: {
@@ -26,7 +31,7 @@
         }
       },
       computed: {
-          ...mapGetters(['isDarkMode','isMobileView', 'isMobileSidebarVisible']),
+          ...mapGetters(['isDarkMode','isMobileView', 'isMobileSidebarVisible', 'activeTask']),
       }
   };
   </script>
