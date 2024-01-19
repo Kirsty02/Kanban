@@ -8,6 +8,7 @@ export default createStore({
         isMobileView: false,
         isMobileSidebarVisible: false,
         boards: [], 
+        subtasks: [],
         activeBoard: null,
         activeTask: null, 
     },
@@ -30,6 +31,9 @@ export default createStore({
         SET_BOARDS(state, boards) {
             state.boards = boards;
         },
+        SET_SUBTASKS(state, subtasks) {
+            state.subtasks = subtasks;
+        },
         SET_ACTIVE_BOARD(state, board) {
             state.activeBoard = board;
         },
@@ -49,8 +53,19 @@ export default createStore({
         setActiveBoard({ commit }, board) {
             commit('SET_ACTIVE_BOARD', board);
         },
-        setActiveTask( { commit }, task){
+        setActiveTask( { commit, dispatch }, task){
             commit('SET_ACTIVE_TASK', task);
+            if (task) {
+                dispatch('fetchSubtasksForActiveTask', task.task_id);
+            }
+        },
+        fetchSubtasksForActiveTask({ commit }, taskId) {
+            axios.get(`/api/tasks/${taskId}/subtasks`) 
+                .then(response => {
+                    console.log(`Subtasks fetched for task ${taskId}:`, response.data);
+                    commit('SET_SUBTASKS', response.data);
+                })
+                .catch(error => console.error(error));
         },
     },
     getters: {
@@ -68,6 +83,9 @@ export default createStore({
         },
         boards(state) {
             return state.boards;
+        },
+        subtasks(state) {
+            return state.subtasks;
         },
         activeBoard(state){
             return state.activeBoard;

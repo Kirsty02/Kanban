@@ -5,24 +5,18 @@
 
       <div class="add-edit-board-container" v-if="activeTask">
         <div class="side-flex">
-            <h2 class="heading-l">Research pricing points of various competitors
-            and trial different business models</h2>
+            <h2 class="heading-l"> {{ activeTask.title }}</h2>
             <img src="/assets/icon-vertical-ellipsis.svg" alt="Board Icon">
-
         </div>
-        
-        
-        <p class="body-l form-group description"> We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use.
-             Keep iterating the subtasks until we have a coherent proposition. 
-        </p>
+        <p class="body-l form-group description"> {{ activeTask.description }}</p>
     
 
         <div class="form-group">
-            <div class="subtask-header"><p class="body-m">Subtasks ({{ completedSubtasks }} of {{ subtasks.length }})</p></div>
+            <div class="subtask-header"><p class="body-m">Subtasks ({{ completedSubtasksCount }} of {{ totalSubtasksCount }})</p></div>
             <ul class="subtasks-list">
-                <li v-for="subtask in subtasks" :key="subtask.id" class="subtask-item">
-                    <input type="checkbox" :id="`subtask-${subtask.id}`" v-model="subtask.completed">
-                    <label class="body-l" :for="`subtask-${subtask.id}`">{{ subtask.title }}</label>
+                <li v-for="subtask in subtasks" :key="subtask.task_id" class="subtask-item">
+                    <input type="checkbox" :id="`subtask-${subtask.task_id}`" v-model="subtask.completed">
+                    <label class="body-l" :for="`subtask-${subtask.task_id}`">{{ subtask.title }}</label>
                 </li>
             </ul>
         </div>
@@ -48,18 +42,18 @@
     data() {
       return {
         selectedStatus: 'doing',
-        subtasks: [
-            { id: 1, title: 'Research competitor pricing and business models', completed: true },
-            { id: 2, title: 'Outline a business model that works for our solution', completed: true },
-            { id: 3, title: 'Talk to potential customers about our proposed solution and ask for fair price expectancy', completed: false },
-        ],
       };
     },
     computed: {
-      ...mapGetters(['activeTask']),
-      completedSubtasks() {
-        return this.subtasks.filter(subtask => subtask.completed).length;
+      ...mapGetters(['activeTask', 'subtasks']),
+      completedSubtasksCount() {
+          return this.subtasks.filter(subtask => subtask.isCompleted).length;
       },
+      totalSubtasksCount() {
+          return this.subtasks.length;
+      },
+      
+      
     },
     methods:{
       ...mapActions(['setActiveTask']),

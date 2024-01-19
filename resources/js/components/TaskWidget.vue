@@ -1,7 +1,7 @@
 <template>
     <div :class="['task-widget-container', isDarkMode ? 'task-widget-container-dark' : '']"  @click="selectTask">
         <h2 class="heading-m">{{task.title}}</h2>
-        <p class="body-m">{{ completedSubtasksCount }} of {{ totalSubtasksCount }} subtasks complete</p>
+        <p class="body-m">{{ completedSubtasksCount }} of {{ totalSubtasksCount }}  subtasks complete</p>
     </div>
     
 </template>
@@ -11,12 +11,17 @@ import { mapGetters } from 'vuex';
 
 export default {
     computed: {
-        ...mapGetters(['isDarkMode','isMobileView', 'isMobileSidebarVisible']),
+        ...mapGetters(['isDarkMode','isMobileView', 'isMobileSidebarVisible', 'subtasks', 'activeTask']),
+        filteredSubtasks() {
+            const filtered = this.subtasks.filter(subtask => subtask.task_id === this.task.task_id);
+            console.log(`Filtered subtasks for task ${this.task.task_id}:`, filtered);
+            return filtered;
+        },
         completedSubtasksCount() {
-            return this.subtasks ? this.subtasks.filter(subtask => subtask.isCompleted).length : 0;
+            return this.filteredSubtasks.filter(subtask => subtask.isCompleted).length;
         },
         totalSubtasksCount() {
-            return this.subtasks ? this.subtasks.length : 0;
+            return this.filteredSubtasks.length;
         },
     },
     props: {
@@ -24,14 +29,10 @@ export default {
             type: Object,
             required: true
         },
-        subtasks: {
-            type: Array, 
-            default: () => []
-        }
     },
     methods:{
         selectTask(){
-            this.$store.dispatch('setActiveTask', this.task)
+            this.$store.dispatch('setActiveTask', this.task);
         }
     }
 }

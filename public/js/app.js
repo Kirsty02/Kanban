@@ -20723,26 +20723,28 @@ function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" 
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(['isDarkMode', 'isMobileView', 'isMobileSidebarVisible'])), {}, {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(['isDarkMode', 'isMobileView', 'isMobileSidebarVisible', 'subtasks', 'activeTask'])), {}, {
+    filteredSubtasks: function filteredSubtasks() {
+      var _this = this;
+      var filtered = this.subtasks.filter(function (subtask) {
+        return subtask.task_id === _this.task.task_id;
+      });
+      console.log("Filtered subtasks for task ".concat(this.task.task_id, ":"), filtered);
+      return filtered;
+    },
     completedSubtasksCount: function completedSubtasksCount() {
-      return this.subtasks ? this.subtasks.filter(function (subtask) {
+      return this.filteredSubtasks.filter(function (subtask) {
         return subtask.isCompleted;
-      }).length : 0;
+      }).length;
     },
     totalSubtasksCount: function totalSubtasksCount() {
-      return this.subtasks ? this.subtasks.length : 0;
+      return this.filteredSubtasks.length;
     }
   }),
   props: {
     task: {
       type: Object,
       required: true
-    },
-    subtasks: {
-      type: Array,
-      "default": function _default() {
-        return [];
-      }
     }
   },
   methods: {
@@ -20896,27 +20898,17 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      selectedStatus: 'doing',
-      subtasks: [{
-        id: 1,
-        title: 'Research competitor pricing and business models',
-        completed: true
-      }, {
-        id: 2,
-        title: 'Outline a business model that works for our solution',
-        completed: true
-      }, {
-        id: 3,
-        title: 'Talk to potential customers about our proposed solution and ask for fair price expectancy',
-        completed: false
-      }]
+      selectedStatus: 'doing'
     };
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(['activeTask'])), {}, {
-    completedSubtasks: function completedSubtasks() {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(['activeTask', 'subtasks'])), {}, {
+    completedSubtasksCount: function completedSubtasksCount() {
       return this.subtasks.filter(function (subtask) {
-        return subtask.completed;
+        return subtask.isCompleted;
       }).length;
+    },
+    totalSubtasksCount: function totalSubtasksCount() {
+      return this.subtasks.length;
     }
   }),
   methods: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)(['setActiveTask']))
@@ -21350,48 +21342,50 @@ var _hoisted_2 = {
   key: 0,
   "class": "add-edit-board-container"
 };
-var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_3 = {
   "class": "side-flex"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
+};
+var _hoisted_4 = {
   "class": "heading-l"
-}, "Research pricing points of various competitors and trial different business models"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+};
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
   src: "/assets/icon-vertical-ellipsis.svg",
   alt: "Board Icon"
-})], -1 /* HOISTED */);
-var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
-  "class": "body-l form-group description"
-}, " We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition. ", -1 /* HOISTED */);
-var _hoisted_5 = {
-  "class": "form-group"
-};
+}, null, -1 /* HOISTED */);
 var _hoisted_6 = {
-  "class": "subtask-header"
+  "class": "body-l form-group description"
 };
 var _hoisted_7 = {
-  "class": "body-m"
-};
-var _hoisted_8 = {
-  "class": "subtasks-list"
-};
-var _hoisted_9 = ["id", "onUpdate:modelValue"];
-var _hoisted_10 = ["for"];
-var _hoisted_11 = {
   "class": "form-group"
 };
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_8 = {
+  "class": "subtask-header"
+};
+var _hoisted_9 = {
+  "class": "body-m"
+};
+var _hoisted_10 = {
+  "class": "subtasks-list"
+};
+var _hoisted_11 = ["id", "onUpdate:modelValue"];
+var _hoisted_12 = ["for"];
+var _hoisted_13 = {
+  "class": "form-group"
+};
+var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "class": "body-m",
   "for": "status-select"
 }, "Status", -1 /* HOISTED */);
-var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "todo"
 }, "Todo", -1 /* HOISTED */);
-var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "doing"
 }, "Doing", -1 /* HOISTED */);
-var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "done"
 }, "Done", -1 /* HOISTED */);
-var _hoisted_16 = [_hoisted_13, _hoisted_14, _hoisted_15];
+var _hoisted_18 = [_hoisted_15, _hoisted_16, _hoisted_17];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [_ctx.activeTask ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
     key: 0,
@@ -21399,27 +21393,27 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[0] || (_cache[0] = function ($event) {
       return _ctx.setActiveTask(null);
     })
-  })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [_ctx.activeTask ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [_hoisted_3, _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_7, "Subtasks (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.completedSubtasks) + " of " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.subtasks.length) + ")", 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_8, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.subtasks, function (subtask) {
+  })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [_ctx.activeTask ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.activeTask.title), 1 /* TEXT */), _hoisted_5]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.activeTask.description), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_9, "Subtasks (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.completedSubtasksCount) + " of " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.totalSubtasksCount) + ")", 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_10, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.subtasks, function (subtask) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", {
-      key: subtask.id,
+      key: subtask.task_id,
       "class": "subtask-item"
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
       type: "checkbox",
-      id: "subtask-".concat(subtask.id),
+      id: "subtask-".concat(subtask.task_id),
       "onUpdate:modelValue": function onUpdateModelValue($event) {
         return subtask.completed = $event;
       }
-    }, null, 8 /* PROPS */, _hoisted_9), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, subtask.completed]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    }, null, 8 /* PROPS */, _hoisted_11), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, subtask.completed]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
       "class": "body-l",
-      "for": "subtask-".concat(subtask.id)
-    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(subtask.title), 9 /* TEXT, PROPS */, _hoisted_10)]);
-  }), 128 /* KEYED_FRAGMENT */))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+      "for": "subtask-".concat(subtask.task_id)
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(subtask.title), 9 /* TEXT, PROPS */, _hoisted_12)]);
+  }), 128 /* KEYED_FRAGMENT */))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [_hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     id: "status-select",
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
       return $data.selectedStatus = $event;
     }),
     "class": "status-select body-l"
-  }, [].concat(_hoisted_16), 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.selectedStatus]])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])], 64 /* STABLE_FRAGMENT */);
+  }, [].concat(_hoisted_18), 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.selectedStatus]])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
@@ -21474,6 +21468,7 @@ __webpack_require__.r(__webpack_exports__);
     isMobileView: false,
     isMobileSidebarVisible: false,
     boards: [],
+    subtasks: [],
     activeBoard: null,
     activeTask: null
   },
@@ -21496,6 +21491,9 @@ __webpack_require__.r(__webpack_exports__);
     SET_BOARDS: function SET_BOARDS(state, boards) {
       state.boards = boards;
     },
+    SET_SUBTASKS: function SET_SUBTASKS(state, subtasks) {
+      state.subtasks = subtasks;
+    },
     SET_ACTIVE_BOARD: function SET_ACTIVE_BOARD(state, board) {
       state.activeBoard = board;
     },
@@ -21517,8 +21515,21 @@ __webpack_require__.r(__webpack_exports__);
       commit('SET_ACTIVE_BOARD', board);
     },
     setActiveTask: function setActiveTask(_ref3, task) {
-      var commit = _ref3.commit;
+      var commit = _ref3.commit,
+        dispatch = _ref3.dispatch;
       commit('SET_ACTIVE_TASK', task);
+      if (task) {
+        dispatch('fetchSubtasksForActiveTask', task.task_id);
+      }
+    },
+    fetchSubtasksForActiveTask: function fetchSubtasksForActiveTask(_ref4, taskId) {
+      var commit = _ref4.commit;
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/tasks/".concat(taskId, "/subtasks")).then(function (response) {
+        console.log("Subtasks fetched for task ".concat(taskId, ":"), response.data);
+        commit('SET_SUBTASKS', response.data);
+      })["catch"](function (error) {
+        return console.error(error);
+      });
     }
   },
   getters: {
@@ -21536,6 +21547,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     boards: function boards(state) {
       return state.boards;
+    },
+    subtasks: function subtasks(state) {
+      return state.subtasks;
     },
     activeBoard: function activeBoard(state) {
       return state.activeBoard;
