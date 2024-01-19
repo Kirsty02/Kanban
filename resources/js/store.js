@@ -40,7 +40,7 @@ export default createStore({
     },
     actions:{
         fetchBoards({ commit }) {
-            axios.get('/api/boards') // Adjust the URL as needed for your API
+            axios.get('/api/boards') 
                 .then(response => {
                     commit('SET_BOARDS', response.data);
                 })

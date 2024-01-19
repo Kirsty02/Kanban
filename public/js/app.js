@@ -20918,7 +20918,8 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         return subtask.completed;
       }).length;
     }
-  })
+  }),
+  methods: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)(['setActiveTask']))
 });
 
 /***/ }),
@@ -21396,7 +21397,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     key: 0,
     "class": "grey-box",
     onClick: _cache[0] || (_cache[0] = function ($event) {
-      return !_ctx.activeTask;
+      return _ctx.setActiveTask(null);
     })
   })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [_ctx.activeTask ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [_hoisted_3, _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_7, "Subtasks (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.completedSubtasks) + " of " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.subtasks.length) + ")", 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_8, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.subtasks, function (subtask) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", {
@@ -21505,8 +21506,7 @@ __webpack_require__.r(__webpack_exports__);
   actions: {
     fetchBoards: function fetchBoards(_ref) {
       var commit = _ref.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/boards') // Adjust the URL as needed for your API
-      .then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/boards').then(function (response) {
         commit('SET_BOARDS', response.data);
       })["catch"](function (error) {
         return console.error(error);
@@ -21709,7 +21709,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".subtask-header {\n  font-weight: bold;\n  margin-bottom: 10px;\n}\n.subtasks-list {\n  list-style-type: none;\n  padding: 0;\n}\n.subtask-item {\n  display: flex;\n  align-items: center;\n  margin-bottom: 5px;\n}\n.subtask-item input[type=checkbox] {\n  margin-right: 10px;\n}\n.subtask-item input[type=checkbox]:checked + label {\n  text-decoration: line-through;\n  color: #aaa;\n}\n.view-task-modal {\n  position: fixed; /* Fixed position */\n  top: 50%; /* Center vertically */\n  left: 50%; /* Center horizontally */\n  transform: translate(-50%, -50%); /* Adjust to exact center */\n  z-index: 999; /* Make sure it's above other elements */\n  /* Add more styling as needed */\n}\n.grey-box {\n  position: absolute;\n  top: -60px;\n  left: -80px;\n  width: 100vw;\n  height: 100vh;\n  background-color: rgba(0, 0, 0, 0.5);\n  z-index: 998;\n  display: flex;\n  align-items: flex-start;\n  justify-content: center;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".subtask-header {\n  font-weight: bold;\n  margin-bottom: 10px;\n}\n.subtasks-list {\n  list-style-type: none;\n  padding: 0;\n}\n.subtask-item {\n  display: flex;\n  align-items: center;\n  margin-bottom: 5px;\n}\n.subtask-item input[type=checkbox] {\n  margin-right: 10px;\n}\n.subtask-item input[type=checkbox]:checked + label {\n  text-decoration: line-through;\n  color: #aaa;\n}\n.view-task-modal {\n  position: fixed; /* Fixed position */\n  top: 50%; /* Center vertically */\n  left: 50%; /* Center horizontally */\n  transform: translate(-50%, -50%); /* Adjust to exact center */\n  z-index: 999; /* Make sure it's above other elements */\n  /* Add more styling as needed */\n}\n.grey-box {\n  position: absolute;\n  top: -96px;\n  left: -300px;\n  width: 100vw;\n  height: 100vh;\n  background-color: rgba(0, 0, 0, 0.5);\n  z-index: 998;\n  display: flex;\n  align-items: flex-start;\n  justify-content: center;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

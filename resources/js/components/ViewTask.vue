@@ -1,5 +1,5 @@
 <template>
-    <div class="grey-box" v-if="activeTask" @click="!activeTask"> </div>
+    <div class="grey-box" v-if="activeTask" @click=setActiveTask(null)> </div>
   
     <div class="view-task-modal">
 
@@ -41,7 +41,7 @@
   </template>
   
   <script>
-  import { mapGetters } from 'vuex';
+  import { mapGetters, mapActions } from 'vuex';
 
   export default {
 
@@ -61,6 +61,9 @@
         return this.subtasks.filter(subtask => subtask.completed).length;
       },
     },
+    methods:{
+      ...mapActions(['setActiveTask']),
+    }
     
     };  
   
@@ -105,8 +108,8 @@ color: #aaa;
 
 .grey-box{
     position: absolute;
-    top: -60px;
-    left: -80px;
+    top: -96px;
+    left: -300px;
     width: 100vw;
     height: 100vh;
     background-color: rgb(0, 0, 0, 0.5);
