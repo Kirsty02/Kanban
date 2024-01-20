@@ -19,6 +19,7 @@ class CreateSubtasksTable extends Migration
             $table->string('title');
             $table->boolean('isCompleted');
             $table->foreign('task_id')->references('task_id')->on('tasks')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

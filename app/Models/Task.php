@@ -9,9 +9,15 @@ use Illuminate\Database\Eloquent\Model;
 class Task extends Model
 {
 
-    protected $fillable = ['title', 'description', 'column_id', 'status'];
+    protected $primaryKey = 'task_id';
+    public $timestamps = false;
 
+    protected $fillable = ['title', 'description', 'column_id', 'status', 'board_id'];
 
+    public function board()
+    {
+        return $this->belongsToThrough(Board::class, Column::class);
+    }
     public function column()
     {
         return $this->belongsTo(Column::class, 'column_id', 'column_id');

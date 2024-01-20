@@ -9,9 +9,20 @@ class TaskController extends Controller
 {
     public function index($columnId)
     {
-        $tasks = Task::where('column_id', $columnId)->get();
+        $tasks = Task::with('subtasks')->where('column_id', $columnId)->get();
         return response()->json($tasks);
     }
 
-    // other methods...
+    public function updateColumn(Request $request, Task $task) {
+        $validatedData = $request->validate([
+            'column_id' => 'required|exists:columns,column_id', // Validate column_id
+        ]);
+    
+        $task->column_id = $validatedData['column_id'];
+        $task->save();
+    
+        return response()->json($task->load('column')); // Return updated task with column
+    }
+
+
 }

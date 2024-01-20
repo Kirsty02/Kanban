@@ -21,6 +21,12 @@ Route::get('/boards/{board}/columns', [ColumnController::class, 'index']);
 Route::get('/columns/{column}/tasks', [TaskController::class, 'index']);
 Route::get('/tasks/{task}/subtasks', [SubtaskController::class, 'index']);
 
+Route::get('/columns/{column_id}', [ColumnController::class, 'show']);
+
+
+Route::patch('/tasks/{task}/updateColumn', [TaskController::class, 'updateColumn']);
+Route::patch('/subtasks/{subtask}', [SubtaskController::class, 'update']);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

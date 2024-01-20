@@ -20,6 +20,7 @@ class CreateTasksTable extends Migration
             $table->text('description')->nullable();
             $table->string('status');
             $table->foreign('column_id')->references('column_id')->on('columns')->onDelete('cascade');
+
         });
     }
 

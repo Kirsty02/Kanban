@@ -52,6 +52,12 @@ export default {
     mounted() {
         this.loadTasksAndSubtasks();
     },
+    watch: {
+    'column.tasks': {
+      handler: 'loadTasksAndSubtasks',
+      deep: true
+    }
+  }
 }
 </script>
 

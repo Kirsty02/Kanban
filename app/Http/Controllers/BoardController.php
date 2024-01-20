@@ -10,7 +10,7 @@ class BoardController extends Controller
 {
     public function index()
     {
-        $boards = Board::with('columns.tasks')->get();
+        $boards = Board::with('columns.tasks.subtasks')->get();
         return response()->json($boards);
     }
 

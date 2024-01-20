@@ -12,16 +12,11 @@ import { mapGetters } from 'vuex';
 export default {
     computed: {
         ...mapGetters(['isDarkMode','isMobileView', 'isMobileSidebarVisible', 'subtasks', 'activeTask']),
-        filteredSubtasks() {
-            const filtered = this.subtasks.filter(subtask => subtask.task_id === this.task.task_id);
-            console.log(`Filtered subtasks for task ${this.task.task_id}:`, filtered);
-            return filtered;
-        },
         completedSubtasksCount() {
-            return this.filteredSubtasks.filter(subtask => subtask.isCompleted).length;
+            return this.task.subtasks.filter(subtask => subtask.isCompleted).length;
         },
         totalSubtasksCount() {
-            return this.filteredSubtasks.length;
+            return this.task.subtasks.length;
         },
     },
     props: {

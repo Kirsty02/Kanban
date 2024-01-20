@@ -7,12 +7,20 @@ use App\Models\Subtask;
 
 class SubtaskController extends Controller
 {
-    public function index($task_id)
+    public function index($taskId)
     {
-        // Retrieve all subtasks
-        $subtasks = Subtask::where('task_id', $task_id)->get();
+        $subtasks = Subtask::where('task_id', $taskId)->get();
         return response()->json($subtasks);
     }
+    public function update(Request $request, $subtaskId)
+    {
+        $subtask = Subtask::findOrFail($subtaskId);
+        $subtask->isCompleted = $request->input('isCompleted');
+        $subtask->save();
+
+        return response()->json($subtask);
+    }
+
 
     
 }

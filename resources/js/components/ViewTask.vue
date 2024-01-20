@@ -14,18 +14,18 @@
         <div class="form-group">
             <div class="subtask-header"><p class="body-m">Subtasks ({{ completedSubtasksCount }} of {{ totalSubtasksCount }})</p></div>
             <ul class="subtasks-list">
-                <li v-for="subtask in subtasks" :key="subtask.task_id" class="subtask-item">
-                    <input type="checkbox" :id="`subtask-${subtask.task_id}`" v-model="subtask.completed">
-                    <label class="body-l" :for="`subtask-${subtask.task_id}`">{{ subtask.title }}</label>
-                </li>
-            </ul>
+              <li v-for="subtask in activeTaskSubtasks" :key="subtask.subtask_id" class="subtask-item">
+                  <input type="checkbox" :id="`subtask-${subtask.subtask_id}`" v-model="subtask.isCompleted" @change="updateSubtask(subtask)">
+                  <label :for="`subtask-${subtask.subtask_id}`">{{ subtask.title }}</label>
+              </li>
+          </ul>
         </div>
         <div class="form-group">
             <label class="body-m" for="status-select">Status</label>
-            <select  id="status-select" v-model="selectedStatus" class="status-select body-l">
-            <option value="todo">Todo</option>
-            <option value="doing">Doing</option>
-            <option value="done">Done</option>
+            <select v-model="selectedColumn" @change="onChangeColumn">
+                <option v-for="column in columns" :key="column.column_id" :value="column.column_id">
+                    {{ column.name }}
+                </option>
             </select>
         </div>
     </div>
@@ -36,28 +36,76 @@
   
   <script>
   import { mapGetters, mapActions } from 'vuex';
+  import axios from 'axios';
 
   export default {
-
     data() {
-      return {
-        selectedStatus: 'doing',
-      };
+        return {
+            selectedStatus: null, 
+            selectedColumn: null,
+        };
     },
     computed: {
       ...mapGetters(['activeTask', 'subtasks']),
+      activeTaskSubtasks() {
+        return this.activeTask ? this.activeTask.subtasks : [];
+      },
       completedSubtasksCount() {
-          return this.subtasks.filter(subtask => subtask.isCompleted).length;
+        return this.activeTaskSubtasks.filter(subtask => subtask.isCompleted).length;
       },
       totalSubtasksCount() {
-          return this.subtasks.length;
+        return this.activeTaskSubtasks.length;
       },
-      
-      
+      taskCompleted() {
+        return this.completedSubtasksCount === this.totalSubtasksCount && this.totalSubtasksCount > 0;
+      },
+      columns() {
+        console.log("Active task:", this.activeTask);
+        console.log("Active task's board ID:", this.activeTask?.board_id);
+        console.log("Boards from Vuex:", this.$store.state.boards)
+        if (this.activeTask) {
+            const board = this.$store.state.boards.find(b => b.board_id === this.activeTask.board_id);
+            console.log("Found board:", board); 
+            return board ? board.columns : [];
+        }
+        return [];
+      },
+      activeTask() {
+        return this.$store.state.activeTask;
+      },
+
+  
     },
     methods:{
       ...mapActions(['setActiveTask']),
-    }
+      updateSubtask(subtask) {
+            this.$store.dispatch('updateSubtask', { ...subtask, isCompleted: !subtask.isCompleted });
+      },
+      onChangeColumn() {
+        if (this.activeTask && this.selectedColumn) {
+            this.$store.dispatch('updateTaskColumn', {
+                taskId: this.activeTask.task_id,
+                columnId: this.selectedColumn
+            });
+        }
+      },
+
+    },
+    mounted(){
+      this.$store.dispatch('fetchBoards');
+      console.log("Active task hre:", this.activeTask);
+      if (this.activeTask) {
+        this.selectedColumn = this.activeTask.column_id;
+      }
+    },
+    watch: {
+      activeTask(newTask, oldTask) {
+          if (newTask && newTask !== oldTask) {
+            this.selectedColumn = newTask.column_id;
+          }
+        },
+    },
+
     
     };  
   
