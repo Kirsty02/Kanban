@@ -1,10 +1,12 @@
 <template>
+  <div class="grey-box"  @click="toggleAddTask" > </div>
+  <div class="view-widget-modal"> 
     <div class="add-edit-board-container">
       <h2 class="heading-l">Add New Task</h2>
-      <form @submit.prevent="createTask">
+      <form @submit.prevent="submitTask">
         <div class="form-group">
           <label for="taskName"><p class="body-m">Title</p></label>
-          <input class="body-l" type="text" id="TaskName" v-model="task.name" required placeholder="e.g. Take coffee break">
+          <input class="body-l" type="text" id="TaskName" v-model="newTask.title" required placeholder="e.g. Take coffee break">
         </div>
         <div class="form-group">
             <label class="body-m" for="description">Description</label>
@@ -14,51 +16,65 @@
         </div>
         <div class="form-group">
           <label><p class="body-m">Subtasks</p></label>
-          <div v-for="(subtask, index) in task.subtasks" :key="index" class="subtasks">
-            <input class="body-l" type="text" v-model="subtask.name" required>
+          <div v-for="(subtask, index) in newTask.subtasks" :key="index" class="subtasks">
+            <input class="body-l" type="text" v-model="subtask.title" required>
             <img @click="removeSubtask(index)" src="/assets/icon-cross.svg" alt="delete subtask">
           </div>
           <button class="btn-secondary" type="button" @click="addSubtask">+ Add New Subtask</button>
         </div>
         <div class="form-group">
-            <label class="body-m" for="status-select">Status</label>
-            <select  id="status-select" v-model="selectedStatus" class="status-select body-l">
-            <option value="todo">Todo</option>
-            <option value="doing">Doing</option>
-            <option value="done">Done</option>
+            <label class="body-m" for="status-select" >Status</label>
+            <select v-model="selectedColumn"  class="status-select body-l" >
+                <option v-for="column in columns" :key="column.column_id" :value="column.column_id">
+                    {{ column.name }}
+                </option>
             </select>
         </div>
         <button class="btn-primary-s" type="submit">Create New Task</button>
       </form>
     </div>
+    </div>
   </template>
   
   <script>
-  export default {
-    data() {
-      return {
-        selectedStatus: 'todo',
-        task: {
-          name: '',
-          subtasks: [{ name: '' }]
-        }
-        };
-        },
-        methods: {
-            addSubtask() {
-            this.task.subtasks.push({ name: '' });
-        },
-            removeSubtask(index) {
-            this.task.subtasks.splice(index, 1);
-            },
-            createTask() {
-            // Handle creation of the board
-            console.log('Creating task:', this.task);
-            // You would typically want to emit an event here or call a Vuex action
-        }
-     }
+import { mapGetters, mapMutations, mapActions } from 'vuex';
+
+export default {
+  data() {
+    return {
+      newTask: {
+        title: '',
+        description: '',
+        subtasks: [{ title: '' }],
+        column_id: 1, 
+        status: "",
+      },
+      selectedColumn: null, 
     };
-  </script>
+  },
+  computed: {
+    ...mapGetters(['activeBoard']),
+    columns() {
+      return this.activeBoard ? this.activeBoard.columns : [];
+    }
+  },
+  methods: {
+    ...mapMutations(['toggleAddTask']),
+    ...mapActions(['addTask']),
+    addSubtask() {
+      this.newTask.subtasks.push({ title: '' });
+    },
+    removeSubtask(index) {
+      this.newTask.subtasks.splice(index, 1);
+    },
+    submitTask() {
+      this.newTask.column_id = this.selectedColumn; 
+      this.addTask({ taskData: this.newTask, column_id: this.newTask.column_id });
+      this.toggleAddTask(); 
+    },
+  }
+};
+</script>
   
   <style lang="scss">
   @import '../../sass/variables';

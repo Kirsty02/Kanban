@@ -1,10 +1,10 @@
 <template>
     <div v-if="!isMobileView" :class="['header-div', isDarkMode ? 'header-div-dark' : '']">
         <div class="header-flex"> 
-            <h1 class="heading-xl">{{ activeBoard?.name || 'Select a Board' }}</h1>    
-            <div class="side-flex">            
-                <button :class="['btn-primary-s', isDarkMode ? 'btn-dark' : '']"> + Add New Column</button>
-                <img src="/assets/icon-vertical-ellipsis.svg" alt="Board Icon">
+            <h1 class="heading-xl">{{ activeBoard?.name || '' }}</h1>    
+            <div v-if="activeBoard != null" class="side-flex">            
+                <button :class="['btn-primary-s', isDarkMode ? 'btn-dark' : '']" @click="toggleAddTask"> + Add New Task</button>
+                <div class="dropdown-click" @click="toggleBoardDropDown"> <img src="/assets/icon-vertical-ellipsis.svg" alt="Board Edit or Delete drop down"></div>
             </div>
         </div>  
     </div>
@@ -17,19 +17,23 @@
             </div>
             <div class="side-flex">
                 <button class="btn-primary-s mobile-add-btn"> <img src="/assets/icon-add-task-mobile.svg" alt="Mobile Logo"></button>
-                
                 <img src="/assets/icon-vertical-ellipsis.svg" alt="Board Icon">
             </div>
         </div>
     </div>
+    <BoardDropDown v-if="isBoardDropDownVisible" > </BoardDropDown>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from 'vuex';
+import BoardDropDown from './BoardDropDown.vue';
 
 export default {
+    components: {
+        BoardDropDown
+    },
     computed: {
-        ...mapGetters(['isDarkMode','isMobileView', 'isMobileSidebarVisible', 'activeBoard']),
+        ...mapGetters(['isDarkMode','isMobileView', 'isMobileSidebarVisible', 'activeBoard', 'isBoardDropDownVisible']),
     },
     mounted() {
         window.addEventListener('resize', this.handleResize);
@@ -39,11 +43,12 @@ export default {
         window.removeEventListener('resize', this.handleResize);
     },
     methods: {
-        ...mapMutations(['toggleMobileSidebar']),
+        ...mapMutations(['toggleMobileSidebar', 'toggleBoardDropDown', 'toggleAddTask']),
         handleResize() {
-        const isMobileView = window.innerWidth <= 680;
-        this.$store.commit('updateIsMobileView', isMobileView);
+            const isMobileView = window.innerWidth <= 680;
+            this.$store.commit('updateIsMobileView', isMobileView);
         },
+
 
     }
 };
@@ -80,6 +85,9 @@ export default {
     }
 }
 
+.dropdown-click:hover{
+    cursor: pointer;
+}
 // Tablet Design
 @media(max-width: 768px){
     .header-div{

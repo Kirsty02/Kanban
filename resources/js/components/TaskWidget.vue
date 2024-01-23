@@ -8,7 +8,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-
+import { ref, watch } from 'vue';
 export default {
     computed: {
         ...mapGetters(['isDarkMode','isMobileView', 'isMobileSidebarVisible', 'subtasks', 'activeTask']),
@@ -24,6 +24,20 @@ export default {
             type: Object,
             required: true
         },
+    },
+    setup(props) {
+    // Reactive reference to the task prop
+    const task = ref(props.task);
+
+    // Watch for changes to the task prop
+    watch(() => props.task, (newTask) => {
+      task.value = newTask;
+    });
+
+    return {
+      // ... other reactive properties
+      task,
+    };
     },
     methods:{
         selectTask(){

@@ -7,10 +7,13 @@ export default createStore({
         isSidebarVisible: true,
         isMobileView: false,
         isMobileSidebarVisible: false,
+        isAddBoardVisible: false,
+        isBoardDropDownVisible: false,
+        isDeleteBoardVisible: false,
+        isAddTaskVisible: false,
         boards: [], 
         columns: [],
         subtasks: [],
-        
         activeBoard: null,
         activeTask: null, 
     },
@@ -30,6 +33,21 @@ export default createStore({
         toggleMobileSidebar(state){
             state.isMobileSidebarVisible = !state.isMobileSidebarVisible;
         },
+        toggleAddBoardForm(state){
+            state.isAddBoardVisible = !state.isAddBoardVisible;
+        },
+        toggleBoardDropDown(state){
+            state.isBoardDropDownVisible = !state.isBoardDropDownVisible;
+        },
+        toggleDeleteBoard(state){
+            state.isDeleteBoardVisible = !state.isDeleteBoardVisible;
+
+        },
+        toggleAddTask(state){
+            state.isAddTaskVisible = !state.isAddTaskVisible;
+
+        },
+
         SET_BOARDS(state, boards) {
             state.boards = boards;
         },
@@ -37,20 +55,7 @@ export default createStore({
             console.log("Setting columns:", columns); 
             state.columns = columns;
         },
-        UPDATE_TASK_COLUMN(state, { taskId, columnId }) {
-            // Loop through each board
-            state.boards.forEach(board => {
-                // Loop through each column in the board
-                board.columns.forEach(column => {
-                    // Find the task within the column
-                    const task = column.tasks.find(task => task.task_id === taskId);
-                    if (task) {
-                        // Update the column_id of the task
-                        task.column_id = columnId;
-                    }
-                });
-            });
-        },
+    
         SET_SUBTASKS(state, { taskId, subtasks }) {
             const task = state.boards
                 .flatMap(board => board.columns)
@@ -60,6 +65,25 @@ export default createStore({
                 Vue.set(task, 'subtasks', subtasks);
             }
         },
+        UPDATE_TASK_COLUMN(state, { taskId, columnId }) {
+            let taskFound = false;
+            for (const board of state.boards) {
+              for (const column of board.columns) {
+                const taskIndex = column.tasks.findIndex(task => task.task_id === taskId);
+                if (taskIndex !== -1) {
+                  const [task] = column.tasks.splice(taskIndex, 1);
+                  task.column_id = columnId;
+                  const targetColumn = board.columns.find(c => c.column_id === columnId);
+                  if (targetColumn) {
+                    targetColumn.tasks.push(task);
+                    taskFound = true;
+                  }
+                  break;
+                }
+              }
+              if (taskFound) break;
+            }
+          },
         UPDATE_SUBTASK(state, updatedSubtask) {
             console.log('Updating subtask in Vuex:', updatedSubtask);
             state.boards.forEach(board => {
@@ -80,26 +104,42 @@ export default createStore({
         SET_ACTIVE_TASK(state, task){
             state.activeTask = task;
         },
-        UPDATE_TASK_COLUMN(state, { taskId, columnId }) {
-            console.log('Boards:', state.boards);
-            state.boards.forEach(board => {
-                console.log('Board Columns:', board.columns);
-                board.columns.forEach(column => {
-                    console.log('Column Tasks:', column.tasks);
-                    // Rest of the code...
-                });
-            });
+        REMOVE_BOARD(state, boardId) {
+            state.boards = state.boards.filter(board => board.id !== boardId);
         },
+
 
     },
     actions:{
         async fetchBoards({ commit }) {
             try {
                 const boardsResponse = await axios.get('/api/boards');
-                // Assuming your backend returns boards with their columns, tasks, and subtasks
                 commit('SET_BOARDS', boardsResponse.data);
             } catch (error) {
                 console.error(error);
+            }
+        },
+        async addBoard({ commit }, boardData) {
+            try {
+                await axios.post('/api/boards', boardData);
+            } catch (error) {
+                throw error;
+            }
+        },
+        async deleteBoard({ commit, state }, boardId) {
+            try {
+                await axios.delete(`/api/boards/${boardId}`);
+                commit('REMOVE_BOARD', boardId);
+            } catch (error) {
+                console.error('Error deleting board:', error);
+            }
+        },
+        async addTask({ dispatch }, { taskData, column_id }) {
+            try {
+                await axios.post('/api/tasks', { ...taskData, column_id: column_id });
+                dispatch('fetchBoards'); 
+            } catch (error) {
+                console.error('Error adding task:', error);
             }
         },
         setActiveBoard({ commit }, board) {
@@ -110,6 +150,9 @@ export default createStore({
             if (task) {
                 dispatch('fetchSubtasksForActiveTask', task.task_id);
             }
+        },
+        setColumns({ commit}, columns){
+            commit('SET_COLUMNS', columns);
         },
         fetchSubtasksForActiveTask({ commit }, taskId) {
             axios.get(`/api/tasks/${taskId}/subtasks`) 
@@ -127,23 +170,22 @@ export default createStore({
                 .catch(error => console.error(error));
         },
         updateSubtask({ commit }, subtask) {
-            axios.patch(`/api/subtasks/${subtask.subtask_id}`, { isCompleted: subtask.isCompleted })
+            console.log("subtask is completed data here",subtask.isCompleted);
+            axios.patch(`/api/subtasks/${subtask.subtask_id}`, { isCompleted: !subtask.isCompleted })
                 .then(response => {
-                    commit('UPDATE_SUBTASK', response.data); // Update Vuex store
-                    console.log('Subtask updated:', response.data);
+                    commit('UPDATE_SUBTASK', response.data);
                 })
                 .catch(error => console.error('Error updating subtask:', error));
         },
-        updateTaskColumn({ commit }, { taskId, columnId }) {
-            axios.patch(`/api/tasks/${taskId}/updateColumn`, { column_id: columnId })
-                .then(() => {
-                    commit('UPDATE_TASK_COLUMN', { taskId, columnId });
-                })
-                .catch(error => console.error('Error updating task column:', error));
-        },
-        setColumns({ commit}, columns){
-            commit('SET_COLUMNS', columns);
-        },
+        async updateTaskColumn({ commit }, { taskId, columnId }) {
+            try {
+              await axios.patch(`/api/tasks/${taskId}/updateColumn`, { column_id: columnId });
+              commit('UPDATE_TASK_COLUMN', { taskId, columnId });
+            } catch (error) {
+              console.error('Error updating task column:', error);
+            }
+          },
+        
 
     },
     getters: {
@@ -162,6 +204,9 @@ export default createStore({
         boards(state) {
             return state.boards;
         },
+        columns(){
+            return state.columns;
+        },
         subtasks(state) {
             return state.subtasks;
         },
@@ -170,7 +215,20 @@ export default createStore({
         },
         activeTask(state) {
             return state.activeTask;
+        },
+        isAddBoardVisible(state){
+            return state.isAddBoardVisible;
+        },
+        isBoardDropDownVisible(state){
+            return state.isBoardDropDownVisible;
+        },
+        isDeleteBoardVisible(state){
+            return state.isDeleteBoardVisible;
+        },
+        isAddTaskVisible(state){
+            return state.isAddTaskVisible;
         }
+
     },
     
 });

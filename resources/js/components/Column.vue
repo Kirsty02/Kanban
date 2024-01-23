@@ -5,13 +5,20 @@
             <div class="status-circle"> </div>
             <p class="heading-s"> {{column.name}} </p>
         </div>
-        <TaskWidget v-for="taskWithSubtasks in tasksWithSubtasks" :key="taskWithSubtasks.id" :task="taskWithSubtasks" :subtasks="taskWithSubtasks.subtasks"></TaskWidget>
+        <TaskWidget
+        v-for="task in column.tasks"
+        :key="`${task.task_id}-${task.column_id}`"
+        :task="task"
+
+        ></TaskWidget>
 
     </div>
     
 </template>
 
+
 <script>
+import { mapGetters, mapMutations } from 'vuex';
 import TaskWidget from './TaskWidget.vue';
 import axios from 'axios';
 
@@ -23,13 +30,22 @@ export default {
         column: {
             type: Object,
             required: true
-        }
+        },
     },
-    data() {
-        return {
-            tasksWithSubtasks: [],
-        };
+
+    computed: {
+        ...mapGetters({
+        activeTask: 'activeTask',
+        boards: 'boards'
+    }),
+    asksWithSubtasks() {
+        return this.column.tasks.map(task => ({
+        ...task,
+        subtasks: task.subtasks || []
+        }));
     },
+},
+
     methods: {
         async fetchSubtasks(task) {
             try {
@@ -47,18 +63,18 @@ export default {
                 return { ...task, subtasks };
             }));
             console.log("Tasks with subtasks:", this.tasksWithSubtasks); // Debugging line
+
+        },
+        forceRerender() {
+            this.loadTasksAndSubtasks();
         },
     },
     mounted() {
         this.loadTasksAndSubtasks();
     },
-    watch: {
-    'column.tasks': {
-      handler: 'loadTasksAndSubtasks',
-      deep: true
-    }
-  }
-}
+    
+    };
+
 </script>
 
 <style lang="scss">

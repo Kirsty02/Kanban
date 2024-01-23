@@ -1,8 +1,8 @@
 <template>
     <div class="board-div" v-if="board">
  
-      <div v-for="column in board.columns" :key="column.id" class="column">
-        <Column :column="column"></Column>
+      <div v-for="column in board.columns" :key="column.column_id" class="column">
+        <Column :column="column" :selectedColumn="selectedColumn" ></Column>
       </div>
  
   
@@ -10,19 +10,29 @@
           <h2 class="heading-xl"> + New Column</h2>
       </div>
     </div>
-    <ViewTask v-if="activeTask"></ViewTask>
+    <ViewTask v-if="activeTask" @columnChanged="onColumnChanged"></ViewTask>
+    <AddBoard v-if="isAddBoardVisible"> </AddBoard>
+    <Delete v-if="isDeleteBoardVisible"> </Delete>
+    <AddTask v-if="isAddTaskVisible"> </AddTask>
+    
   </template>
   
   <script>
-   import { mapGetters } from 'vuex';
+  import { mapGetters } from 'vuex';
   import Column from './Column.vue';
   import ViewTask from './ViewTask.vue';
+  import AddBoard from './AddBoard.vue';
+  import Delete from './Delete.vue';
+  import AddTask from './AddTask.vue';
  
   
   export default {
       components: {
           Column,
           ViewTask,
+          AddBoard,
+          Delete,
+          AddTask
       },
       props: {
         board: {
@@ -30,9 +40,31 @@
           required: true
         }
       },
+      data() {
+        return {
+          selectedColumn: null, // Initialize selectedColumn as null
+        };
+      },
       computed: {
-          ...mapGetters(['isDarkMode','isMobileView', 'isMobileSidebarVisible', 'activeTask']),
-      }
+          ...mapGetters(['isDarkMode','isMobileView', 'isMobileSidebarVisible', 'activeTask', 'isAddBoardVisible', 'isDeleteBoardVisible', 'isAddTaskVisible']),
+      },
+      methods:{
+        onColumnChanged() {
+          this.$store.dispatch('fetchBoards').then(() => {
+            console.log('Boards re-fetched after column change');
+          });
+        },
+        updateTaskColumn(activeTask, newColumn) {
+          if (activeTask && newColumn !== null) {
+            // Update the task's column based on the newColumn value
+            this.$store.dispatch('updateTaskColumn', {
+              taskId: activeTask.task_id,
+              columnId: newColumn,
+            });
+          }
+    },
+
+      },
   };
   </script>
 

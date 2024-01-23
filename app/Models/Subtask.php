@@ -10,6 +10,9 @@ class Subtask extends Model
     protected $fillable = ['task_id', 'title', 'isCompleted'];
     protected $primaryKey = 'subtask_id';
     public $timestamps = false;
+    protected $casts = [
+        'isCompleted' => 'boolean',
+    ];
 
 
     public function task()

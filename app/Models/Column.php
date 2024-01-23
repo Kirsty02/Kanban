@@ -11,6 +11,7 @@ class Column extends Model
 
     protected $table = 'columns';
     protected $fillable = ['name', 'board_id'];
+    public $timestamps = false;
 
     // Define the relationship with the Board model
     public function board()

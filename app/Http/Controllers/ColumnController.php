@@ -16,15 +16,23 @@ class ColumnController extends Controller
     public function show($column_id)
     {
         try {
-            // Find the column by column_id
             $column = Column::findOrFail($column_id);
 
-            // You can customize the response format as needed
             return response()->json($column, 200);
         } catch (\Exception $e) {
-            // Handle any exceptions or errors here
             return response()->json(['error' => 'Column not found'], 404);
         }
+    }
+
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'board_id' => 'required|integer',
+        ]);
+
+        $column = Column::create($validatedData);
+        return response()->json($column, 201);
     }
 
 }

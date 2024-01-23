@@ -24,5 +24,19 @@ class TaskController extends Controller
         return response()->json($task->load('column')); // Return updated task with column
     }
 
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'column_id' => 'required|integer',
+            'status' => 'required|string',
+        ]);
+
+        $task = Task::create($validatedData);
+        return response()->json($task, 201);
+    }
+
+
+
 
 }

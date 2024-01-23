@@ -1,4 +1,6 @@
 <template>
+  <div class="grey-box"  @click="toggleAddBoardForm" > </div>
+  <div class="view-widget-modal"> 
     <div class="add-edit-board-container">
       <h2 class="heading-l">Add New Board</h2>
       <form @submit.prevent="createBoard">
@@ -17,9 +19,13 @@
         <button class="btn-primary-s" type="submit">Create New Board</button>
       </form>
     </div>
+  </div>
+    
   </template>
   
   <script>
+  import { mapMutations, mapActions} from 'vuex';
+  import axios from 'axios';
   export default {
     data() {
       return {
@@ -30,23 +36,50 @@
         };
         },
         methods: {
-            addColumn() {
+          ...mapActions(['fetchBoards', 'addBoard']), 
+          ...mapMutations(['toggleAddBoardForm']),
+          addColumn() {
             this.board.columns.push({ name: '' });
-        },
-            removeColumn(index) {
+          },
+          removeColumn(index) {
             this.board.columns.splice(index, 1);
-            },
-            createBoard() {
-            // Handle creation of the board
-            console.log('Creating board:', this.board);
-            // You would typically want to emit an event here or call a Vuex action
-        }
-     }
+          },
+          async createBoard() {
+            try{
+              let response = await axios.post('api/boards', this.board);
+              let boardId = response.data.board_id;
+
+              for(let column of this.board.columns){
+                await axios.post('/api/columns', {
+                  name: column.name,
+                  board_id: boardId
+                });
+
+              }
+              this.fetchBoards();
+              this.toggleAddBoardForm();
+            }catch(error){
+              console.error('Error creating board and columns:', error);
+            }
+
+          }
+     },
     };
   </script>
   
   <style lang="scss">
   @import '../../sass/variables';
-
+  .grey-box{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(0, 0, 0, 0.5);
+    z-index: 998;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
 
   </style>

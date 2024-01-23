@@ -1,6 +1,10 @@
 <template>
     <div :class="['content-div', isDarkMode ? 'content-div-dark' : '', isSidebarVisible ? '' : 'content-expanded']">
         <board v-if="activeBoard" :key="activeBoard.id" :board="activeBoard"></board>
+        <div v-if="!activeBoard" class="boards-div">
+            <h2 class="heading-l">No have not seclted a board. click on the sidebar to view or create a board.</h2>
+            <button class="btn-primary-s"> + Add New Board</button>
+        </div>
       <div class="toggle-sidebar-btn" @click="toggleSidebar">
         <img src="/assets/icon-show-sidebar.svg" alt="light theme">
       </div>

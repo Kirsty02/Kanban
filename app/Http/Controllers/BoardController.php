@@ -24,6 +24,8 @@ class BoardController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
         ]);
+        // Temporarily set user_id to 1
+        $validatedData['user_id'] = 1;
 
         $board = Board::create($validatedData);
         return response()->json($board, 201);

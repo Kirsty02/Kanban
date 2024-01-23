@@ -27,6 +27,15 @@ Route::get('/columns/{column_id}', [ColumnController::class, 'show']);
 Route::patch('/tasks/{task}/updateColumn', [TaskController::class, 'updateColumn']);
 Route::patch('/subtasks/{subtask}', [SubtaskController::class, 'update']);
 
+Route::post('/boards', [BoardController::class, 'store']);
+Route::post('/columns', [ColumnController::class, 'store']);
+Route::post('/tasks', [TaskController::class, 'store']);
+
+
+Route::delete('/boards/{board}', [BoardController::class, 'destroy']);
+
+
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

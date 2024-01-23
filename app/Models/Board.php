@@ -9,6 +9,7 @@ class Board extends Model
 {
     // Define the attributes that are mass assignable
     protected $fillable = ['name', 'user_id'];
+    protected $primaryKey = 'board_id';
 
     public function columns()
     {
