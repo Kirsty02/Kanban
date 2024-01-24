@@ -36,7 +36,7 @@
         };
         },
         methods: {
-          ...mapActions(['fetchBoards', 'addBoard']), 
+          ...mapActions(['fetchBoards', 'addBoard', 'setActiveBoard']), 
           ...mapMutations(['toggleAddBoardForm']),
           addColumn() {
             this.board.columns.push({ name: '' });
@@ -54,10 +54,10 @@
                   name: column.name,
                   board_id: boardId
                 });
-
               }
               this.fetchBoards();
               this.toggleAddBoardForm();
+              this.setActiveBoard(this.board);
             }catch(error){
               console.error('Error creating board and columns:', error);
             }

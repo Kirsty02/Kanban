@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Subtask;
+use App\Models\Task;
 use Illuminate\Support\Facades\Log; 
 
 class SubtaskController extends Controller
@@ -21,13 +22,22 @@ class SubtaskController extends Controller
 
         // Directly assigning the value from the request
         $subtask->isCompleted = $request->input('isCompleted');
-
-
         $subtask->save();
-
         return response()->json($subtask);
-       
     }
+
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'task_id' => 'required|integer',
+            'isCompleted' => 'required|boolean',
+        ]);
+
+        $subtask = Subtask::create($validatedData);
+        return response()->json($subtask, 201);
+    }
+
 
 
     

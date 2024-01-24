@@ -30,6 +30,7 @@ Route::patch('/subtasks/{subtask}', [SubtaskController::class, 'update']);
 Route::post('/boards', [BoardController::class, 'store']);
 Route::post('/columns', [ColumnController::class, 'store']);
 Route::post('/tasks', [TaskController::class, 'store']);
+Route::post('/subtasks', [SubtaskController::class, 'store']);
 
 
 Route::delete('/boards/{board}', [BoardController::class, 'destroy']);

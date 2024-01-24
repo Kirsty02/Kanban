@@ -23,18 +23,18 @@ import {mapGetters, mapMutations, mapActions } from 'vuex';
 
 export default {
     computed:{
-        ...mapGetters(['activeBoard', 'isMobileView']),
+        ...mapGetters(['activeBoard', 'isMobileView', 'boards']),
     },
     methods: {
         ...mapMutations(['toggleDeleteBoard']),
-        ...mapActions(['fetchBoards']),
+        ...mapActions(['fetchBoards','setActiveBoard']),
         deleteActiveBoard() {
             if (this.activeBoard && this.activeBoard.board_id) {
                 this.$store.dispatch('deleteBoard', this.activeBoard.board_id)
                     .then(() => {
                         this.toggleDeleteBoard();
-                        this.fetchBoards();
-                        
+                        this.setActiveBoard(null);
+                        this.fetchBoards(); 
                     });
             }
         },

@@ -10,7 +10,7 @@
         </div>
         <div class="form-group">
             <label class="body-m" for="description">Description</label>
-            <textarea class="description body-l"  id="description" rows="4" 
+            <textarea  v-model="newTask.description" type="text" class="description body-l"  id="description" rows="4" 
             placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little."
             ></textarea>
         </div>
@@ -38,6 +38,7 @@
   
   <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex';
+import axios from 'axios';
 
 export default {
   data() {
@@ -45,7 +46,7 @@ export default {
       newTask: {
         title: '',
         description: '',
-        subtasks: [{ title: '' }],
+        subtasks: [{ title: '' , isCompleted: false}],
         column_id: 1, 
         status: "",
       },
@@ -60,17 +61,42 @@ export default {
   },
   methods: {
     ...mapMutations(['toggleAddTask']),
-    ...mapActions(['addTask']),
+    ...mapActions(['addTask', 'fetchBoards']),
     addSubtask() {
       this.newTask.subtasks.push({ title: '' });
     },
     removeSubtask(index) {
       this.newTask.subtasks.splice(index, 1);
     },
-    submitTask() {
-      this.newTask.column_id = this.selectedColumn; 
-      this.addTask({ taskData: this.newTask, column_id: this.newTask.column_id });
-      this.toggleAddTask(); 
+    async submitTask() {
+      const selectedColumnObj = this.columns.find(column => column.column_id === this.selectedColumn);
+
+      if (!selectedColumnObj) {
+        console.error("Selected column not found");
+        return;
+      }
+      
+      this.newTask.status = selectedColumnObj.name;
+      this.newTask.column_id = this.selectedColumn;
+
+      try {
+        let response = await axios.post('/api/tasks', this.newTask);
+        let taskId = response.data.task_id;
+
+        for (let subtask of this.newTask.subtasks) {
+          await axios.post('/api/subtasks', {
+            title: subtask.title,
+            task_id: taskId,
+            isCompleted: false,
+          });
+        }
+
+        this.fetchBoards();
+        this.toggleAddTask();
+        
+      } catch (error) {
+        console.error('Error creating task and subtasks:', error);
+      }
     },
   }
 };

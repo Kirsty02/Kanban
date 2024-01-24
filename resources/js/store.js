@@ -105,6 +105,8 @@ export default createStore({
             state.activeTask = task;
         },
         REMOVE_BOARD(state, boardId) {
+            if (state.activeBoard && state.activeBoard.id === boardId) {
+            }
             state.boards = state.boards.filter(board => board.id !== boardId);
         },
 
@@ -134,9 +136,9 @@ export default createStore({
                 console.error('Error deleting board:', error);
             }
         },
-        async addTask({ dispatch }, { taskData, column_id }) {
+        async addTask({ dispatch }, { taskData}) {
             try {
-                await axios.post('/api/tasks', { ...taskData, column_id: column_id });
+                await axios.post('/api/tasks', taskData);
                 dispatch('fetchBoards'); 
             } catch (error) {
                 console.error('Error adding task:', error);
