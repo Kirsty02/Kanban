@@ -28,8 +28,10 @@ class TaskController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
             'column_id' => 'required|integer',
             'status' => 'required|string',
+            'board_id' => 'required|integer',
         ]);
 
         $task = Task::create($validatedData);

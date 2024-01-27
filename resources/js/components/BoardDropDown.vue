@@ -1,6 +1,6 @@
 <template> 
     <div class="drop-down-conatiner"> 
-        <p class="body-l edit-p"> Edit Board</p>
+        <p class="body-l edit-p"  @click="toggleEditBoard(); toggleBoardDropDown();"> Edit Board</p>
         <p class="body-l delete-p" @click="toggleDeleteBoard(); toggleBoardDropDown();" > Delete Board</p>
     </div>
 
@@ -11,7 +11,7 @@ import {mapMutations } from 'vuex';
 
 export default {
     methods: {
-        ...mapMutations(['toggleDeleteBoard', 'toggleBoardDropDown']),
+        ...mapMutations(['toggleDeleteBoard', 'toggleBoardDropDown', 'toggleEditBoard']),
     }
 };
 </script>

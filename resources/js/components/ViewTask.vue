@@ -1,16 +1,13 @@
 <template>
     <div class="grey-box" v-if="activeTask" @click=setActiveTask(null)> </div>
-  
     <div class="view-widget-modal">
-
       <div class="add-edit-board-container" v-if="activeTask">
-        <div class="side-flex">
+        <div class="side-flex space-bottom">
             <h2 class="heading-l"> {{ activeTask.title }}</h2>
-            <img src="/assets/icon-vertical-ellipsis.svg" alt="Board Icon">
+            <img @click="dropdownVisible=true" src="/assets/icon-vertical-ellipsis.svg" alt="Board Icon">
         </div>
         <p class="body-l form-group description"> {{ activeTask.description }}</p>
-    
-
+  
         <div class="form-group">
             <div class="subtask-header"><p class="body-m">Subtasks ({{ completedSubtasksCount }} of {{ totalSubtasksCount }})</p></div>
             <ul class="subtasks-list">
@@ -22,14 +19,19 @@
         </div>
         <div class="form-group">
             <label class="body-m" for="status-select" >Status</label>
-            <select v-model="selectedColumn"  @change="onChangeColumn(activeTask.column_id)">
+            <select v-model="selectedColumn"  @change="onChangeColumn(activeTask.column_id)" class="column-drop">
                 <option v-for="column in columns" :key="column.column_id" :value="column.column_id">
                     {{ column.name }}
                 </option>
             </select>
         </div>
     </div>
-
+    </div>
+    <div v-if="dropdownVisible"> 
+      <div class="drop-down-conatiner-task"> 
+        <p class="body-l edit-p" > Edit Task</p>
+        <p class="body-l delete-p" > Delete Task</p>
+      </div>
     </div>
     
   </template>
@@ -44,6 +46,7 @@
     data() {
         return {
             selectedColumn: null,
+            dropdownVisible: false,
         };
     },
     computed: {
@@ -61,9 +64,6 @@
         return this.completedSubtasksCount === this.totalSubtasksCount && this.totalSubtasksCount > 0;
       },
       columns() {
-        //console.log("Active task:", this.activeTask);
-        //console.log("Active task's board ID:", this.activeTask?.board_id);
-        //console.log("Boards from Vuex:", this.$store.state.boards)
         if (this.activeTask) {
             const board = this.$store.state.boards.find(b => b.board_id === this.activeTask.board_id);
             console.log("Found board:", board); 
@@ -71,6 +71,7 @@
         }
         return [];
       },
+      
       activeTask() {
         return this.$store.state.activeTask;
       },
@@ -136,6 +137,10 @@
   display: flex;
   align-items: center;
   margin-bottom: 5px;
+  background-color: $white-dark;
+  border-radius: 8px;
+  padding-left: 10px;
+  font-weight: bolder;
 }
 
 .subtask-item input[type="checkbox"] {
@@ -147,5 +152,32 @@ text-decoration: line-through;
 color: #aaa;
 }
 
+.space-bottom{
+  margin-bottom: 1rem;
+}
+
+.column-drop{
+  width: 100%;
+  padding: 5px;
+  padding-right: 10px;
+  border-radius:8px;
+}
+
+
+.drop-down-conatiner-task{
+    position: absolute;
+    right: 11rem;
+    top: 7rem;
+    border-radius: 8px;
+    width: 128px;
+    height: 62px;
+    padding: 16px;
+    background-color: $white-light;
+    z-index: 999;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
 </style>

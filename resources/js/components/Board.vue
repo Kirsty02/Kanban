@@ -1,9 +1,11 @@
 <template>
-    <div class="board-div" v-if="board">
- 
+    <div class="board-div" v-if="board && shouldColumnsRefresh" >
+
       <div v-for="column in board.columns" :key="column.column_id" class="column">
         <Column :column="column" :selectedColumn="selectedColumn" ></Column>
       </div>
+
+      
  
   
       <div :class="['add-column-div', isDarkMode ? 'add-column-div-dark' : '']"> 
@@ -12,27 +14,30 @@
     </div>
     <ViewTask v-if="activeTask" @columnChanged="onColumnChanged"></ViewTask>
     <AddBoard v-if="isAddBoardVisible"> </AddBoard>
-    <Delete v-if="isDeleteBoardVisible"> </Delete>
+    <DeleteBoard v-if="isDeleteBoardVisible"> </DeleteBoard>
     <AddTask v-if="isAddTaskVisible"> </AddTask>
+    <EditBoard v-if="isEditBoardVisible"> </EditBoard>
+
     
   </template>
   
   <script>
-  import { mapGetters } from 'vuex';
+  import { mapActions, mapGetters } from 'vuex';
   import Column from './Column.vue';
   import ViewTask from './ViewTask.vue';
   import AddBoard from './AddBoard.vue';
-  import Delete from './Delete.vue';
+  import DeleteBoard from './DeleteBoard.vue';
   import AddTask from './AddTask.vue';
- 
+  import EditBoard from './EditBoard.vue';
   
   export default {
       components: {
           Column,
           ViewTask,
           AddBoard,
-          Delete,
-          AddTask
+          DeleteBoard,
+          AddTask,
+          EditBoard
       },
       props: {
         board: {
@@ -46,9 +51,11 @@
         };
       },
       computed: {
-          ...mapGetters(['isDarkMode','isMobileView', 'isMobileSidebarVisible', 'activeTask', 'isAddBoardVisible', 'isDeleteBoardVisible', 'isAddTaskVisible']),
+          ...mapGetters(['isDarkMode','isMobileView', 'isMobileSidebarVisible', 'activeTask', 'isAddBoardVisible', 'isDeleteBoardVisible', 'isAddTaskVisible', 'shouldColumnsRefresh', 'isEditBoardVisible']),
       },
+ 
       methods:{
+        ...mapActions(['fetchBoards']),
         onColumnChanged() {
           this.$store.dispatch('fetchBoards').then(() => {
             console.log('Boards re-fetched after column change');
@@ -60,8 +67,8 @@
             this.$store.dispatch('updateTaskColumn', {
               taskId: activeTask.task_id,
               columnId: newColumn,
-            });
-          }
+          });
+        }
     },
 
       },

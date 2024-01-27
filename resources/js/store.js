@@ -11,11 +11,13 @@ export default createStore({
         isBoardDropDownVisible: false,
         isDeleteBoardVisible: false,
         isAddTaskVisible: false,
+        isEditBoardVisible: false,
         boards: [], 
         columns: [],
         subtasks: [],
         activeBoard: null,
         activeTask: null, 
+        shouldColumnsRefresh: true,
     },
     mutations:{
         toggleDarkMode(state){
@@ -45,11 +47,24 @@ export default createStore({
         },
         toggleAddTask(state){
             state.isAddTaskVisible = !state.isAddTaskVisible;
-
+        },
+        toggleColumnrefresh(state){
+            state.shouldColumnsRefresh = !state.shouldColumnsRefresh;
+        },
+        toggleEditBoard(state){
+            state.isEditBoardVisible = !state.isEditBoardVisible;
         },
 
         SET_BOARDS(state, boards) {
             state.boards = boards;
+        },
+        UPDATE_BOARD(state, updatedBoard) {
+            const index = state.boards.findIndex(board => board.board_id === updatedBoard.board_id);
+            if (index !== -1) {
+                state.boards.splice(index, 1, updatedBoard);
+            } else {
+                console.error('Board to update not found');
+            }
         },
         SET_COLUMNS(state, columns) {
             console.log("Setting columns:", columns); 
@@ -128,12 +143,32 @@ export default createStore({
                 throw error;
             }
         },
+        async updateBoard({ commit }, boardData) {
+            try {
+                const response = await axios.patch(`/api/boards/${boardData.board_id}`, boardData);
+                commit('UPDATE_BOARD', response.data); 
+                return response.data; 
+            } catch (error) {
+                console.error('Error updating board:', error);
+                throw error;
+            }
+        },
         async deleteBoard({ commit, state }, boardId) {
             try {
                 await axios.delete(`/api/boards/${boardId}`);
                 commit('REMOVE_BOARD', boardId);
             } catch (error) {
                 console.error('Error deleting board:', error);
+            }
+        },
+        async addColumn({ dispatch }, { columnData }) {
+            try {
+                const response = await axios.post('/api/columns', columnData);
+                dispatch('fetchBoards'); 
+                return response.data;
+            } catch (error) {
+                console.error('Error adding column:', error);
+                throw error;
             }
         },
         async addTask({ dispatch }, { taskData}) {
@@ -229,7 +264,14 @@ export default createStore({
         },
         isAddTaskVisible(state){
             return state.isAddTaskVisible;
+        },
+        shouldColumnsRefresh(state){
+            return state.shouldColumnsRefresh;
+        },
+        isEditBoardVisible(state){
+            return state.isEditBoardVisible;
         }
+   
 
     },
     

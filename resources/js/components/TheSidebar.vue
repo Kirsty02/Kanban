@@ -83,10 +83,13 @@ export default {
         this.fetchBoards(); 
      },
     methods: {
-        ...mapMutations(['toggleDarkMode', 'toggleSidebar', 'toggleMobileSidebar', 'toggleAddBoardForm']),
+        ...mapMutations(['toggleDarkMode', 'toggleSidebar', 'toggleMobileSidebar', 'toggleAddBoardForm', 'toggleColumnrefresh']),
         ...mapActions(['fetchBoards', 'setActiveBoard']),
         handleBoardSelection(board) {
             this.setActiveBoard(board);
+            this.toggleColumnrefresh();
+            this.toggleColumnrefresh();
+
         },
         toggleTheme(){
             this.toggleDarkMode();

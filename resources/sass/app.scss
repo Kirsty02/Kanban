@@ -145,7 +145,7 @@ body{
 .side-flex{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     gap: 1.5rem;
 }
 
@@ -156,10 +156,6 @@ body{
     width: 416px;
     border-radius: 8px;
     text-align: left;
-    .heading-l{
-        margin-bottom: 1rem;
-
-    }
     .btn-primary-s, .btn-secondary{
         width: 100%;
     }

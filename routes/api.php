@@ -26,6 +26,10 @@ Route::get('/columns/{column_id}', [ColumnController::class, 'show']);
 
 Route::patch('/tasks/{task}/updateColumn', [TaskController::class, 'updateColumn']);
 Route::patch('/subtasks/{subtask}', [SubtaskController::class, 'update']);
+Route::patch('/boards/{board}', [BoardController::class, 'update']);
+Route::patch('/columns/{column}', [ColumnController::class, 'update']);
+
+
 
 Route::post('/boards', [BoardController::class, 'store']);
 Route::post('/columns', [ColumnController::class, 'store']);
@@ -34,6 +38,8 @@ Route::post('/subtasks', [SubtaskController::class, 'store']);
 
 
 Route::delete('/boards/{board}', [BoardController::class, 'destroy']);
+Route::delete('/columns/{column}', [ColumnController::class, 'destroy']);
+
 
 
 

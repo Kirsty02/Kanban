@@ -35,7 +35,6 @@ class BoardController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'string|max:255',
-            // Add other validation rules as needed
         ]);
 
         $board->update($validatedData);

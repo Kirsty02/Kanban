@@ -49,6 +49,7 @@ export default {
         subtasks: [{ title: '' , isCompleted: false}],
         column_id: 1, 
         status: "",
+        board_id: null,
       },
       selectedColumn: null, 
     };
@@ -60,8 +61,8 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['toggleAddTask']),
-    ...mapActions(['addTask', 'fetchBoards']),
+    ...mapMutations(['toggleAddTask', 'toggleColumnrefresh']),
+    ...mapActions(['addTask', 'fetchBoards','setActiveBoard']),
     addSubtask() {
       this.newTask.subtasks.push({ title: '' });
     },
@@ -78,6 +79,8 @@ export default {
       
       this.newTask.status = selectedColumnObj.name;
       this.newTask.column_id = this.selectedColumn;
+      this.newTask.board_id = this.activeBoard.board_id;
+      
 
       try {
         let response = await axios.post('/api/tasks', this.newTask);
@@ -91,8 +94,14 @@ export default {
           });
         }
 
-        this.fetchBoards();
-        this.toggleAddTask();
+
+        await this.fetchBoards(); 
+        await this.setActiveBoard(this.activeBoard);
+        console.log("thias is the active board", this.activeBoard);
+        this.toggleColumnrefresh();
+        this.toggleColumnrefresh();
+        this.toggleAddTask(false); 
+      
         
       } catch (error) {
         console.error('Error creating task and subtasks:', error);

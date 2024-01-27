@@ -29,10 +29,27 @@ class ColumnController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'board_id' => 'required|integer',
+            'column_id' => 'required|integer',
         ]);
 
         $column = Column::create($validatedData);
         return response()->json($column, 201);
+    }
+
+    public function update(Request $request, Column $column)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $column->update($validatedData);
+        return response()->json($column);
+    }
+
+    public function destroy(Column $column)
+    {
+        $column->delete();
+        return response()->json(null, 204); // No content response
     }
 
 }
