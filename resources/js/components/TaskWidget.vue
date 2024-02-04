@@ -1,7 +1,7 @@
 <template>
     <div :class="['task-widget-container', isDarkMode ? 'task-widget-container-dark' : '']"  @click="selectTask(), toggleViewTask()">
         <h2 class="heading-m">{{task.title}}</h2>
-        <p class="body-m">{{ completedSubtasksCount }} of {{ totalSubtasksCount }}  subtasks complete</p>
+        <p class="body-m">{{ completedSubtasksCount }} of {{ totalSubtasksCount }}  subtasks complete!</p>
     </div>
     
 </template>
