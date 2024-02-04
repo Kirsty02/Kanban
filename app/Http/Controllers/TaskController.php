@@ -38,6 +38,24 @@ class TaskController extends Controller
         return response()->json($task, 201);
     }
 
+    public function update(Request $request, $taskId)
+    {
+        $task = Task::findOrFail($taskId);
+
+        $validatedData = $request->validate([
+            'title' => 'string|max:255',
+            'description' => 'string|max:255',
+            'column_id' => 'integer',
+            'status' => 'string',
+            'board_id' => 'integer',
+        ]);
+
+        $task->update($validatedData);
+        return response()->json($task);
+    }
+
+
+
 
 
 

@@ -12,6 +12,8 @@ export default createStore({
         isDeleteBoardVisible: false,
         isAddTaskVisible: false,
         isEditBoardVisible: false,
+        isViewTaskVisible: false,
+        isEditTaskVisible: false,
         boards: [], 
         columns: [],
         subtasks: [],
@@ -53,6 +55,12 @@ export default createStore({
         },
         toggleEditBoard(state){
             state.isEditBoardVisible = !state.isEditBoardVisible;
+        },
+        toggleViewTask(state){
+            state.isViewTaskVisible = !state.isViewTaskVisible;
+        },
+        toggleEditTask(state){
+            state.isEditTaskVisible = !state.isEditTaskVisible;
         },
 
         SET_BOARDS(state, boards) {
@@ -98,7 +106,25 @@ export default createStore({
               }
               if (taskFound) break;
             }
-          },
+        },
+        UPDATE_TASK(state, updatedTask) {
+            const board = state.boards.find(b => b.board_id === updatedTask.board_id);
+            if (board) {
+                const column = board.columns.find(c => c.column_id === updatedTask.column_id);
+                if (column) {
+                    const taskIndex = column.tasks.findIndex(t => t.task_id === updatedTask.task_id);
+                    if (taskIndex !== -1) {
+                        column.tasks.splice(taskIndex, 1, updatedTask);
+                    } else {
+                        console.error('Task to update not found in column');
+                    }
+                } else {
+                    console.error('Column for the task not found');
+                }
+            } else {
+                console.error('Board for the task not found');
+            }
+        },
         UPDATE_SUBTASK(state, updatedSubtask) {
             console.log('Updating subtask in Vuex:', updatedSubtask);
             state.boards.forEach(board => {
@@ -106,7 +132,7 @@ export default createStore({
                     column.tasks.forEach(task => {
                         const subtaskIndex = task.subtasks.findIndex(subtask => subtask.subtask_id === updatedSubtask.subtask_id);
                         if (subtaskIndex !== -1) {
-                            // Simply assigning the updated subtask for Vue 3 reactivity
+
                             task.subtasks[subtaskIndex] = updatedSubtask;
                         }
                     });
@@ -123,6 +149,18 @@ export default createStore({
             if (state.activeBoard && state.activeBoard.id === boardId) {
             }
             state.boards = state.boards.filter(board => board.id !== boardId);
+        },
+        DELETE_SUBTASK(state, subtaskId) {
+            state.boards.forEach(board => {
+                board.columns.forEach(column => {
+                    column.tasks.forEach(task => {
+                        const subtaskIndex = task.subtasks.findIndex(subtask => subtask.subtask_id === subtaskId);
+                        if (subtaskIndex !== -1) {
+                            task.subtasks.splice(subtaskIndex, 1);
+                        }
+                    });
+                });
+            });
         },
 
 
@@ -177,6 +215,35 @@ export default createStore({
                 dispatch('fetchBoards'); 
             } catch (error) {
                 console.error('Error adding task:', error);
+            }
+        },
+        async updateTask({ commit }, taskData) {
+            try {
+                const response = await axios.patch(`/api/tasks/${taskData.task_id}`, taskData);
+                commit('UPDATE_TASK', response.data); 
+                return response.data;
+            } catch (error) {
+                console.error('Error updating task:', error);
+                throw error;
+            }
+        },
+        async updateSubtask({ commit }, subtaskData) {
+            try {
+                const response = await axios.patch(`/api/subtasks/${subtaskData.subtask_id}`, {
+                    title: subtaskData.title,
+                    isCompleted: subtaskData.isCompleted
+                });
+                commit('UPDATE_SUBTASK', response.data);
+            } catch (error) {
+                console.error('Error updating subtask:', error);
+            }
+        },
+        async deleteSubtask({ commit }, subtaskId) {
+            try {
+                await axios.delete(`/api/subtasks/${subtaskId}`);
+                commit('DELETE_SUBTASK', subtaskId);
+            } catch (error) {
+                console.error('Error deleting subtask:', error);
             }
         },
         setActiveBoard({ commit }, board) {
@@ -270,7 +337,14 @@ export default createStore({
         },
         isEditBoardVisible(state){
             return state.isEditBoardVisible;
+        },
+        isViewTaskVisible(state){
+            return state.isViewTaskVisible;
+        },
+        isEditTaskVisible(state){
+            return state.isEditTaskVisible;
         }
+      
    
 
     },

@@ -1,7 +1,7 @@
 <template>
-    <div class="grey-box" v-if="activeTask" @click=setActiveTask(null)> </div>
+    <div class="grey-box" @click=toggleViewTask> </div>
     <div class="view-widget-modal">
-      <div class="add-edit-board-container" v-if="activeTask">
+      <div class="add-edit-board-container">
         <div class="side-flex space-bottom">
             <h2 class="heading-l"> {{ activeTask.title }}</h2>
             <img @click="dropdownVisible=true" src="/assets/icon-vertical-ellipsis.svg" alt="Board Icon">
@@ -29,7 +29,7 @@
     </div>
     <div v-if="dropdownVisible"> 
       <div class="drop-down-conatiner-task"> 
-        <p class="body-l edit-p" > Edit Task</p>
+        <p class="body-l edit-p" @click="toggleEditTask(), dropdownVisible=false, toggleViewTask()"> Edit Task</p>
         <p class="body-l delete-p" > Delete Task</p>
       </div>
     </div>
@@ -37,7 +37,7 @@
   </template>
   
   <script>
-  import { mapGetters, mapActions } from 'vuex';
+  import { mapGetters, mapActions, mapMutations } from 'vuex';
   import axios from 'axios';
 
   export default {
@@ -90,8 +90,10 @@
     },
     methods:{
       ...mapActions(['setActiveTask']),
+      ...mapMutations(['toggleEditTask', 'toggleViewTask']),
       updateSubtask(subtask) {
-            this.$store.dispatch('updateSubtask', { ...subtask, isCompleted: !subtask.isCompleted });
+        console.log('Updating subtask:', subtask);
+        this.$store.dispatch('updateSubtask', { ...subtask, isCompleted: !subtask.isCompleted, title: subtask.title });
       },
       onChangeColumn() {
           if (this.activeTask && this.selectedColumn) {

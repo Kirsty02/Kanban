@@ -20603,59 +20603,66 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     createBoard: function createBoard() {
       var _this = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var response, boardId, _iterator, _step, column;
+        var boardResponse, boardId, _iterator, _step, column;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               _context.prev = 0;
               _context.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().post('api/boards', _this.board);
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/boards', {
+                name: _this.board.name
+              });
             case 3:
-              response = _context.sent;
-              boardId = response.data.board_id;
+              boardResponse = _context.sent;
+              boardId = boardResponse.data.board_id;
               _iterator = _createForOfIteratorHelper(_this.board.columns);
               _context.prev = 6;
               _iterator.s();
             case 8:
               if ((_step = _iterator.n()).done) {
-                _context.next = 14;
+                _context.next = 15;
                 break;
               }
               column = _step.value;
-              _context.next = 12;
+              if (!(column.name.trim() !== '')) {
+                _context.next = 13;
+                break;
+              }
+              _context.next = 13;
               return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/columns', {
                 name: column.name,
                 board_id: boardId
               });
-            case 12:
+            case 13:
               _context.next = 8;
               break;
-            case 14:
-              _context.next = 19;
+            case 15:
+              _context.next = 20;
               break;
-            case 16:
-              _context.prev = 16;
+            case 17:
+              _context.prev = 17;
               _context.t0 = _context["catch"](6);
               _iterator.e(_context.t0);
-            case 19:
-              _context.prev = 19;
+            case 20:
+              _context.prev = 20;
               _iterator.f();
-              return _context.finish(19);
-            case 22:
+              return _context.finish(20);
+            case 23:
+              _this.fetchBoards();
+              _this.setActiveBoard(boardResponse.data);
               _this.fetchBoards();
               _this.toggleAddBoardForm();
-              _this.setActiveBoard(_this.board);
-              _context.next = 30;
+              _context.next = 32;
               break;
-            case 27:
-              _context.prev = 27;
+            case 29:
+              _context.prev = 29;
               _context.t1 = _context["catch"](0);
               console.error('Error creating board and columns:', _context.t1);
-            case 30:
+            case 32:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[0, 27], [6, 16, 19, 22]]);
+        }, _callee, null, [[0, 29], [6, 17, 20, 23]]);
       }))();
     }
   })
@@ -20817,19 +20824,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 /* harmony import */ var _Column_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Column.vue */ "./resources/js/components/Column.vue");
 /* harmony import */ var _ViewTask_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ViewTask.vue */ "./resources/js/components/ViewTask.vue");
 /* harmony import */ var _AddBoard_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AddBoard.vue */ "./resources/js/components/AddBoard.vue");
 /* harmony import */ var _DeleteBoard_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./DeleteBoard.vue */ "./resources/js/components/DeleteBoard.vue");
 /* harmony import */ var _AddTask_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./AddTask.vue */ "./resources/js/components/AddTask.vue");
 /* harmony import */ var _EditBoard_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./EditBoard.vue */ "./resources/js/components/EditBoard.vue");
+/* harmony import */ var _EditTask_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./EditTask.vue */ "./resources/js/components/EditTask.vue");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
 
 
 
@@ -20844,7 +20853,8 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     AddBoard: _AddBoard_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     DeleteBoard: _DeleteBoard_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
     AddTask: _AddTask_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-    EditBoard: _EditBoard_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+    EditBoard: _EditBoard_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+    EditTask: _EditTask_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
   props: {
     board: {
@@ -20857,13 +20867,8 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       selectedColumn: null // Initialize selectedColumn as null
     };
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_6__.mapGetters)(['isDarkMode', 'isMobileView', 'isMobileSidebarVisible', 'activeTask', 'isAddBoardVisible', 'isDeleteBoardVisible', 'isAddTaskVisible', 'shouldColumnsRefresh', 'isEditBoardVisible'])),
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_6__.mapActions)(['fetchBoards'])), {}, {
-    onColumnChanged: function onColumnChanged() {
-      this.$store.dispatch('fetchBoards').then(function () {
-        console.log('Boards re-fetched after column change');
-      });
-    },
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapGetters)(['isDarkMode', 'isMobileView', 'isMobileSidebarVisible', 'activeTask', 'isAddBoardVisible', 'isDeleteBoardVisible', 'isAddTaskVisible', 'shouldColumnsRefresh', 'isEditBoardVisible', 'isViewTaskVisible', 'isEditTaskVisible'])),
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapActions)(['fetchBoards'])), {}, {
     updateTaskColumn: function updateTaskColumn(activeTask, newColumn) {
       if (activeTask && newColumn !== null) {
         // Update the task's column based on the newColumn value
@@ -21084,6 +21089,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -21109,7 +21120,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         name: ''
       });
     },
-    removeColumn: function removeColumn(index) {
+    prepareColumnDeletion: function prepareColumnDeletion(index) {
       this.showDeleteConfirmation = true;
       this.columnIndexToDelete = index;
     },
@@ -21126,56 +21137,197 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     },
     submitBoardUpdate: function submitBoardUpdate() {
       var _this2 = this;
-      var columnData = {
-        name: 'column.name ',
-        board_id: this.activeBoard.board_id,
-        column_id: column.column_id
-      };
-      this.$store.dispatch('addColumn', {
-        columnData: columnData
+      this.updateBoard(this.board).then(function () {
+        //new columns
+        var newColumnPromises = _this2.board.columns.filter(function (column) {
+          return !column.column_id;
+        }).map(function (newColumn) {
+          return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/columns', {
+            name: newColumn.name,
+            board_id: _this2.board.board_id
+          });
+        });
+
+        //existing columns
+        var updateColumnPromises = _this2.board.columns.filter(function (column) {
+          return column.column_id;
+        }).map(function (existingColumn) {
+          return axios__WEBPACK_IMPORTED_MODULE_0___default().patch("/api/columns/".concat(existingColumn.column_id), {
+            name: existingColumn.name
+          });
+        });
+        return Promise.all([].concat(_toConsumableArray(newColumnPromises), _toConsumableArray(updateColumnPromises)));
       }).then(function () {
         _this2.fetchBoards();
+        _this2.toggleEditBoard();
       })["catch"](function (error) {
-        console.error('Error adding column:', error);
-      });
-      this.updateBoard(this.board).then(function () {
-        var updateColumnPromises = [];
-        if (_this2.board && _this2.board.columns) {
-          updateColumnPromises = _this2.board.columns.map(function (column) {
-            if (column.column_id) {
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().patch("/api/columns/".concat(column.column_id), {
-                name: column.name
-              });
-            }
-          }).filter(function (promise) {
-            return promise !== undefined;
-          });
-        }
-        Promise.all(updateColumnPromises).then(function () {
-          _this2.fetchBoards();
-          _this2.toggleEditBoard();
-        })["catch"](function (error) {
-          console.error('Error updating columns:', error);
-        });
-      })["catch"](function (error) {
-        console.error('Error updating board:', error);
+        console.error('Error updating board or columns:', error);
       });
     }
   }),
-  removeColumn: function removeColumn(index) {
-    var _this3 = this;
-    var column = this.board.columns[index];
-    if (column && column.column_id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("/api/columns/".concat(column.column_id)).then(function () {
-        _this3.board.columns.splice(index, 1);
-      })["catch"](function (error) {
-        console.error('Error deleting column:', error);
-      });
-    }
-  },
   created: function created() {
     if (this.activeBoard) {
       this.board = _objectSpread({}, this.activeBoard);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/EditTask.vue?vue&type=script&lang=js":
+/*!**************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/EditTask.vue?vue&type=script&lang=js ***!
+  \**************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw new Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw new Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      selectedStatus: '',
+      task: {
+        title: '',
+        subtasks: [],
+        description: '',
+        status: ''
+      },
+      showDeleteConfirmation: false,
+      subtaskIndexToDelete: null
+    };
+  },
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)(['activeTask'])), {}, {
+    columns: function columns() {
+      var _this = this;
+      if (this.activeTask) {
+        var board = this.$store.state.boards.find(function (b) {
+          return b.board_id === _this.activeTask.board_id;
+        });
+        console.log("Found board:", board);
+        return board ? board.columns : [];
+      }
+      return [];
+    }
+  }),
+  watch: {
+    activeTask: function activeTask(newTask, oldTask) {
+      if (newTask) {
+        this.selectedStatus = newTask.column_id;
+      }
+    }
+  },
+  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)(['updateTask', 'fetchBoards', 'setActiveTask'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapMutations)(['toggleEditTask', 'toggleViewTask'])), {}, {
+    addSubtask: function addSubtask() {
+      this.task.subtasks.push({
+        name: ''
+      });
+    },
+    updateSubtask: function updateSubtask(subtask) {
+      console.log('Updating subtask:', subtask);
+      this.$store.dispatch('updateSubtask', _objectSpread(_objectSpread({}, subtask), {}, {
+        isCompleted: !subtask.isCompleted,
+        title: subtask.title
+      }));
+    },
+    onChangeColumn: function onChangeColumn() {
+      var _this2 = this;
+      if (this.activeTask && this.selectedStatus) {
+        this.$store.dispatch('updateTaskColumn', {
+          taskId: this.activeTask.task_id,
+          columnId: this.selectedStatus
+        }).then(function () {
+          _this2.$emit('columnChanged');
+          console.log('Column change dispatched');
+        })["catch"](function (error) {
+          console.error('Failed to change column:', error);
+        });
+      }
+    },
+    prepareSubtaskDeletion: function prepareSubtaskDeletion(index) {
+      this.showDeleteConfirmation = true;
+      this.subtaskIndexToDelete = index;
+    },
+    deleteActiveSubtask: function deleteActiveSubtask() {
+      var _this3 = this;
+      var subtaskId = this.task.subtasks[this.subtaskIndexToDelete].subtask_id;
+      axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("/api/subtasks/".concat(subtaskId)).then(function () {
+        _this3.task.subtasks.splice(_this3.subtaskIndexToDelete, 1);
+        _this3.showDeleteConfirmation = false;
+        _this3.subtaskindexToDelete = null;
+      })["catch"](function (error) {
+        console.error('Error deleting subtask:', error);
+      });
+    },
+    removeSubtask: function removeSubtask(index) {
+      this.task.subtasks.splice(index, 1);
+    }
+  }),
+  submitTaskUpdate: function submitTaskUpdate() {
+    var _this4 = this;
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) switch (_context.prev = _context.next) {
+          case 0:
+            _this4.updateTask(_this4.task).then(function () {
+              //new subtasks
+              var newSubtaskPromises = _this4.task.subtasks.filter(function (subtask) {
+                return !subtask.subtask_id;
+              }).map(function (newSubtask) {
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/subtasks', {
+                  title: newSubtask.title,
+                  task_id: _this4.task.task_id
+                });
+              });
+
+              //existing subtasks
+              var updateTaskPromises = _this4.task.subtasks.filter(function (subtask) {
+                return subtask.subtask_id;
+              }).map(function (existingsubtask) {
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().patch("/api/subtasks/".concat(existingsubtask.subtask_id), {
+                  title: existingsubtask.title
+                });
+              });
+              return Promise.all([].concat(_toConsumableArray(newSubtaskPromises), _toConsumableArray(updateSubtaskPromises)));
+            }).then(function () {
+              _this4.fetchBoards();
+              _this4.toggleEditTask();
+            })["catch"](function (error) {
+              console.error('Error updating task or subtasks:', error);
+            });
+          case 1:
+          case "end":
+            return _context.stop();
+        }
+      }, _callee);
+    }))();
+  },
+  created: function created() {
+    if (this.activeTask) {
+      this.task = _objectSpread({}, this.activeTask);
+      this.selectedStatus = this.activeTask.status;
     }
   }
 });
@@ -21235,11 +21387,11 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       task: task
     };
   },
-  methods: {
+  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapMutations)(['toggleViewTask'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)(['setActiveTask'])), {}, {
     selectTask: function selectTask() {
-      this.$store.dispatch('setActiveTask', this.task);
+      this.setActiveTask(this.task);
     }
-  }
+  })
 });
 
 /***/ }),
@@ -21442,10 +21594,12 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       this.selectedColumn = newTask.column_id;
     }
   }),
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)(['setActiveTask'])), {}, {
+  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)(['setActiveTask'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapMutations)(['toggleEditTask', 'toggleViewTask'])), {}, {
     updateSubtask: function updateSubtask(subtask) {
+      console.log('Updating subtask:', subtask);
       this.$store.dispatch('updateSubtask', _objectSpread(_objectSpread({}, subtask), {}, {
-        isCompleted: !subtask.isCompleted
+        isCompleted: !subtask.isCompleted,
+        title: subtask.title
       }));
     },
     onChangeColumn: function onChangeColumn() {
@@ -21716,6 +21870,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_DeleteBoard = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("DeleteBoard");
   var _component_AddTask = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("AddTask");
   var _component_EditBoard = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("EditBoard");
+  var _component_EditTask = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("EditTask");
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [$props.board && _ctx.shouldColumnsRefresh ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.board.columns, function (column) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
       key: column.column_id,
@@ -21726,10 +21881,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8 /* PROPS */, ["column", "selectedColumn"])]);
   }), 128 /* KEYED_FRAGMENT */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(['add-column-div', _ctx.isDarkMode ? 'add-column-div-dark' : ''])
-  }, [].concat(_hoisted_3), 2 /* CLASS */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.activeTask ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_ViewTask, {
-    key: 1,
-    onColumnChanged: $options.onColumnChanged
-  }, null, 8 /* PROPS */, ["onColumnChanged"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.isAddBoardVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_AddBoard, {
+  }, [].concat(_hoisted_3), 2 /* CLASS */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.isViewTaskVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_ViewTask, {
+    key: 1
+  })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.isAddBoardVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_AddBoard, {
     key: 2
   })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.isDeleteBoardVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_DeleteBoard, {
     key: 3
@@ -21737,6 +21891,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     key: 4
   })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.isEditBoardVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_EditBoard, {
     key: 5
+  })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.isEditTaskVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_EditTask, {
+    key: 6
   })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64 /* STABLE_FRAGMENT */);
 }
 
@@ -21956,7 +22112,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       required: ""
     }, null, 8 /* PROPS */, _hoisted_9), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, column.name]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
       onClick: function onClick($event) {
-        return $options.removeColumn(index), _this.showDeleteConfirmation = true;
+        return _ctx.removeColumn(index), _this.showDeleteConfirmation = true;
       },
       src: "/assets/icon-cross.svg",
       alt: "light theme"
@@ -21987,6 +22143,113 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/EditTask.vue?vue&type=template&id=cdb5aecc":
+/*!******************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/EditTask.vue?vue&type=template&id=cdb5aecc ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+var _hoisted_1 = {
+  "class": "view-widget-modal"
+};
+var _hoisted_2 = {
+  "class": "add-edit-board-container"
+};
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
+  "class": "heading-l"
+}, "Edit Task", -1 /* HOISTED */);
+var _hoisted_4 = {
+  "class": "form-group"
+};
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "taskName"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+  "class": "body-m"
+}, "Title")], -1 /* HOISTED */);
+var _hoisted_6 = ["placeholder"];
+var _hoisted_7 = {
+  "class": "form-group"
+};
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "class": "body-m",
+  "for": "description"
+}, "Description", -1 /* HOISTED */);
+var _hoisted_9 = ["placeholder"];
+var _hoisted_10 = {
+  "class": "form-group"
+};
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+  "class": "body-m"
+}, "Subtasks")], -1 /* HOISTED */);
+var _hoisted_12 = ["onUpdate:modelValue"];
+var _hoisted_13 = ["onClick"];
+var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  "class": "btn-primary-s",
+  type: "submit"
+}, "Save Changes", -1 /* HOISTED */);
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "grey-box",
+    onClick: _cache[0] || (_cache[0] = function () {
+      return _ctx.toggleEditTask && _ctx.toggleEditTask.apply(_ctx, arguments);
+    })
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+    onSubmit: _cache[4] || (_cache[4] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+      return _ctx.submitTaskUpdate && _ctx.submitTaskUpdate.apply(_ctx, arguments);
+    }, ["prevent"]))
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "class": "body-l",
+    type: "text",
+    id: "TaskName",
+    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+      return $data.task.title = $event;
+    }),
+    required: "",
+    placeholder: _ctx.activeTask.title
+  }, null, 8 /* PROPS */, _hoisted_6), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.task.title]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
+    "class": "description body-l",
+    id: "description",
+    rows: "4",
+    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+      return $data.task.description = $event;
+    }),
+    placeholder: _ctx.activeTask.description
+  }, null, 8 /* PROPS */, _hoisted_9), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.task.description]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.task.subtasks, function (subtask, index) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+      key: index,
+      "class": "subtasks"
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+      "class": "body-l",
+      type: "text",
+      "onUpdate:modelValue": function onUpdateModelValue($event) {
+        return subtask.title = $event;
+      },
+      required: ""
+    }, null, 8 /* PROPS */, _hoisted_12), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, subtask.title]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+      onClick: function onClick($event) {
+        return $options.removeSubtask(index);
+      },
+      src: "/assets/icon-cross.svg",
+      alt: "delete subtask"
+    }, null, 8 /* PROPS */, _hoisted_13)]);
+  }), 128 /* KEYED_FRAGMENT */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    "class": "btn-secondary",
+    type: "button",
+    onClick: _cache[3] || (_cache[3] = function () {
+      return $options.addSubtask && $options.addSubtask.apply($options, arguments);
+    })
+  }, "+ Add New Subtask")]), _hoisted_14], 32 /* NEED_HYDRATION */)])])], 64 /* STABLE_FRAGMENT */);
+}
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/TaskWidget.vue?vue&type=template&id=58acf454":
 /*!********************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/TaskWidget.vue?vue&type=template&id=58acf454 ***!
@@ -22009,8 +22272,8 @@ var _hoisted_2 = {
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(['task-widget-container', _ctx.isDarkMode ? 'task-widget-container-dark' : '']),
-    onClick: _cache[0] || (_cache[0] = function () {
-      return $options.selectTask && $options.selectTask.apply($options, arguments);
+    onClick: _cache[0] || (_cache[0] = function ($event) {
+      return $options.selectTask(), _ctx.toggleViewTask();
     })
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", _hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.task.title), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.completedSubtasksCount) + " of " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.totalSubtasksCount) + " subtasks complete", 1 /* TEXT */)], 2 /* CLASS */);
 }
@@ -22365,7 +22628,6 @@ var _hoisted_1 = {
   "class": "view-widget-modal"
 };
 var _hoisted_2 = {
-  key: 0,
   "class": "add-edit-board-container"
 };
 var _hoisted_3 = {
@@ -22400,24 +22662,21 @@ var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 }, "Status", -1 /* HOISTED */);
 var _hoisted_14 = ["value"];
 var _hoisted_15 = {
-  key: 1
+  key: 0
 };
-var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_16 = {
   "class": "drop-down-conatiner-task"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
-  "class": "body-l edit-p"
-}, " Edit Task"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+};
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
   "class": "body-l delete-p"
-}, " Delete Task")], -1 /* HOISTED */);
-var _hoisted_17 = [_hoisted_16];
+}, " Delete Task", -1 /* HOISTED */);
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [$options.activeTask ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
-    key: 0,
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "grey-box",
-    onClick: _cache[0] || (_cache[0] = function ($event) {
-      return _ctx.setActiveTask(null);
+    onClick: _cache[0] || (_cache[0] = function () {
+      return _ctx.toggleViewTask && _ctx.toggleViewTask.apply(_ctx, arguments);
     })
-  })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [$options.activeTask ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.activeTask.title), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.activeTask.title), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     onClick: _cache[1] || (_cache[1] = function ($event) {
       return $data.dropdownVisible = true;
     }),
@@ -22452,7 +22711,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       key: column.column_id,
       value: column.column_id
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(column.name), 9 /* TEXT, PROPS */, _hoisted_14);
-  }), 128 /* KEYED_FRAGMENT */))], 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.selectedColumn]])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), $data.dropdownVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_15, [].concat(_hoisted_17))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64 /* STABLE_FRAGMENT */);
+  }), 128 /* KEYED_FRAGMENT */))], 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.selectedColumn]])])])]), $data.dropdownVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+    "class": "body-l edit-p",
+    onClick: _cache[4] || (_cache[4] = function ($event) {
+      return _ctx.toggleEditTask(), $data.dropdownVisible = false, _ctx.toggleViewTask();
+    })
+  }, " Edit Task"), _hoisted_17])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
@@ -22499,6 +22763,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw new Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw new Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -22522,6 +22789,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     isDeleteBoardVisible: false,
     isAddTaskVisible: false,
     isEditBoardVisible: false,
+    isViewTaskVisible: false,
+    isEditTaskVisible: false,
     boards: [],
     columns: [],
     subtasks: [],
@@ -22562,6 +22831,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     toggleEditBoard: function toggleEditBoard(state) {
       state.isEditBoardVisible = !state.isEditBoardVisible;
+    },
+    toggleViewTask: function toggleViewTask(state) {
+      state.isViewTaskVisible = !state.isViewTaskVisible;
+    },
+    toggleEditTask: function toggleEditTask(state) {
+      state.isEditTaskVisible = !state.isEditTaskVisible;
     },
     SET_BOARDS: function SET_BOARDS(state, boards) {
       state.boards = boards;
@@ -22639,6 +22914,30 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         _iterator.f();
       }
     },
+    UPDATE_TASK: function UPDATE_TASK(state, updatedTask) {
+      var board = state.boards.find(function (b) {
+        return b.board_id === updatedTask.board_id;
+      });
+      if (board) {
+        var column = board.columns.find(function (c) {
+          return c.column_id === updatedTask.column_id;
+        });
+        if (column) {
+          var taskIndex = column.tasks.findIndex(function (t) {
+            return t.task_id === updatedTask.task_id;
+          });
+          if (taskIndex !== -1) {
+            column.tasks.splice(taskIndex, 1, updatedTask);
+          } else {
+            console.error('Task to update not found in column');
+          }
+        } else {
+          console.error('Column for the task not found');
+        }
+      } else {
+        console.error('Board for the task not found');
+      }
+    },
     UPDATE_SUBTASK: function UPDATE_SUBTASK(state, updatedSubtask) {
       console.log('Updating subtask in Vuex:', updatedSubtask);
       state.boards.forEach(function (board) {
@@ -22648,7 +22947,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
               return subtask.subtask_id === updatedSubtask.subtask_id;
             });
             if (subtaskIndex !== -1) {
-              // Simply assigning the updated subtask for Vue 3 reactivity
               task.subtasks[subtaskIndex] = updatedSubtask;
             }
           });
@@ -22666,9 +22964,23 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       state.boards = state.boards.filter(function (board) {
         return board.id !== boardId;
       });
+    },
+    DELETE_SUBTASK: function DELETE_SUBTASK(state, subtaskId) {
+      state.boards.forEach(function (board) {
+        board.columns.forEach(function (column) {
+          column.tasks.forEach(function (task) {
+            var subtaskIndex = task.subtasks.findIndex(function (subtask) {
+              return subtask.subtask_id === subtaskId;
+            });
+            if (subtaskIndex !== -1) {
+              task.subtasks.splice(subtaskIndex, 1);
+            }
+          });
+        });
+      });
     }
   },
-  actions: {
+  actions: _defineProperty(_defineProperty({
     fetchBoards: function fetchBoards(_ref3) {
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var commit, boardsResponse;
@@ -22823,24 +23135,104 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         }, _callee6, null, [[2, 8]]);
       }))();
     },
-    setActiveBoard: function setActiveBoard(_ref11, board) {
-      var commit = _ref11.commit;
+    updateTask: function updateTask(_ref11, taskData) {
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+        var commit, response;
+        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+          while (1) switch (_context7.prev = _context7.next) {
+            case 0:
+              commit = _ref11.commit;
+              _context7.prev = 1;
+              _context7.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().patch("/api/tasks/".concat(taskData.task_id), taskData);
+            case 4:
+              response = _context7.sent;
+              commit('UPDATE_TASK', response.data);
+              return _context7.abrupt("return", response.data);
+            case 9:
+              _context7.prev = 9;
+              _context7.t0 = _context7["catch"](1);
+              console.error('Error updating task:', _context7.t0);
+              throw _context7.t0;
+            case 13:
+            case "end":
+              return _context7.stop();
+          }
+        }, _callee7, null, [[1, 9]]);
+      }))();
+    },
+    updateSubtask: function updateSubtask(_ref12, subtaskData) {
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+        var commit, response;
+        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+          while (1) switch (_context8.prev = _context8.next) {
+            case 0:
+              commit = _ref12.commit;
+              _context8.prev = 1;
+              _context8.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().patch("/api/subtasks/".concat(subtaskData.subtask_id), {
+                title: subtaskData.title,
+                isCompleted: subtaskData.isCompleted
+              });
+            case 4:
+              response = _context8.sent;
+              commit('UPDATE_SUBTASK', response.data);
+              _context8.next = 11;
+              break;
+            case 8:
+              _context8.prev = 8;
+              _context8.t0 = _context8["catch"](1);
+              console.error('Error updating subtask:', _context8.t0);
+            case 11:
+            case "end":
+              return _context8.stop();
+          }
+        }, _callee8, null, [[1, 8]]);
+      }))();
+    },
+    deleteSubtask: function deleteSubtask(_ref13, subtaskId) {
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+        var commit;
+        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+          while (1) switch (_context9.prev = _context9.next) {
+            case 0:
+              commit = _ref13.commit;
+              _context9.prev = 1;
+              _context9.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("/api/subtasks/".concat(subtaskId));
+            case 4:
+              commit('DELETE_SUBTASK', subtaskId);
+              _context9.next = 10;
+              break;
+            case 7:
+              _context9.prev = 7;
+              _context9.t0 = _context9["catch"](1);
+              console.error('Error deleting subtask:', _context9.t0);
+            case 10:
+            case "end":
+              return _context9.stop();
+          }
+        }, _callee9, null, [[1, 7]]);
+      }))();
+    },
+    setActiveBoard: function setActiveBoard(_ref14, board) {
+      var commit = _ref14.commit;
       commit('SET_ACTIVE_BOARD', board);
     },
-    setActiveTask: function setActiveTask(_ref12, task) {
-      var commit = _ref12.commit,
-        dispatch = _ref12.dispatch;
+    setActiveTask: function setActiveTask(_ref15, task) {
+      var commit = _ref15.commit,
+        dispatch = _ref15.dispatch;
       commit('SET_ACTIVE_TASK', task);
       if (task) {
         dispatch('fetchSubtasksForActiveTask', task.task_id);
       }
     },
-    setColumns: function setColumns(_ref13, columns) {
-      var commit = _ref13.commit;
+    setColumns: function setColumns(_ref16, columns) {
+      var commit = _ref16.commit;
       commit('SET_COLUMNS', columns);
     },
-    fetchSubtasksForActiveTask: function fetchSubtasksForActiveTask(_ref14, taskId) {
-      var commit = _ref14.commit;
+    fetchSubtasksForActiveTask: function fetchSubtasksForActiveTask(_ref17, taskId) {
+      var commit = _ref17.commit;
       axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/tasks/".concat(taskId, "/subtasks")).then(function (response) {
         console.log("Subtasks fetched for task ".concat(taskId, ":"), response.data);
         commit('SET_SUBTASKS', response.data);
@@ -22848,8 +23240,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         return console.error(error);
       });
     },
-    fetchSubtasksForTask: function fetchSubtasksForTask(_ref15, taskId) {
-      var commit = _ref15.commit;
+    fetchSubtasksForTask: function fetchSubtasksForTask(_ref18, taskId) {
+      var commit = _ref18.commit;
       axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/tasks/".concat(taskId, "/subtasks")).then(function (response) {
         commit('SET_SUBTASKS', {
           taskId: taskId,
@@ -22858,50 +23250,48 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       })["catch"](function (error) {
         return console.error(error);
       });
-    },
-    updateSubtask: function updateSubtask(_ref16, subtask) {
-      var commit = _ref16.commit;
-      console.log("subtask is completed data here", subtask.isCompleted);
-      axios__WEBPACK_IMPORTED_MODULE_0___default().patch("/api/subtasks/".concat(subtask.subtask_id), {
-        isCompleted: !subtask.isCompleted
-      }).then(function (response) {
-        commit('UPDATE_SUBTASK', response.data);
-      })["catch"](function (error) {
-        return console.error('Error updating subtask:', error);
-      });
-    },
-    updateTaskColumn: function updateTaskColumn(_ref17, _ref18) {
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
-        var commit, taskId, columnId;
-        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
-          while (1) switch (_context7.prev = _context7.next) {
-            case 0:
-              commit = _ref17.commit;
-              taskId = _ref18.taskId, columnId = _ref18.columnId;
-              _context7.prev = 2;
-              _context7.next = 5;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().patch("/api/tasks/".concat(taskId, "/updateColumn"), {
-                column_id: columnId
-              });
-            case 5:
-              commit('UPDATE_TASK_COLUMN', {
-                taskId: taskId,
-                columnId: columnId
-              });
-              _context7.next = 11;
-              break;
-            case 8:
-              _context7.prev = 8;
-              _context7.t0 = _context7["catch"](2);
-              console.error('Error updating task column:', _context7.t0);
-            case 11:
-            case "end":
-              return _context7.stop();
-          }
-        }, _callee7, null, [[2, 8]]);
-      }))();
     }
-  },
+  }, "updateSubtask", function updateSubtask(_ref19, subtask) {
+    var commit = _ref19.commit;
+    console.log("subtask is completed data here", subtask.isCompleted);
+    axios__WEBPACK_IMPORTED_MODULE_0___default().patch("/api/subtasks/".concat(subtask.subtask_id), {
+      isCompleted: !subtask.isCompleted
+    }).then(function (response) {
+      commit('UPDATE_SUBTASK', response.data);
+    })["catch"](function (error) {
+      return console.error('Error updating subtask:', error);
+    });
+  }), "updateTaskColumn", function updateTaskColumn(_ref20, _ref21) {
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
+      var commit, taskId, columnId;
+      return _regeneratorRuntime().wrap(function _callee10$(_context10) {
+        while (1) switch (_context10.prev = _context10.next) {
+          case 0:
+            commit = _ref20.commit;
+            taskId = _ref21.taskId, columnId = _ref21.columnId;
+            _context10.prev = 2;
+            _context10.next = 5;
+            return axios__WEBPACK_IMPORTED_MODULE_0___default().patch("/api/tasks/".concat(taskId, "/updateColumn"), {
+              column_id: columnId
+            });
+          case 5:
+            commit('UPDATE_TASK_COLUMN', {
+              taskId: taskId,
+              columnId: columnId
+            });
+            _context10.next = 11;
+            break;
+          case 8:
+            _context10.prev = 8;
+            _context10.t0 = _context10["catch"](2);
+            console.error('Error updating task column:', _context10.t0);
+          case 11:
+          case "end":
+            return _context10.stop();
+        }
+      }, _callee10, null, [[2, 8]]);
+    }))();
+  }),
   getters: {
     isDarkMode: function isDarkMode(state) {
       return state.isDarkMode;
@@ -22947,6 +23337,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     isEditBoardVisible: function isEditBoardVisible(state) {
       return state.isEditBoardVisible;
+    },
+    isViewTaskVisible: function isViewTaskVisible(state) {
+      return state.isViewTaskVisible;
+    },
+    isEditTaskVisible: function isEditTaskVisible(state) {
+      return state.isEditTaskVisible;
     }
   }
 }));
@@ -23115,6 +23511,30 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, ".delete-container {\n  display: flex;\n  flex-direction: column;\n  padding: 2rem;\n  border-radius: 6px;\n  gap: 24px;\n  width: 416px;\n  background-color: white;\n}\n.delete-container .body-l {\n  color: #828FA3;\n}\n.delete-container .heading-l {\n  color: #EA5555;\n}\n.button-bottom-flex {\n  display: flex;\n  gap: 0.5rem;\n  justify-content: center;\n  align-items: center;\n}\n.button-bottom-flex .btn-destructive, .button-bottom-flex .btn-secondary {\n  flex-shrink: 1;\n}\n.higher {\n  z-index: 999;\n}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/EditTask.vue?vue&type=style&index=0&id=cdb5aecc&lang=scss":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/EditTask.vue?vue&type=style&index=0&id=cdb5aecc&lang=scss ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -23731,6 +24151,36 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_EditBoard_vue_vue_type_style_index_0_id_239a9321_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/EditTask.vue?vue&type=style&index=0&id=cdb5aecc&lang=scss":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/EditTask.vue?vue&type=style&index=0&id=cdb5aecc&lang=scss ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_EditTask_vue_vue_type_style_index_0_id_cdb5aecc_lang_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./EditTask.vue?vue&type=style&index=0&id=cdb5aecc&lang=scss */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/EditTask.vue?vue&type=style&index=0&id=cdb5aecc&lang=scss");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_EditTask_vue_vue_type_style_index_0_id_cdb5aecc_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_EditTask_vue_vue_type_style_index_0_id_cdb5aecc_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -24402,6 +24852,37 @@ if (false) {}
 
 /***/ }),
 
+/***/ "./resources/js/components/EditTask.vue":
+/*!**********************************************!*\
+  !*** ./resources/js/components/EditTask.vue ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _EditTask_vue_vue_type_template_id_cdb5aecc__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditTask.vue?vue&type=template&id=cdb5aecc */ "./resources/js/components/EditTask.vue?vue&type=template&id=cdb5aecc");
+/* harmony import */ var _EditTask_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EditTask.vue?vue&type=script&lang=js */ "./resources/js/components/EditTask.vue?vue&type=script&lang=js");
+/* harmony import */ var _EditTask_vue_vue_type_style_index_0_id_cdb5aecc_lang_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./EditTask.vue?vue&type=style&index=0&id=cdb5aecc&lang=scss */ "./resources/js/components/EditTask.vue?vue&type=style&index=0&id=cdb5aecc&lang=scss");
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+
+
+const __exports__ = /*#__PURE__*/(0,_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_EditTask_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_EditTask_vue_vue_type_template_id_cdb5aecc__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/components/EditTask.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
 /***/ "./resources/js/components/TaskWidget.vue":
 /*!************************************************!*\
   !*** ./resources/js/components/TaskWidget.vue ***!
@@ -24669,6 +25150,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/EditTask.vue?vue&type=script&lang=js":
+/*!**********************************************************************!*\
+  !*** ./resources/js/components/EditTask.vue?vue&type=script&lang=js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_EditTask_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_EditTask_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./EditTask.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/EditTask.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
 /***/ "./resources/js/components/TaskWidget.vue?vue&type=script&lang=js":
 /*!************************************************************************!*\
   !*** ./resources/js/components/TaskWidget.vue?vue&type=script&lang=js ***!
@@ -24861,6 +25358,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/EditTask.vue?vue&type=template&id=cdb5aecc":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/EditTask.vue?vue&type=template&id=cdb5aecc ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_EditTask_vue_vue_type_template_id_cdb5aecc__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_EditTask_vue_vue_type_template_id_cdb5aecc__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./EditTask.vue?vue&type=template&id=cdb5aecc */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/EditTask.vue?vue&type=template&id=cdb5aecc");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/TaskWidget.vue?vue&type=template&id=58acf454":
 /*!******************************************************************************!*\
   !*** ./resources/js/components/TaskWidget.vue?vue&type=template&id=58acf454 ***!
@@ -25028,6 +25541,19 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_EditBoard_vue_vue_type_style_index_0_id_239a9321_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./EditBoard.vue?vue&type=style&index=0&id=239a9321&lang=scss */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/EditBoard.vue?vue&type=style&index=0&id=239a9321&lang=scss");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/EditTask.vue?vue&type=style&index=0&id=cdb5aecc&lang=scss":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/components/EditTask.vue?vue&type=style&index=0&id=cdb5aecc&lang=scss ***!
+  \*******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_EditTask_vue_vue_type_style_index_0_id_cdb5aecc_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./EditTask.vue?vue&type=style&index=0&id=cdb5aecc&lang=scss */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/EditTask.vue?vue&type=style&index=0&id=cdb5aecc&lang=scss");
 
 
 /***/ }),

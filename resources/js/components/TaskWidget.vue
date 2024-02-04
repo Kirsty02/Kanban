@@ -1,5 +1,5 @@
 <template>
-    <div :class="['task-widget-container', isDarkMode ? 'task-widget-container-dark' : '']"  @click="selectTask">
+    <div :class="['task-widget-container', isDarkMode ? 'task-widget-container-dark' : '']"  @click="selectTask(), toggleViewTask()">
         <h2 class="heading-m">{{task.title}}</h2>
         <p class="body-m">{{ completedSubtasksCount }} of {{ totalSubtasksCount }}  subtasks complete</p>
     </div>
@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 import { ref, watch } from 'vue';
 export default {
     computed: {
@@ -40,8 +40,10 @@ export default {
     };
     },
     methods:{
+        ...mapMutations(['toggleViewTask']),
+        ...mapActions(['setActiveTask']),
         selectTask(){
-            this.$store.dispatch('setActiveTask', this.task);
+            this.setActiveTask(this.task);
         }
     }
 }

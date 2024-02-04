@@ -16,13 +16,15 @@ class SubtaskController extends Controller
     }
     public function update(Request $request, $subtaskId)
     {
-        Log::info('Raw isCompleted value from request: ' . $request->input('isCompleted'));
-        Log::info('Request data:', $request->all());
-        $subtask = Subtask::findOrFail($subtaskId);
 
-        // Directly assigning the value from the request
-        $subtask->isCompleted = $request->input('isCompleted');
-        $subtask->save();
+        $subtask = Subtask::findOrFail($subtaskId);
+        
+        $validatedData = $request->validate([
+            'title' => 'string|max:255', 
+            'isCompleted' => 'boolean',
+        ]);
+
+        $subtask->update($validatedData);
         return response()->json($subtask);
     }
 
@@ -36,6 +38,14 @@ class SubtaskController extends Controller
 
         $subtask = Subtask::create($validatedData);
         return response()->json($subtask, 201);
+    }
+    
+    public function destroy($subtaskId)
+    {
+        $subtask = Subtask::findOrFail($subtaskId);
+        $subtask->delete();
+
+        return response()->json(['message' => 'Subtask deleted successfully']);
     }
 
 

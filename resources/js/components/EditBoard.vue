@@ -60,72 +60,51 @@ import { mapMutations, mapActions, mapGetters } from 'vuex';
       addColumn() {
         this.board.columns.push({ name: '' });
       },
-      removeColumn(index) {
+      prepareColumnDeletion(index) {
         this.showDeleteConfirmation = true;
         this.columnIndexToDelete = index;
       },
       deleteActiveColumn() {
         const columnId = this.board.columns[this.columnIndexToDelete].column_id;
         axios.delete(`/api/columns/${columnId}`)
-            .then(() => {
-                this.board.columns.splice(this.columnIndexToDelete, 1);
-                this.showDeleteConfirmation = false;
-                this.columnIndexToDelete = null;
-            })
-            .catch(error => {
-                console.error('Error deleting column:', error);
-            });
-      },
-      submitBoardUpdate() {
-            const columnData = {
-            name: 'column.name ', 
-            board_id: this.activeBoard.board_id, 
-            column_id: column.column_id,
-        };
-
-        this.$store.dispatch('addColumn', { columnData })
-            .then(() => {
-                
-                this.fetchBoards();
-            })
-            .catch(error => {
-                console.error('Error adding column:', error);
-            });
-
-
-        this.updateBoard(this.board).then(() => {
-          let updateColumnPromises = []; 
-
-          if (this.board && this.board.columns) {
-            updateColumnPromises = this.board.columns.map(column => {
-  
-              if (column.column_id) {
-                return axios.patch(`/api/columns/${column.column_id}`, { name: column.name });
-              }
-            }).filter(promise => promise !== undefined);
-          }
-
-          Promise.all(updateColumnPromises).then(() => {
-            this.fetchBoards(); 
-            this.toggleEditBoard(); 
-          }).catch(error => {
-            console.error('Error updating columns:', error);
-          });
-        }).catch(error => {
-          console.error('Error updating board:', error);
-        });
-    },
-  },
-    removeColumn(index) {
-        const column = this.board.columns[index];
-        if (column && column.column_id) {
-            axios.delete(`/api/columns/${column.column_id}`)
-                .then(() => {
-                    this.board.columns.splice(index, 1);
+        .then(() => {
+            this.board.columns.splice(this.columnIndexToDelete, 1);
+            this.showDeleteConfirmation = false;
+            this.columnIndexToDelete = null;
                 })
                 .catch(error => {
                     console.error('Error deleting column:', error);
                 });
+      },
+      submitBoardUpdate() {
+        this.updateBoard(this.board)
+          .then(() => {
+            //new columns
+            let newColumnPromises = this.board.columns
+              .filter(column => !column.column_id)
+              .map(newColumn => {
+                return axios.post('/api/columns', {
+                  name: newColumn.name,
+                  board_id: this.board.board_id,
+                });
+              });
+
+            //existing columns
+            let updateColumnPromises = this.board.columns
+              .filter(column => column.column_id)
+              .map(existingColumn => {
+                return axios.patch(`/api/columns/${existingColumn.column_id}`, { name: existingColumn.name });
+              });
+
+            return Promise.all([...newColumnPromises, ...updateColumnPromises]);
+          })
+          .then(() => {
+            this.fetchBoards();
+            this.toggleEditBoard();
+          })
+          .catch(error => {
+            console.error('Error updating board or columns:', error);
+          });
         }
     },
     created(){

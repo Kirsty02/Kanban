@@ -12,11 +12,12 @@
           <h2 class="heading-xl"> + New Column</h2>
       </div>
     </div>
-    <ViewTask v-if="activeTask" @columnChanged="onColumnChanged"></ViewTask>
+    <ViewTask v-if="isViewTaskVisible"></ViewTask>
     <AddBoard v-if="isAddBoardVisible"> </AddBoard>
     <DeleteBoard v-if="isDeleteBoardVisible"> </DeleteBoard>
     <AddTask v-if="isAddTaskVisible"> </AddTask>
     <EditBoard v-if="isEditBoardVisible"> </EditBoard>
+    <EditTask v-if="isEditTaskVisible"> </EditTask>
 
     
   </template>
@@ -29,6 +30,7 @@
   import DeleteBoard from './DeleteBoard.vue';
   import AddTask from './AddTask.vue';
   import EditBoard from './EditBoard.vue';
+  import EditTask from './EditTask.vue';
   
   export default {
       components: {
@@ -37,7 +39,8 @@
           AddBoard,
           DeleteBoard,
           AddTask,
-          EditBoard
+          EditBoard,
+          EditTask
       },
       props: {
         board: {
@@ -51,16 +54,11 @@
         };
       },
       computed: {
-          ...mapGetters(['isDarkMode','isMobileView', 'isMobileSidebarVisible', 'activeTask', 'isAddBoardVisible', 'isDeleteBoardVisible', 'isAddTaskVisible', 'shouldColumnsRefresh', 'isEditBoardVisible']),
+          ...mapGetters(['isDarkMode','isMobileView', 'isMobileSidebarVisible', 'activeTask', 'isAddBoardVisible', 'isDeleteBoardVisible', 'isAddTaskVisible', 'shouldColumnsRefresh', 'isEditBoardVisible','isViewTaskVisible', 'isEditTaskVisible']),
       },
  
       methods:{
         ...mapActions(['fetchBoards']),
-        onColumnChanged() {
-          this.$store.dispatch('fetchBoards').then(() => {
-            console.log('Boards re-fetched after column change');
-          });
-        },
         updateTaskColumn(activeTask, newColumn) {
           if (activeTask && newColumn !== null) {
             // Update the task's column based on the newColumn value

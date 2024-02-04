@@ -29,7 +29,6 @@ class ColumnController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'board_id' => 'required|integer',
-            'column_id' => 'required|integer',
         ]);
 
         $column = Column::create($validatedData);

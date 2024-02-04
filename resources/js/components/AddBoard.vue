@@ -31,7 +31,8 @@
       return {
         board: {
           name: '',
-          columns: [{ name: '' }, { name: '' }]
+          columns: [{ name: '' }, { name: '' }],
+  
         }
         };
         },
@@ -46,18 +47,21 @@
           },
           async createBoard() {
             try{
-              let response = await axios.post('api/boards', this.board);
-              let boardId = response.data.board_id;
+              let boardResponse = await axios.post('/api/boards', { name: this.board.name });
+              let boardId = boardResponse.data.board_id;
 
               for(let column of this.board.columns){
-                await axios.post('/api/columns', {
+                if(column.name.trim() !== ''){
+                  await axios.post('/api/columns', {
                   name: column.name,
-                  board_id: boardId
+                  board_id: boardId,
                 });
+                }
               }
               this.fetchBoards();
+              this.setActiveBoard(boardResponse.data);
+              this.fetchBoards();
               this.toggleAddBoardForm();
-              this.setActiveBoard(this.board);
             }catch(error){
               console.error('Error creating board and columns:', error);
             }
