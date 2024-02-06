@@ -89,7 +89,7 @@
       },
     },
     methods:{
-      ...mapActions(['setActiveTask']),
+      ...mapActions(['setActiveTask','fetchBoards']),
       ...mapMutations(['toggleEditTask', 'toggleViewTask']),
       updateSubtask(subtask) {
         console.log('Updating subtask:', subtask);

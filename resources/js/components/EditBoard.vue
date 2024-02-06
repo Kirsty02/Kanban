@@ -12,7 +12,7 @@
           <label><p class="body-m">Columns</p></label>
           <div v-for="(column, index) in board.columns" :key="index" class="columns">
             <input class="body-l" type="text" v-model="column.name" required>
-            <img @click="removeColumn(index), this.showDeleteConfirmation=true" src="/assets/icon-cross.svg" alt="light theme">
+            <img @click="prepareToRemoveColumn(index)" src="/assets/icon-cross.svg" alt="light theme">
           </div>
           <button class="btn-secondary" type="button" @click="addColumn">+ Add New Column</button>
         </div>
@@ -38,8 +38,9 @@
   </template>
   
 <script>
-import axios from 'axios';
-import { mapMutations, mapActions, mapGetters } from 'vuex';
+  import axios from 'axios';
+  import { mapMutations, mapActions, mapGetters } from 'vuex';
+  
   export default {
     data() {
       return {
@@ -52,50 +53,59 @@ import { mapMutations, mapActions, mapGetters } from 'vuex';
       };
     },
     computed: {
-      ...mapGetters([  'activeBoard']),
+      ...mapGetters(['activeBoard']),
     },
     methods: {
       ...mapActions(['updateBoard', 'fetchBoards']),
       ...mapMutations(['toggleEditBoard']),
       addColumn() {
-        this.board.columns.push({ name: '' });
+        this.board.columns.push({ name: '', isNew: true }); // Mark new columns
       },
-      prepareColumnDeletion(index) {
-        this.showDeleteConfirmation = true;
+      removeColumn(index) {
+        this.board.columns.splice(index, 1);
+      },
+      prepareToRemoveColumn(index) {
         this.columnIndexToDelete = index;
+        this.showDeleteConfirmation = true;
       },
       deleteActiveColumn() {
-        const columnId = this.board.columns[this.columnIndexToDelete].column_id;
-        axios.delete(`/api/columns/${columnId}`)
-        .then(() => {
-            this.board.columns.splice(this.columnIndexToDelete, 1);
-            this.showDeleteConfirmation = false;
-            this.columnIndexToDelete = null;
-                })
-                .catch(error => {
-                    console.error('Error deleting column:', error);
-                });
+        const column = this.board.columns[this.columnIndexToDelete];
+        if (column && column.column_id) {
+          axios.delete(`/api/columns/${column.column_id}`)
+            .then(() => {
+              this.removeColumn(this.columnIndexToDelete);
+            })
+            .catch(error => console.error('Error deleting column:', error))
+            .finally(() => {
+              this.showDeleteConfirmation = false;
+              this.columnIndexToDelete = null;
+            });
+        }
       },
       submitBoardUpdate() {
+        if (!this.board.board_id) {
+          alert("Board ID is missing.");
+          return;
+        }
+  
         this.updateBoard(this.board)
           .then(() => {
-            //new columns
-            let newColumnPromises = this.board.columns
-              .filter(column => !column.column_id)
-              .map(newColumn => {
-                return axios.post('/api/columns', {
-                  name: newColumn.name,
-                  board_id: this.board.board_id,
-                });
-              });
-
-            //existing columns
-            let updateColumnPromises = this.board.columns
-              .filter(column => column.column_id)
-              .map(existingColumn => {
-                return axios.patch(`/api/columns/${existingColumn.column_id}`, { name: existingColumn.name });
-              });
-
+            const newColumns = this.board.columns.filter(column => column.isNew);
+            const existingColumns = this.board.columns.filter(column => !column.isNew);
+  
+            let newColumnPromises = newColumns.map(column => {
+              return axios.post('/api/columns', {
+                name: column.name,
+                board_id: this.board.board_id,
+              }).catch(error => console.error('Error creating new column:', error));
+            });
+  
+            let updateColumnPromises = existingColumns.map(column => {
+              return axios.patch(`/api/columns/${column.column_id}`, {
+                name: column.name,
+              }).catch(error => console.error('Error updating column:', error));
+            });
+  
             return Promise.all([...newColumnPromises, ...updateColumnPromises]);
           })
           .then(() => {
@@ -105,11 +115,11 @@ import { mapMutations, mapActions, mapGetters } from 'vuex';
           .catch(error => {
             console.error('Error updating board or columns:', error);
           });
-        }
+      }
     },
-    created(){
-      if (this.activeBoard){
-        this.board = { ...this.activeBoard};
+    created() {
+      if (this.activeBoard) {
+        this.board = JSON.parse(JSON.stringify(this.activeBoard)); // Deep clone to avoid direct mutation
       }
     },
   };

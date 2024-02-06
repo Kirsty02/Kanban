@@ -21117,43 +21117,57 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
   methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)(['updateBoard', 'fetchBoards'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapMutations)(['toggleEditBoard'])), {}, {
     addColumn: function addColumn() {
       this.board.columns.push({
-        name: ''
-      });
+        name: '',
+        isNew: true
+      }); // Mark new columns
     },
-    prepareColumnDeletion: function prepareColumnDeletion(index) {
-      this.showDeleteConfirmation = true;
+    removeColumn: function removeColumn(index) {
+      this.board.columns.splice(index, 1);
+    },
+    prepareToRemoveColumn: function prepareToRemoveColumn(index) {
       this.columnIndexToDelete = index;
+      this.showDeleteConfirmation = true;
     },
     deleteActiveColumn: function deleteActiveColumn() {
       var _this = this;
-      var columnId = this.board.columns[this.columnIndexToDelete].column_id;
-      axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("/api/columns/".concat(columnId)).then(function () {
-        _this.board.columns.splice(_this.columnIndexToDelete, 1);
-        _this.showDeleteConfirmation = false;
-        _this.columnIndexToDelete = null;
-      })["catch"](function (error) {
-        console.error('Error deleting column:', error);
-      });
+      var column = this.board.columns[this.columnIndexToDelete];
+      if (column && column.column_id) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("/api/columns/".concat(column.column_id)).then(function () {
+          _this.removeColumn(_this.columnIndexToDelete);
+        })["catch"](function (error) {
+          return console.error('Error deleting column:', error);
+        })["finally"](function () {
+          _this.showDeleteConfirmation = false;
+          _this.columnIndexToDelete = null;
+        });
+      }
     },
     submitBoardUpdate: function submitBoardUpdate() {
       var _this2 = this;
+      if (!this.board.board_id) {
+        alert("Board ID is missing.");
+        return;
+      }
       this.updateBoard(this.board).then(function () {
-        //new columns
-        var newColumnPromises = _this2.board.columns.filter(function (column) {
-          return !column.column_id;
-        }).map(function (newColumn) {
+        var newColumns = _this2.board.columns.filter(function (column) {
+          return column.isNew;
+        });
+        var existingColumns = _this2.board.columns.filter(function (column) {
+          return !column.isNew;
+        });
+        var newColumnPromises = newColumns.map(function (column) {
           return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/columns', {
-            name: newColumn.name,
+            name: column.name,
             board_id: _this2.board.board_id
+          })["catch"](function (error) {
+            return console.error('Error creating new column:', error);
           });
         });
-
-        //existing columns
-        var updateColumnPromises = _this2.board.columns.filter(function (column) {
-          return column.column_id;
-        }).map(function (existingColumn) {
-          return axios__WEBPACK_IMPORTED_MODULE_0___default().patch("/api/columns/".concat(existingColumn.column_id), {
-            name: existingColumn.name
+        var updateColumnPromises = existingColumns.map(function (column) {
+          return axios__WEBPACK_IMPORTED_MODULE_0___default().patch("/api/columns/".concat(column.column_id), {
+            name: column.name
+          })["catch"](function (error) {
+            return console.error('Error updating column:', error);
           });
         });
         return Promise.all([].concat(_toConsumableArray(newColumnPromises), _toConsumableArray(updateColumnPromises)));
@@ -21167,7 +21181,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
   }),
   created: function created() {
     if (this.activeBoard) {
-      this.board = _objectSpread({}, this.activeBoard);
+      this.board = JSON.parse(JSON.stringify(this.activeBoard)); // Deep clone to avoid direct mutation
     }
   }
 });
@@ -21594,7 +21608,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       this.selectedColumn = newTask.column_id;
     }
   }),
-  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)(['setActiveTask'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapMutations)(['toggleEditTask', 'toggleViewTask'])), {}, {
+  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)(['setActiveTask', 'fetchBoards'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapMutations)(['toggleEditTask', 'toggleViewTask'])), {}, {
     updateSubtask: function updateSubtask(subtask) {
       console.log('Updating subtask:', subtask);
       this.$store.dispatch('updateSubtask', _objectSpread(_objectSpread({}, subtask), {}, {
@@ -22079,8 +22093,7 @@ var _hoisted_17 = {
   "class": "button-bottom-flex"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _this = this,
-    _$data$board$columns$;
+  var _$data$board$columns$;
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "grey-box",
     onClick: _cache[0] || (_cache[0] = function () {
@@ -22112,7 +22125,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       required: ""
     }, null, 8 /* PROPS */, _hoisted_9), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, column.name]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
       onClick: function onClick($event) {
-        return _ctx.removeColumn(index), _this.showDeleteConfirmation = true;
+        return $options.prepareToRemoveColumn(index);
       },
       src: "/assets/icon-cross.svg",
       alt: "light theme"
