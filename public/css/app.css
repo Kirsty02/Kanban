@@ -12111,6 +12111,7 @@ body {
 }
 
 .add-edit-board-container {
+  position: relative;
   background: #fff;
   padding: 2rem;
   width: 416px;
@@ -12122,22 +12123,21 @@ body {
 }
 .add-edit-board-container .description {
   width: 100%;
-  padding: 5px;
   color: #828FA3;
 }
 .add-edit-board-container .status-select {
   width: 100%;
   padding: 8px 16px;
-  border: 1px solid #D1D5DB; /* this is a light gray color */
+  border: 1px solid #D1D5DB;
   border-radius: 6px;
   -webkit-appearance: none;
      -moz-appearance: none;
-          appearance: none; /* Remove default arrow icon */
+          appearance: none;
   background-color: white;
-  background-image: url("/assets/icon-chevron-down.svg"); /* Path to your dropdown arrow icon */
+  background-image: url("/assets/icon-chevron-down.svg");
   background-repeat: no-repeat;
   background-position: right 10px center;
-  background-size: 12px; /* Size of your icon */
+  background-size: 12px;
 }
 .add-edit-board-container .btn-destructive {
   width: 100%;
@@ -12173,7 +12173,7 @@ body {
 }
 
 .form-group input[type=text]:focus, textarea:focus, .status-select:focus {
-  border-color: #635FC7;
+  border: 2px solid #635FC7;
   outline: none;
 }
 
@@ -12184,4 +12184,28 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 999;
+}
+
+.add-edit-board-container-dark {
+  background-color: #2B2C37;
+}
+.add-edit-board-container-dark .body-m, .add-edit-board-container-dark .heading-l, .add-edit-board-container-dark .body-l {
+  color: #FFFFFF;
+  background-color: #2B2C37;
+}
+.add-edit-board-container-dark .btn-secondary {
+  background-color: #FFFFFF;
+}
+.add-edit-board-container-dark .btn-secondary:hover {
+  background-color: #9d9d9d;
+}
+.add-edit-board-container-dark .status-select {
+  background-color: #2B2C37;
+}
+.add-edit-board-container-dark .description {
+  opacity: 0.5;
+}
+.add-edit-board-container-dark .subtask-item {
+  background-color: #20212C;
+  color: white;
 }

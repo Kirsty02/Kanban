@@ -9,6 +9,7 @@ export default createStore({
         isMobileSidebarVisible: false,
         isAddBoardVisible: false,
         isBoardDropDownVisible: false,
+        isTaskDropdownVisible: false,
         isDeleteBoardVisible: false,
         isAddTaskVisible: false,
         isEditBoardVisible: false,
@@ -42,6 +43,10 @@ export default createStore({
         },
         toggleBoardDropDown(state){
             state.isBoardDropDownVisible = !state.isBoardDropDownVisible;
+        },
+        toggleTaskDropdown(state){
+            state.isTaskDropdownVisible = !state.isTaskDropdownVisible;
+
         },
         toggleDeleteBoard(state){
             state.isDeleteBoardVisible = !state.isDeleteBoardVisible;
@@ -88,23 +93,14 @@ export default createStore({
                 Vue.set(task, 'subtasks', subtasks);
             }
         },
-        UPDATE_TASK_COLUMN(state, { taskId, columnId }) {
-            let taskFound = false;
-            for (const board of state.boards) {
-              for (const column of board.columns) {
-                const taskIndex = column.tasks.findIndex(task => task.task_id === taskId);
-                if (taskIndex !== -1) {
-                  const [task] = column.tasks.splice(taskIndex, 1);
-                  task.column_id = columnId;
-                  const targetColumn = board.columns.find(c => c.column_id === columnId);
-                  if (targetColumn) {
-                    targetColumn.tasks.push(task);
-                    taskFound = true;
-                  }
-                  break;
-                }
-              }
-              if (taskFound) break;
+        UPDATE_TASK_COLUMN(state, { taskId, columnId, status }) {
+            const taskToUpdate = state.activeBoard.columns
+              .flatMap(column => column.tasks)
+              .find(task => task.task_id === taskId);
+              
+            if (taskToUpdate) {
+              taskToUpdate.column_id = columnId;
+              taskToUpdate.status = status;
             }
         },
         UPDATE_TASK(state, updatedTask) {
@@ -150,6 +146,23 @@ export default createStore({
             }
             state.boards = state.boards.filter(board => board.id !== boardId);
         },
+        REMOVE_TASK(state, taskId) {
+            state.boards.forEach(board => {
+                board.columns.forEach(column => {
+                    const taskIndex = column.tasks.findIndex(task => task.task_id === taskId);
+                    if (taskIndex !== -1) {
+                        column.tasks.splice(taskIndex, 1);
+                    }
+                    column.tasks.forEach(task => {
+                        const subtaskIndex = task.subtasks.findIndex(subtask => subtask.task_id === taskId);
+                        if (subtaskIndex !== -1) {
+                            task.subtasks.splice(subtaskIndex, 1);
+                        }
+                    });
+                });
+            });
+           
+        },
         DELETE_SUBTASK(state, subtaskId) {
             state.boards.forEach(board => {
                 board.columns.forEach(column => {
@@ -177,6 +190,7 @@ export default createStore({
         async addBoard({ commit }, boardData) {
             try {
                 await axios.post('/api/boards', boardData);
+                
             } catch (error) {
                 throw error;
             }
@@ -197,6 +211,29 @@ export default createStore({
                 commit('REMOVE_BOARD', boardId);
             } catch (error) {
                 console.error('Error deleting board:', error);
+            }
+        },
+        async refreshBoardData({ commit, state }) {
+            try {
+              const response = await axios.get('/api/boards');
+              commit('SET_BOARDS', response.data); // Assuming 'SET_BOARDS' replaces all board data
+
+              // If you want to keep the currently selected board active, find it in the refreshed list
+              if (state.activeBoard) {
+                const activeBoard = response.data.find(board => board.board_id === state.activeBoard.board_id);
+                commit('SET_ACTIVE_BOARD', activeBoard || null);
+              }
+        
+            } catch (error) {
+              console.error('Failed to refresh boards:', error);
+            }
+        },
+        async deleteTask({ commit, state }, taskId) {
+            try {
+                await axios.delete(`/api/tasks/${taskId}`);
+                commit('REMOVE_TASK', taskId);
+            } catch (error) {
+                console.error('Error deleting task:', error);
             }
         },
         async addColumn({ dispatch }, { columnData }) {
@@ -234,8 +271,26 @@ export default createStore({
                     isCompleted: subtaskData.isCompleted
                 });
                 commit('UPDATE_SUBTASK', response.data);
+                dispatch('fetchBoards');
             } catch (error) {
                 console.error('Error updating subtask:', error);
+            }
+        },
+        async updateTaskColumn({ commit, dispatch }, { taskId, columnId, status }) {
+            try {
+              const response = await axios.patch(`/api/tasks/${taskId}`, {
+                task_id: taskId,
+                status: status,
+                column_id: columnId,
+              });
+              commit('UPDATE_TASK_COLUMN', {
+                taskId: response.data.task_id,
+                columnId: response.data.column_id,
+                status: response.data.status,
+              });
+              dispatch('fetchBoards'); 
+            } catch (error) {
+              console.error('Error updating task column:', error);
             }
         },
         async deleteSubtask({ commit }, subtaskId) {
@@ -281,14 +336,7 @@ export default createStore({
                 })
                 .catch(error => console.error('Error updating subtask:', error));
         },
-        async updateTaskColumn({ commit }, { taskId, columnId }) {
-            try {
-              await axios.patch(`/api/tasks/${taskId}/updateColumn`, { column_id: columnId });
-              commit('UPDATE_TASK_COLUMN', { taskId, columnId });
-            } catch (error) {
-              console.error('Error updating task column:', error);
-            }
-          },
+        
         
 
     },
@@ -343,6 +391,9 @@ export default createStore({
         },
         isEditTaskVisible(state){
             return state.isEditTaskVisible;
+        },
+        isTaskDropdownVisible(state){
+            return state.isTaskDropdownVisible;
         }
       
    

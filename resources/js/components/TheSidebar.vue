@@ -7,8 +7,11 @@
                     <h1 :class="['heading-s', {'heading-l': isDarkMode}]">  ALL BOARDS ({{ boards.length }}) </h1>
 
                     <div class="board-item" v-for="board in boards" :key="board.board_id" :class="{ active: activeBoard?.board_id === board.board_id }" @click="handleBoardSelection(board)">  
-                        <svg class="board-icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg"><path d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z" /></svg>
-                        <h2>{{board.name}}</h2>
+                        <div class="item-container"> 
+                            <svg class="board-icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg"><path d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z" /></svg>
+                            <h2>{{board.name}}</h2>
+                        </div>
+                        
                     </div>
                     <div class="create-board-div" @click="toggleAddBoardForm"> 
                         <svg class="create-board-icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg"><path d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z" /></svg>
@@ -36,18 +39,21 @@
     </div>
     <div v-else-if="isMobileView && isMobileSidebarVisible"> 
         <div class="grey-box"  @click="toggleMobileSidebar">
-            <div  :class="['mobile-menu', isDarkMode ? 'mobile-menu-dark' : '']"  @click.stop>
+            <div :class="['mobile-menu', isDarkMode ? 'mobile-menu-dark' : '']"  @click.stop>
                 <div class="boards-flex"> 
-                    <h1 :class="['heading-s', {'heading-l': isDarkMode}]">  ALL BOARDS (2) </h1>
-                    <div class="board-item" :class="{ active: activeBoard === activeBoard }" @click="setActiveBoard('Board 1')"> 
-                        <svg class="board-icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg"><path d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z" /></svg>
-                        <h2>Board 1</h2>
+                    <h1 :class="['heading-s', {'heading-l': isDarkMode}]"> ALL BOARDS ({{ boards.length }}) </h1>
+                        <div class="board-item" v-for="board in boards" :key="board.board_id" :class="{ active: activeBoard?.board_id === board.board_id }" @click="handleBoardSelection(board)">  
+                            <div class="item-container"> 
+                                <svg class="board-icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg"><path d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z" /></svg>
+                                <h2>{{board.name}}</h2>
+                            </div>
+    
+                        </div>
+                        <div class="create-board-div" @click="toggleAddBoardForm"> 
+                            <svg class="create-board-icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg"><path d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z" /></svg>
+                            <h2>+ Create New Board</h2>
+                        </div>
                     </div>
-                    <div class="create-board-div"> 
-                        <svg class="create-board-icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg"><path d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z" /></svg>
-                        <h2>+ Create New Board</h2>
-                    </div>
-                </div>
                 <div class="bottom-div">
                 <div class="toggle-theme-div"> 
                     <img src="/assets/icon-light-theme.svg" alt="light theme">
@@ -87,9 +93,6 @@ export default {
         ...mapActions(['fetchBoards', 'setActiveBoard']),
         handleBoardSelection(board) {
             this.setActiveBoard(board);
-            this.toggleColumnrefresh();
-            this.toggleColumnrefresh();
-
         },
         toggleTheme(){
             this.toggleDarkMode();
@@ -157,19 +160,35 @@ export default {
     }
 }
 
+.mobile-menu, .mobile-menu-dark{
+    .board-item{
+        transform: translateX(-48px);
+
+    }
+}
+
 .board-item{
+    position: relative;
     align-items: center;
     display: flex;
-    justify-content: center;
     background-color: transparent;
+    justify-content: left;
     border-radius: 2rem;
     padding: 0.75rem;
+    padding-left: 3rem;
+    transform: translateX(-3rem);
     gap: 0.75rem;
-    width: 150%;
-    transform: translateX(-40%);
+    width: 100%;
+    text-align: left;
+    overflow: hidden;
 
     .board-icon{
         fill: $platinum-light;
+    }
+    .item-container{
+        display: flex;
+        gap: 0.5rem;
+        
     }
     
     h2{

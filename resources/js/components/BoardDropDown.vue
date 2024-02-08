@@ -1,4 +1,5 @@
 <template> 
+    <div class="grey-box light" @click=toggleBoardDropDown()> </div> 
     <div class="drop-down-conatiner"> 
         <p class="body-l edit-p"  @click="toggleEditBoard(); toggleBoardDropDown();"> Edit Board</p>
         <p class="body-l delete-p" @click="toggleDeleteBoard(); toggleBoardDropDown();" > Delete Board</p>
@@ -38,13 +39,18 @@ export default {
 
 .edit-p{
     color: $platinum-light;
+    font-size: 13px;
+    margin-bottom: 0.25rem
 }
 
 .delete-p{
     color: $salmon-dark;
+    font-size: 13px;
+    margin-bottom: 0.25rem
 }
-
-
+ .light{
+    opacity: 0.1;
+ }
 .edit-p:hover, .delete-p:hover{
     font-weight: bolder;
     cursor: pointer;

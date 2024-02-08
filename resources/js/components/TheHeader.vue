@@ -15,9 +15,9 @@
                 <h3 class="heading-l"> Platform Launch</h3>
                 <img  src="/assets/icon-chevron-down.svg" alt="Mobile Menu Button">
             </div>
-            <div class="side-flex">
-                <button class="btn-primary-s mobile-add-btn"> <img src="/assets/icon-add-task-mobile.svg" alt="Mobile Logo"></button>
-                <img src="/assets/icon-vertical-ellipsis.svg" alt="Board Icon">
+            <div v-if="activeBoard != null"  class="side-flex">
+                <button class="btn-primary-s mobile-add-btn" @click="toggleAddTask"> <img src="/assets/icon-add-task-mobile.svg" alt="Mobile Logo"></button>
+                <img src="/assets/icon-vertical-ellipsis.svg" alt="Board Icon" @click="toggleBoardDropDown">
             </div>
         </div>
     </div>
@@ -136,7 +136,9 @@ export default {
 @media(max-width: 680px){
     .side-flex{
         gap: 0.5rem;
-
+    }
+    .add-edit-board-container-dark, .add-edit-board-container{
+        max-width: 300px;
     }
 }
 </style>

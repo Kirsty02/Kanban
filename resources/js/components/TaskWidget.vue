@@ -1,53 +1,50 @@
 <template>
-    <div :class="['task-widget-container', isDarkMode ? 'task-widget-container-dark' : '']"  @click="selectTask(), toggleViewTask()">
-        <h2 class="heading-m">{{task.title}}</h2>
-        <p class="body-m">{{ completedSubtasksCount }} of {{ totalSubtasksCount }}  subtasks complete!</p>
+    <div :class="['task-widget-container', isDarkMode ? 'task-widget-container-dark' : '']" @click="handleClick">
+      <h2 class="heading-m">{{ task.title }}</h2>
+      <p class="body-m">{{ completedSubtasksCount }} of {{ totalSubtasksCount }} subtasks complete!</p>
     </div>
-    
-</template>
-
-<script>
-import { mapActions, mapGetters, mapMutations } from 'vuex';
-import { ref, watch } from 'vue';
-export default {
-    computed: {
-        ...mapGetters(['isDarkMode','isMobileView', 'isMobileSidebarVisible', 'subtasks', 'activeTask']),
-        completedSubtasksCount() {
-            return this.task.subtasks.filter(subtask => subtask.isCompleted).length;
-        },
-        totalSubtasksCount() {
-            return this.task.subtasks.length;
-        },
-    },
+  </template>
+  
+  <script>
+  import { computed, ref, watch } from 'vue';
+  import { useStore } from 'vuex';
+  
+  export default {
     props: {
-        task: {
-            type: Object,
-            required: true
-        },
+      task: {
+        type: Object,
+        required: true
+      },
     },
     setup(props) {
-    // Reactive reference to the task prop
-    const task = ref(props.task);
-
-    // Watch for changes to the task prop
-    watch(() => props.task, (newTask) => {
-      task.value = newTask;
-    });
-
-    return {
-      // ... other reactive properties
-      task,
-    };
+      const store = useStore();
+      const task = ref(props.task);
+  
+      // Computed properties using Composition API
+      const isDarkMode = computed(() => store.getters.isDarkMode);
+      const completedSubtasksCount = computed(() => props.task.subtasks.filter(subtask => subtask.isCompleted).length);
+      const totalSubtasksCount = computed(() => props.task.subtasks.length);
+  
+      // Watch for changes to the task prop
+      watch(() => props.task, (newTask) => {
+        task.value = newTask;
+      });
+  
+      const handleClick = () => {
+        store.commit('toggleViewTask');
+        store.dispatch('setActiveTask', task.value);
+      };
+  
+      return {
+        task,
+        isDarkMode,
+        completedSubtasksCount,
+        totalSubtasksCount,
+        handleClick,
+      };
     },
-    methods:{
-        ...mapMutations(['toggleViewTask']),
-        ...mapActions(['setActiveTask']),
-        selectTask(){
-            this.setActiveTask(this.task);
-        }
-    }
-}
-</script>
+  };
+  </script>
 
 <style lang="scss">
 @import '../../sass/variables';

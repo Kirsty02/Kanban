@@ -3,24 +3,19 @@
 
         <div class="column-header-div"> 
             <div class="status-circle"> </div>
-            <p class="heading-s"> {{column.name}} </p>
+            <p class="heading-s"> {{column.name}} ({{ totalTasks }}) </p>
         </div>
-        <TaskWidget
-        v-for="task in column.tasks"
-        :key="`${task.task_id}-${task.column_id}`"
-        :task="task"
-
-        ></TaskWidget>
-
+        <TaskWidget v-for="task in column.tasks" :key="`${task.task_id}-${task.column_id}`" :task="task"></TaskWidget>
     </div>
     
 </template>
 
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import { computed, ref, watch } from 'vue';
+import { useStore } from 'vuex';
 import TaskWidget from './TaskWidget.vue';
-import axios from 'axios';
+import { mapGetters, mapActions, mapMutations } from 'vuex';
 
 export default {
     components: {
@@ -32,49 +27,29 @@ export default {
             required: true
         },
     },
+    setup(props) {
+        const store = useStore();
+        const column = ref(props.column);
+        const activeBoard = computed(() => store.getters.activeBoard);
 
-    computed: {
-        ...mapGetters({
-        activeTask: 'activeTask',
-        boards: 'boards'
-    }),
-    asksWithSubtasks() {
-        return this.column.tasks.map(task => ({
-        ...task,
-        subtasks: task.subtasks || []
-        }));
-    },
-},
-
-    methods: {
-        async fetchSubtasks(task) {
-            try {
-                const response = await axios.get(`/api/tasks/${task.task_id}/subtasks`);
-                console.log(`Fetched subtasks for task ${task.id}:`, response.data); // Debugging line
-                return response.data;
-            } catch (error) {
-                console.error("Error fetching subtasks for task " + task.id + ":", error);
-                return [];
+        watch(activeBoard, (newBoard) => {
+            const newColumn = newBoard.columns.find(c => c.column_id === props.column.column_id);
+            if (newColumn) {
+                column.value = newColumn;
             }
-        },
-        async loadTasksAndSubtasks() {
-            this.tasksWithSubtasks = await Promise.all(this.column.tasks.map(async (task) => {
-                const subtasks = await this.fetchSubtasks(task);
-                return { ...task, subtasks };
-            }));
-            console.log("Tasks with subtasks:", this.tasksWithSubtasks); // Debugging line
+        }, { deep: true });
 
-        },
-        forceRerender() {
-            this.loadTasksAndSubtasks();
+        return {
+            column,
+        };
+    },
+    computed: {
+        ...mapGetters(['activeBoard']),
+        totalTasks() {
+            return this.column.tasks.length;
         },
     },
-    mounted() {
-        this.loadTasksAndSubtasks();
-    },
-    
-    };
-
+};
 </script>
 
 <style lang="scss">

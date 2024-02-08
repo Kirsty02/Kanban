@@ -151,6 +151,7 @@ body{
 
 // Styles for Add Board
 .add-edit-board-container {
+    position: relative;
     background: #fff;
     padding: 2rem;
     width: 416px;
@@ -161,30 +162,27 @@ body{
     }
     .description{
         width: 100%;
-        padding: 5px;
         color: $platinum-light;
     }
     .status-select {
         width: 100%;
         padding: 8px 16px;
-        border: 1px solid #D1D5DB; /* this is a light gray color */
+        border: 1px solid #D1D5DB; 
         border-radius: 6px;
-        appearance: none; /* Remove default arrow icon */
+        appearance: none;
         background-color: white;
-        background-image: url('/assets/icon-chevron-down.svg'); /* Path to your dropdown arrow icon */
+        background-image: url('/assets/icon-chevron-down.svg');
         background-repeat: no-repeat;
         background-position: right 10px center;
-        background-size: 12px; /* Size of your icon */
+        background-size: 12px; 
       }
       .btn-destructive{
         width: 100%;
         margin-top: 0.5rem;
       }
   }
-  
   .form-group {
     margin-bottom: 20px;
-
   }
   
   .form-group label {
@@ -212,7 +210,7 @@ body{
   }
   
   .form-group input[type="text"]:focus , textarea:focus, .status-select:focus{
-    border-color: $purple-dark;
+    border: 2px solid $purple-dark;
     outline: none;
   }
 
@@ -224,6 +222,32 @@ body{
     left: 50%; 
     transform: translate(-50%, -50%);
     z-index: 999; 
+}
+
+
+//Dark mode 
+.add-edit-board-container-dark{
+    background-color: $platinum-darkest;
+    .body-m, .heading-l, .body-l{
+        color: $white-light;
+        background-color: $platinum-darkest;
+    }
+    .btn-secondary{
+        background-color: $white-light;
+    }
+    .btn-secondary:hover{
+        background-color: #9d9d9d;
+    }
+    .status-select {
+        background-color: $platinum-darkest;
+    }
+    .description{
+        opacity: 0.5;
+    }
+    .subtask-item {
+        background-color: $navy-light;
+        color: white;
+      }
 }
 
 

@@ -1,7 +1,7 @@
 <template>
   <div class="grey-box"  @click="toggleAddTask" > </div>
   <div class="view-widget-modal"> 
-    <div class="add-edit-board-container">
+    <div :class="['add-edit-board-container', isDarkMode ? 'add-edit-board-container-dark' : '']" >
       <h2 class="heading-l">Add New Task</h2>
       <form @submit.prevent="submitTask">
         <div class="form-group">
@@ -55,14 +55,14 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['activeBoard']),
+    ...mapGetters(['activeBoard', 'isDarkMode']),
     columns() {
       return this.activeBoard ? this.activeBoard.columns : [];
     }
   },
   methods: {
     ...mapMutations(['toggleAddTask', 'toggleColumnrefresh']),
-    ...mapActions(['addTask', 'fetchBoards','setActiveBoard']),
+    ...mapActions(['addTask', 'fetchBoards','setActiveBoard', 'refreshBoardData']),
     addSubtask() {
       this.newTask.subtasks.push({ title: '' });
     },
@@ -76,7 +76,7 @@ export default {
         console.error("Selected column not found");
         return;
       }
-      
+    
       this.newTask.status = selectedColumnObj.name;
       this.newTask.column_id = this.selectedColumn;
       this.newTask.board_id = this.activeBoard.board_id;
@@ -94,12 +94,7 @@ export default {
           });
         }
 
-
-        await this.fetchBoards(); 
-        await this.setActiveBoard(this.activeBoard);
-        console.log("thias is the active board", this.activeBoard);
-        this.toggleColumnrefresh();
-        this.toggleColumnrefresh();
+        this.refreshBoardData();
         this.toggleAddTask(false); 
       
         

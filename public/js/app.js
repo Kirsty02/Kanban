@@ -20591,7 +20591,8 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       }
     };
   },
-  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)(['fetchBoards', 'addBoard', 'setActiveBoard'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapMutations)(['toggleAddBoardForm'])), {}, {
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)(['isDarkMode', 'boards'])),
+  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)(['fetchBoards', 'addBoard', 'setActiveBoard', 'refreshBoardData'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapMutations)(['toggleAddBoardForm'])), {}, {
     addColumn: function addColumn() {
       this.board.columns.push({
         name: ''
@@ -20648,21 +20649,20 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
               _iterator.f();
               return _context.finish(20);
             case 23:
-              _this.fetchBoards();
-              _this.setActiveBoard(boardResponse.data);
-              _this.fetchBoards();
+              _this.refreshBoardData();
               _this.toggleAddBoardForm();
-              _context.next = 32;
+              _this.setActiveBoard();
+              _context.next = 31;
               break;
-            case 29:
-              _context.prev = 29;
+            case 28:
+              _context.prev = 28;
               _context.t1 = _context["catch"](0);
               console.error('Error creating board and columns:', _context.t1);
-            case 32:
+            case 31:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[0, 29], [6, 17, 20, 23]]);
+        }, _callee, null, [[0, 28], [6, 17, 20, 23]]);
       }))();
     }
   })
@@ -20715,12 +20715,12 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       selectedColumn: null
     };
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)(['activeBoard'])), {}, {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)(['activeBoard', 'isDarkMode'])), {}, {
     columns: function columns() {
       return this.activeBoard ? this.activeBoard.columns : [];
     }
   }),
-  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapMutations)(['toggleAddTask', 'toggleColumnrefresh'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)(['addTask', 'fetchBoards', 'setActiveBoard'])), {}, {
+  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapMutations)(['toggleAddTask', 'toggleColumnrefresh'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)(['addTask', 'fetchBoards', 'setActiveBoard', 'refreshBoardData'])), {}, {
     addSubtask: function addSubtask() {
       this.newTask.subtasks.push({
         title: ''
@@ -20785,27 +20785,19 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
               _iterator.f();
               return _context.finish(26);
             case 29:
-              _context.next = 31;
-              return _this.fetchBoards();
-            case 31:
-              _context.next = 33;
-              return _this.setActiveBoard(_this.activeBoard);
-            case 33:
-              console.log("thias is the active board", _this.activeBoard);
-              _this.toggleColumnrefresh();
-              _this.toggleColumnrefresh();
+              _this.refreshBoardData();
               _this.toggleAddTask(false);
-              _context.next = 42;
+              _context.next = 36;
               break;
-            case 39:
-              _context.prev = 39;
+            case 33:
+              _context.prev = 33;
               _context.t1 = _context["catch"](7);
               console.error('Error creating task and subtasks:', _context.t1);
-            case 42:
+            case 36:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[7, 39], [13, 23, 26, 29]]);
+        }, _callee, null, [[7, 33], [13, 23, 26, 29]]);
       }))();
     }
   })
@@ -20827,11 +20819,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 /* harmony import */ var _Column_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Column.vue */ "./resources/js/components/Column.vue");
 /* harmony import */ var _ViewTask_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ViewTask.vue */ "./resources/js/components/ViewTask.vue");
-/* harmony import */ var _AddBoard_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AddBoard.vue */ "./resources/js/components/AddBoard.vue");
-/* harmony import */ var _DeleteBoard_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./DeleteBoard.vue */ "./resources/js/components/DeleteBoard.vue");
-/* harmony import */ var _AddTask_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./AddTask.vue */ "./resources/js/components/AddTask.vue");
-/* harmony import */ var _EditBoard_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./EditBoard.vue */ "./resources/js/components/EditBoard.vue");
-/* harmony import */ var _EditTask_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./EditTask.vue */ "./resources/js/components/EditTask.vue");
+/* harmony import */ var _DeleteBoard_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./DeleteBoard.vue */ "./resources/js/components/DeleteBoard.vue");
+/* harmony import */ var _AddTask_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./AddTask.vue */ "./resources/js/components/AddTask.vue");
+/* harmony import */ var _EditBoard_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./EditBoard.vue */ "./resources/js/components/EditBoard.vue");
+/* harmony import */ var _EditTask_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./EditTask.vue */ "./resources/js/components/EditTask.vue");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
@@ -20847,28 +20839,22 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  components: {
-    Column: _Column_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    ViewTask: _ViewTask_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-    AddBoard: _AddBoard_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-    DeleteBoard: _DeleteBoard_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-    AddTask: _AddTask_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-    EditBoard: _EditBoard_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
-    EditTask: _EditTask_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
-  },
   props: {
     board: {
       type: Object,
       required: true
     }
   },
-  data: function data() {
-    return {
-      selectedColumn: null // Initialize selectedColumn as null
-    };
+  components: {
+    Column: _Column_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    ViewTask: _ViewTask_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    DeleteBoard: _DeleteBoard_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    AddTask: _AddTask_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    EditBoard: _EditBoard_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    EditTask: _EditTask_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapGetters)(['isDarkMode', 'isMobileView', 'isMobileSidebarVisible', 'activeTask', 'isAddBoardVisible', 'isDeleteBoardVisible', 'isAddTaskVisible', 'shouldColumnsRefresh', 'isEditBoardVisible', 'isViewTaskVisible', 'isEditTaskVisible'])),
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapActions)(['fetchBoards'])), {}, {
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapGetters)(['isDarkMode', 'isMobileView', 'isMobileSidebarVisible', 'activeTask', 'isAddBoardVisible', 'isDeleteBoardVisible', 'isAddTaskVisible', 'shouldColumnsRefresh', 'isEditBoardVisible', 'isViewTaskVisible', 'isEditTaskVisible', 'activeBoard'])),
+  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapActions)(['fetchBoards'])), (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapMutations)(['toggleEditBoard'])), {}, {
     updateTaskColumn: function updateTaskColumn(activeTask, newColumn) {
       if (activeTask && newColumn !== null) {
         // Update the task's column based on the newColumn value
@@ -20919,14 +20905,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
-/* harmony import */ var _TaskWidget_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TaskWidget.vue */ "./resources/js/components/TaskWidget.vue");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _TaskWidget_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TaskWidget.vue */ "./resources/js/components/TaskWidget.vue");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw new Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw new Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -20935,9 +20917,10 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 
 
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    TaskWidget: _TaskWidget_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    TaskWidget: _TaskWidget_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   props: {
     column: {
@@ -20945,91 +20928,31 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       required: true
     }
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)({
-    activeTask: 'activeTask',
-    boards: 'boards'
-  })), {}, {
-    asksWithSubtasks: function asksWithSubtasks() {
-      return this.column.tasks.map(function (task) {
-        return _objectSpread(_objectSpread({}, task), {}, {
-          subtasks: task.subtasks || []
-        });
+  setup: function setup(props) {
+    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.useStore)();
+    var column = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(props.column);
+    var activeBoard = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
+      return store.getters.activeBoard;
+    });
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(activeBoard, function (newBoard) {
+      var newColumn = newBoard.columns.find(function (c) {
+        return c.column_id === props.column.column_id;
       });
-    }
-  }),
-  methods: {
-    fetchSubtasks: function fetchSubtasks(task) {
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var response;
-        return _regeneratorRuntime().wrap(function _callee$(_context) {
-          while (1) switch (_context.prev = _context.next) {
-            case 0:
-              _context.prev = 0;
-              _context.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/tasks/".concat(task.task_id, "/subtasks"));
-            case 3:
-              response = _context.sent;
-              console.log("Fetched subtasks for task ".concat(task.id, ":"), response.data); // Debugging line
-              return _context.abrupt("return", response.data);
-            case 8:
-              _context.prev = 8;
-              _context.t0 = _context["catch"](0);
-              console.error("Error fetching subtasks for task " + task.id + ":", _context.t0);
-              return _context.abrupt("return", []);
-            case 12:
-            case "end":
-              return _context.stop();
-          }
-        }, _callee, null, [[0, 8]]);
-      }))();
-    },
-    loadTasksAndSubtasks: function loadTasksAndSubtasks() {
-      var _this = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) switch (_context3.prev = _context3.next) {
-            case 0:
-              _context3.next = 2;
-              return Promise.all(_this.column.tasks.map( /*#__PURE__*/function () {
-                var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(task) {
-                  var subtasks;
-                  return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-                    while (1) switch (_context2.prev = _context2.next) {
-                      case 0:
-                        _context2.next = 2;
-                        return _this.fetchSubtasks(task);
-                      case 2:
-                        subtasks = _context2.sent;
-                        return _context2.abrupt("return", _objectSpread(_objectSpread({}, task), {}, {
-                          subtasks: subtasks
-                        }));
-                      case 4:
-                      case "end":
-                        return _context2.stop();
-                    }
-                  }, _callee2);
-                }));
-                return function (_x) {
-                  return _ref.apply(this, arguments);
-                };
-              }()));
-            case 2:
-              _this.tasksWithSubtasks = _context3.sent;
-              console.log("Tasks with subtasks:", _this.tasksWithSubtasks); // Debugging line
-            case 4:
-            case "end":
-              return _context3.stop();
-          }
-        }, _callee3);
-      }))();
-    },
-    forceRerender: function forceRerender() {
-      this.loadTasksAndSubtasks();
-    }
+      if (newColumn) {
+        column.value = newColumn;
+      }
+    }, {
+      deep: true
+    });
+    return {
+      column: column
+    };
   },
-  mounted: function mounted() {
-    this.loadTasksAndSubtasks();
-  }
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)(['activeBoard'])), {}, {
+    totalTasks: function totalTasks() {
+      return this.column.tasks.length;
+    }
+  })
 });
 
 /***/ }),
@@ -21113,8 +21036,8 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       columnIndexToDelete: null
     };
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)(['activeBoard'])),
-  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)(['updateBoard', 'fetchBoards'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapMutations)(['toggleEditBoard'])), {}, {
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)(['activeBoard', 'isDarkMode', 'boards'])),
+  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)(['updateBoard', 'fetchBoards', 'setActiveBoard', 'refreshBoardData'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapMutations)(['toggleEditBoard'])), {}, {
     addColumn: function addColumn() {
       this.board.columns.push({
         name: '',
@@ -21130,16 +21053,20 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     },
     deleteActiveColumn: function deleteActiveColumn() {
       var _this = this;
-      var column = this.board.columns[this.columnIndexToDelete];
-      if (column && column.column_id) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("/api/columns/".concat(column.column_id)).then(function () {
+      if (this.board.columns[this.columnIndexToDelete].column_id) {
+        var columnId = this.board.columns[this.columnIndexToDelete].column_id;
+        axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("/api/columns/".concat(columnId)).then(function () {
           _this.removeColumn(_this.columnIndexToDelete);
         })["catch"](function (error) {
-          return console.error('Error deleting column:', error);
+          console.error('Error deleting column:', error);
         })["finally"](function () {
           _this.showDeleteConfirmation = false;
           _this.columnIndexToDelete = null;
         });
+      } else {
+        this.removeColumn(this.columnIndexToDelete);
+        this.showDeleteConfirmation = false;
+        this.columnIndexToDelete = null;
       }
     },
     submitBoardUpdate: function submitBoardUpdate() {
@@ -21172,7 +21099,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         });
         return Promise.all([].concat(_toConsumableArray(newColumnPromises), _toConsumableArray(updateColumnPromises)));
       }).then(function () {
-        _this2.fetchBoards();
+        _this2.refreshBoardData();
         _this2.toggleEditBoard();
       })["catch"](function (error) {
         console.error('Error updating board or columns:', error);
@@ -21181,7 +21108,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
   }),
   created: function created() {
     if (this.activeBoard) {
-      this.board = JSON.parse(JSON.stringify(this.activeBoard)); // Deep clone to avoid direct mutation
+      this.board = JSON.parse(JSON.stringify(this.activeBoard));
     }
   }
 });
@@ -21203,15 +21130,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw new Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw new Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -21222,126 +21140,66 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      selectedStatus: '',
       task: {
         title: '',
-        subtasks: [],
         description: '',
-        status: ''
-      },
-      showDeleteConfirmation: false,
-      subtaskIndexToDelete: null
+        subtasks: []
+      }
     };
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)(['activeTask'])), {}, {
-    columns: function columns() {
-      var _this = this;
-      if (this.activeTask) {
-        var board = this.$store.state.boards.find(function (b) {
-          return b.board_id === _this.activeTask.board_id;
-        });
-        console.log("Found board:", board);
-        return board ? board.columns : [];
-      }
-      return [];
-    }
-  }),
-  watch: {
-    activeTask: function activeTask(newTask, oldTask) {
-      if (newTask) {
-        this.selectedStatus = newTask.column_id;
-      }
-    }
-  },
-  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)(['updateTask', 'fetchBoards', 'setActiveTask'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapMutations)(['toggleEditTask', 'toggleViewTask'])), {}, {
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)(['activeTask', 'isDarkMode'])),
+  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)(['updateTask', 'fetchBoards'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapMutations)(['toggleEditTask'])), {}, {
     addSubtask: function addSubtask() {
       this.task.subtasks.push({
-        name: ''
+        title: '',
+        isNew: true
       });
     },
-    updateSubtask: function updateSubtask(subtask) {
-      console.log('Updating subtask:', subtask);
-      this.$store.dispatch('updateSubtask', _objectSpread(_objectSpread({}, subtask), {}, {
-        isCompleted: !subtask.isCompleted,
-        title: subtask.title
-      }));
-    },
-    onChangeColumn: function onChangeColumn() {
-      var _this2 = this;
-      if (this.activeTask && this.selectedStatus) {
-        this.$store.dispatch('updateTaskColumn', {
-          taskId: this.activeTask.task_id,
-          columnId: this.selectedStatus
-        }).then(function () {
-          _this2.$emit('columnChanged');
-          console.log('Column change dispatched');
+    deleteSubtask: function deleteSubtask(index) {
+      var _this = this;
+      var subtask = this.task.subtasks[index];
+      if (subtask && !subtask.isNew) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("/api/subtasks/".concat(subtask.subtask_id)).then(function () {
+          _this.task.subtasks.splice(index, 1);
         })["catch"](function (error) {
-          console.error('Failed to change column:', error);
+          console.error('Error deleting subtask:', error);
         });
+      } else {
+        this.task.subtasks.splice(index, 1);
       }
     },
-    prepareSubtaskDeletion: function prepareSubtaskDeletion(index) {
-      this.showDeleteConfirmation = true;
-      this.subtaskIndexToDelete = index;
-    },
-    deleteActiveSubtask: function deleteActiveSubtask() {
-      var _this3 = this;
-      var subtaskId = this.task.subtasks[this.subtaskIndexToDelete].subtask_id;
-      axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("/api/subtasks/".concat(subtaskId)).then(function () {
-        _this3.task.subtasks.splice(_this3.subtaskIndexToDelete, 1);
-        _this3.showDeleteConfirmation = false;
-        _this3.subtaskindexToDelete = null;
-      })["catch"](function (error) {
-        console.error('Error deleting subtask:', error);
+    submitTaskUpdate: function submitTaskUpdate() {
+      var _this2 = this;
+      var updatePromises = [];
+      // Update the task itself
+      updatePromises.push(this.updateTask(_objectSpread(_objectSpread({}, this.activeTask), this.task)));
+
+      // Handle subtasks
+      this.task.subtasks.forEach(function (subtask) {
+        var payload = {
+          title: subtask.title,
+          isCompleted: subtask.isCompleted || false
+        };
+        if (subtask.isNew) {
+          updatePromises.push(axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/subtasks', _objectSpread(_objectSpread({}, payload), {}, {
+            task_id: _this2.activeTask.task_id
+          })));
+        } else {
+          updatePromises.push(axios__WEBPACK_IMPORTED_MODULE_0___default().patch("/api/subtasks/".concat(subtask.subtask_id), payload));
+        }
       });
-    },
-    removeSubtask: function removeSubtask(index) {
-      this.task.subtasks.splice(index, 1);
+      Promise.all(updatePromises).then(function () {
+        _this2.fetchBoards();
+        _this2.toggleEditTask();
+      })["catch"](function (error) {
+        console.error('Error updating task or subtasks:', error);
+      });
     }
   }),
-  submitTaskUpdate: function submitTaskUpdate() {
-    var _this4 = this;
-    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      return _regeneratorRuntime().wrap(function _callee$(_context) {
-        while (1) switch (_context.prev = _context.next) {
-          case 0:
-            _this4.updateTask(_this4.task).then(function () {
-              //new subtasks
-              var newSubtaskPromises = _this4.task.subtasks.filter(function (subtask) {
-                return !subtask.subtask_id;
-              }).map(function (newSubtask) {
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/subtasks', {
-                  title: newSubtask.title,
-                  task_id: _this4.task.task_id
-                });
-              });
-
-              //existing subtasks
-              var updateTaskPromises = _this4.task.subtasks.filter(function (subtask) {
-                return subtask.subtask_id;
-              }).map(function (existingsubtask) {
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().patch("/api/subtasks/".concat(existingsubtask.subtask_id), {
-                  title: existingsubtask.title
-                });
-              });
-              return Promise.all([].concat(_toConsumableArray(newSubtaskPromises), _toConsumableArray(updateSubtaskPromises)));
-            }).then(function () {
-              _this4.fetchBoards();
-              _this4.toggleEditTask();
-            })["catch"](function (error) {
-              console.error('Error updating task or subtasks:', error);
-            });
-          case 1:
-          case "end":
-            return _context.stop();
-        }
-      }, _callee);
-    }))();
-  },
   created: function created() {
     if (this.activeTask) {
-      this.task = _objectSpread({}, this.activeTask);
-      this.selectedStatus = this.activeTask.status;
+      // Cloning activeTask to ensure reactivity and prevent direct mutation
+      this.task = JSON.parse(JSON.stringify(this.activeTask));
     }
   }
 });
@@ -21359,27 +21217,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)(['isDarkMode', 'isMobileView', 'isMobileSidebarVisible', 'subtasks', 'activeTask'])), {}, {
-    completedSubtasksCount: function completedSubtasksCount() {
-      return this.task.subtasks.filter(function (subtask) {
-        return subtask.isCompleted;
-      }).length;
-    },
-    totalSubtasksCount: function totalSubtasksCount() {
-      return this.task.subtasks.length;
-    }
-  }),
   props: {
     task: {
       type: Object,
@@ -21387,8 +21229,21 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     }
   },
   setup: function setup(props) {
-    // Reactive reference to the task prop
+    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_1__.useStore)();
     var task = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(props.task);
+
+    // Computed properties using Composition API
+    var isDarkMode = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
+      return store.getters.isDarkMode;
+    });
+    var completedSubtasksCount = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
+      return props.task.subtasks.filter(function (subtask) {
+        return subtask.isCompleted;
+      }).length;
+    });
+    var totalSubtasksCount = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
+      return props.task.subtasks.length;
+    });
 
     // Watch for changes to the task prop
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(function () {
@@ -21396,16 +21251,18 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     }, function (newTask) {
       task.value = newTask;
     });
-    return {
-      // ... other reactive properties
-      task: task
+    var handleClick = function handleClick() {
+      store.commit('toggleViewTask');
+      store.dispatch('setActiveTask', task.value);
     };
-  },
-  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapMutations)(['toggleViewTask'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)(['setActiveTask'])), {}, {
-    selectTask: function selectTask() {
-      this.setActiveTask(this.task);
-    }
-  })
+    return {
+      task: task,
+      isDarkMode: isDarkMode,
+      completedSubtasksCount: completedSubtasksCount,
+      totalSubtasksCount: totalSubtasksCount,
+      handleClick: handleClick
+    };
+  }
 });
 
 /***/ }),
@@ -21421,8 +21278,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 /* harmony import */ var _Board_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Board.vue */ "./resources/js/components/Board.vue");
+/* harmony import */ var _AddBoard_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddBoard.vue */ "./resources/js/components/AddBoard.vue");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
@@ -21431,15 +21289,17 @@ function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" 
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    Board: _Board_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    Board: _Board_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    AddBoard: _AddBoard_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   created: function created() {
     this.fetchBoards();
   },
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)(['fetchBoards'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapMutations)(['toggleSidebar'])),
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)(['isDarkMode', 'isSidebarVisible', 'isMobileView', 'boards', 'activeBoard']))
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapActions)(['fetchBoards'])), (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapMutations)(['toggleSidebar', 'toggleAddBoardForm'])),
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)(['isDarkMode', 'isSidebarVisible', 'isMobileView', 'boards', 'activeBoard', 'isAddBoardVisible']))
 });
 
 /***/ }),
@@ -21525,8 +21385,6 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
   methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapMutations)(['toggleDarkMode', 'toggleSidebar', 'toggleMobileSidebar', 'toggleAddBoardForm', 'toggleColumnrefresh'])), (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)(['fetchBoards', 'setActiveBoard'])), {}, {
     handleBoardSelection: function handleBoardSelection(board) {
       this.setActiveBoard(board);
-      this.toggleColumnrefresh();
-      this.toggleColumnrefresh();
     },
     toggleTheme: function toggleTheme() {
       this.toggleDarkMode();
@@ -21564,10 +21422,11 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
   data: function data() {
     return {
       selectedColumn: null,
-      dropdownVisible: false
+      dropdownVisible: false,
+      showDeleteConfirmation: false
     };
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)(['activeTask', 'subtasks'])), {}, {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)(['activeTask', 'subtasks', 'isDarkMode', 'isTaskDropdownVisible', 'activeBoard', 'boards'])), {}, {
     activeTaskSubtasks: function activeTaskSubtasks() {
       return this.activeTask ? this.activeTask.subtasks : [];
     },
@@ -21608,7 +21467,19 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       this.selectedColumn = newTask.column_id;
     }
   }),
-  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)(['setActiveTask', 'fetchBoards'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapMutations)(['toggleEditTask', 'toggleViewTask'])), {}, {
+  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)(['setActiveTask', 'fetchBoards', 'setActiveBoard', 'refreshBoardData'])), (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapMutations)(['toggleEditTask', 'toggleViewTask', 'toggleTaskDropdown'])), {}, {
+    deleteActiveTask: function deleteActiveTask(activeTask) {
+      var _this2 = this;
+      if (this.activeTask && this.activeTask.task_id) {
+        this.$store.dispatch('deleteTask', this.activeTask.task_id).then(function () {
+          _this2.fetchBoards();
+          _this2.showDeleteConfirmation = false;
+          _this2.setActiveTask(null);
+          _this2.fetchBoards();
+          _this2.toggleViewTask();
+        });
+      }
+    },
     updateSubtask: function updateSubtask(subtask) {
       console.log('Updating subtask:', subtask);
       this.$store.dispatch('updateSubtask', _objectSpread(_objectSpread({}, subtask), {}, {
@@ -21616,18 +21487,26 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         title: subtask.title
       }));
     },
-    onChangeColumn: function onChangeColumn() {
-      var _this2 = this;
+    updateTaskColumn: function updateTaskColumn() {
+      var _this3 = this;
       if (this.activeTask && this.selectedColumn) {
-        this.$store.dispatch('updateTaskColumn', {
+        var _this$columns$find;
+        var updatedTaskData = {
           taskId: this.activeTask.task_id,
-          columnId: this.selectedColumn
-        }).then(function () {
-          _this2.$emit('columnChanged');
-          console.log('Column change dispatched');
+          columnId: this.selectedColumn,
+          status: (_this$columns$find = this.columns.find(function (column) {
+            return column.column_id === _this3.selectedColumn;
+          })) === null || _this$columns$find === void 0 ? void 0 : _this$columns$find.name
+        };
+        console.log('Dispatching updateTaskColumn with:', updatedTaskData);
+        this.$store.dispatch('updateTaskColumn', updatedTaskData).then(function () {
+          console.log('Task update dispatched successfully.');
+          _this3.refreshBoardData();
         })["catch"](function (error) {
-          console.error('Failed to change column:', error);
+          console.error('Error updating task column:', error);
         });
+      } else {
+        console.error('Active task or selected column not properly set.');
       }
     }
   }),
@@ -21658,29 +21537,26 @@ __webpack_require__.r(__webpack_exports__);
 var _hoisted_1 = {
   "class": "view-widget-modal"
 };
-var _hoisted_2 = {
-  "class": "add-edit-board-container"
-};
-var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
   "class": "heading-l"
 }, "Add New Board", -1 /* HOISTED */);
-var _hoisted_4 = {
+var _hoisted_3 = {
   "class": "form-group"
 };
-var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "boardName"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
   "class": "body-m"
 }, "Board Name")], -1 /* HOISTED */);
-var _hoisted_6 = {
+var _hoisted_5 = {
   "class": "form-group"
 };
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
   "class": "body-m"
 }, "Columns")], -1 /* HOISTED */);
-var _hoisted_8 = ["onUpdate:modelValue"];
-var _hoisted_9 = ["onClick"];
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+var _hoisted_7 = ["onUpdate:modelValue"];
+var _hoisted_8 = ["onClick"];
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   "class": "btn-primary-s",
   type: "submit"
 }, "Create New Board", -1 /* HOISTED */);
@@ -21690,11 +21566,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[0] || (_cache[0] = function () {
       return _ctx.toggleAddBoardForm && _ctx.toggleAddBoardForm.apply(_ctx, arguments);
     })
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(['add-edit-board-container', _ctx.isDarkMode ? 'add-edit-board-container-dark' : ''])
+  }, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
     onSubmit: _cache[3] || (_cache[3] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.createBoard && $options.createBoard.apply($options, arguments);
     }, ["prevent"]))
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "class": "body-l",
     type: "text",
     id: "boardName",
@@ -21703,7 +21581,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     required: "",
     placeholder: "e.g. Web Design"
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.board.name]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.board.columns, function (column, index) {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.board.name]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.board.columns, function (column, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
       key: index,
       "class": "columns"
@@ -21714,20 +21592,20 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         return column.name = $event;
       },
       required: ""
-    }, null, 8 /* PROPS */, _hoisted_8), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, column.name]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    }, null, 8 /* PROPS */, _hoisted_7), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, column.name]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
       onClick: function onClick($event) {
         return $options.removeColumn(index);
       },
       src: "/assets/icon-cross.svg",
       alt: "light theme"
-    }, null, 8 /* PROPS */, _hoisted_9)]);
+    }, null, 8 /* PROPS */, _hoisted_8)]);
   }), 128 /* KEYED_FRAGMENT */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "btn-secondary",
     type: "button",
     onClick: _cache[2] || (_cache[2] = function () {
       return $options.addColumn && $options.addColumn.apply($options, arguments);
     })
-  }, "+ Add New Column")]), _hoisted_10], 32 /* NEED_HYDRATION */)])])], 64 /* STABLE_FRAGMENT */);
+  }, "+ Add New Column")]), _hoisted_9], 32 /* NEED_HYDRATION */)], 2 /* CLASS */)])], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
@@ -21748,44 +21626,41 @@ __webpack_require__.r(__webpack_exports__);
 var _hoisted_1 = {
   "class": "view-widget-modal"
 };
-var _hoisted_2 = {
-  "class": "add-edit-board-container"
-};
-var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
   "class": "heading-l"
 }, "Add New Task", -1 /* HOISTED */);
-var _hoisted_4 = {
+var _hoisted_3 = {
   "class": "form-group"
 };
-var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "taskName"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
   "class": "body-m"
 }, "Title")], -1 /* HOISTED */);
-var _hoisted_6 = {
+var _hoisted_5 = {
   "class": "form-group"
 };
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "class": "body-m",
   "for": "description"
 }, "Description", -1 /* HOISTED */);
-var _hoisted_8 = {
+var _hoisted_7 = {
   "class": "form-group"
 };
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
   "class": "body-m"
 }, "Subtasks")], -1 /* HOISTED */);
-var _hoisted_10 = ["onUpdate:modelValue"];
-var _hoisted_11 = ["onClick"];
-var _hoisted_12 = {
+var _hoisted_9 = ["onUpdate:modelValue"];
+var _hoisted_10 = ["onClick"];
+var _hoisted_11 = {
   "class": "form-group"
 };
-var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "class": "body-m",
   "for": "status-select"
 }, "Status", -1 /* HOISTED */);
-var _hoisted_14 = ["value"];
-var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+var _hoisted_13 = ["value"];
+var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   "class": "btn-primary-s",
   type: "submit"
 }, "Create New Task", -1 /* HOISTED */);
@@ -21795,11 +21670,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[0] || (_cache[0] = function () {
       return _ctx.toggleAddTask && _ctx.toggleAddTask.apply(_ctx, arguments);
     })
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(['add-edit-board-container', _ctx.isDarkMode ? 'add-edit-board-container-dark' : ''])
+  }, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
     onSubmit: _cache[5] || (_cache[5] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.submitTask && $options.submitTask.apply($options, arguments);
     }, ["prevent"]))
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "class": "body-l",
     type: "text",
     id: "TaskName",
@@ -21808,7 +21685,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     required: "",
     placeholder: "e.g. Take coffee break"
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.newTask.title]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.newTask.title]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
       return $data.newTask.description = $event;
     }),
@@ -21817,7 +21694,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     id: "description",
     rows: "4",
     placeholder: "e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little."
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.newTask.description]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [_hoisted_9, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.newTask.subtasks, function (subtask, index) {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.newTask.description]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.newTask.subtasks, function (subtask, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
       key: index,
       "class": "subtasks"
@@ -21828,20 +21705,20 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         return subtask.title = $event;
       },
       required: ""
-    }, null, 8 /* PROPS */, _hoisted_10), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, subtask.title]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    }, null, 8 /* PROPS */, _hoisted_9), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, subtask.title]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
       onClick: function onClick($event) {
         return $options.removeSubtask(index);
       },
       src: "/assets/icon-cross.svg",
       alt: "delete subtask"
-    }, null, 8 /* PROPS */, _hoisted_11)]);
+    }, null, 8 /* PROPS */, _hoisted_10)]);
   }), 128 /* KEYED_FRAGMENT */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "btn-secondary",
     type: "button",
     onClick: _cache[3] || (_cache[3] = function () {
       return $options.addSubtask && $options.addSubtask.apply($options, arguments);
     })
-  }, "+ Add New Subtask")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+  }, "+ Add New Subtask")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
       return $data.selectedColumn = $event;
     }),
@@ -21850,8 +21727,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
       key: column.column_id,
       value: column.column_id
-    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(column.name), 9 /* TEXT, PROPS */, _hoisted_14);
-  }), 128 /* KEYED_FRAGMENT */))], 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.selectedColumn]])]), _hoisted_15], 32 /* NEED_HYDRATION */)])])], 64 /* STABLE_FRAGMENT */);
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(column.name), 9 /* TEXT, PROPS */, _hoisted_13);
+  }), 128 /* KEYED_FRAGMENT */))], 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.selectedColumn]])]), _hoisted_14], 32 /* NEED_HYDRATION */)], 2 /* CLASS */)])], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
@@ -21873,40 +21750,37 @@ var _hoisted_1 = {
   key: 0,
   "class": "board-div"
 };
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
-  "class": "heading-xl"
-}, " + New Column", -1 /* HOISTED */);
-var _hoisted_3 = [_hoisted_2];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Column = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Column");
   var _component_ViewTask = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("ViewTask");
-  var _component_AddBoard = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("AddBoard");
   var _component_DeleteBoard = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("DeleteBoard");
   var _component_AddTask = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("AddTask");
   var _component_EditBoard = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("EditBoard");
   var _component_EditTask = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("EditTask");
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [$props.board && _ctx.shouldColumnsRefresh ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.board.columns, function (column) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [_ctx.activeBoard ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.activeBoard.columns, function (column) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
-      key: column.column_id,
+      key: "".concat(column.column_id, "-").concat(column.board_id),
       "class": "column"
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Column, {
-      column: column,
-      selectedColumn: $data.selectedColumn
-    }, null, 8 /* PROPS */, ["column", "selectedColumn"])]);
+      column: column
+    }, null, 8 /* PROPS */, ["column"])]);
   }), 128 /* KEYED_FRAGMENT */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(['add-column-div', _ctx.isDarkMode ? 'add-column-div-dark' : ''])
-  }, [].concat(_hoisted_3), 2 /* CLASS */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.isViewTaskVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_ViewTask, {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
+    "class": "heading-xl",
+    onClick: _cache[0] || (_cache[0] = function ($event) {
+      _ctx.toggleEditBoard();
+    })
+  }, " + New Column")], 2 /* CLASS */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.isViewTaskVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_ViewTask, {
     key: 1
-  })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.isAddBoardVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_AddBoard, {
-    key: 2
   })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.isDeleteBoardVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_DeleteBoard, {
-    key: 3
+    key: 2
   })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.isAddTaskVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_AddTask, {
-    key: 4
+    key: 3
   })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.isEditBoardVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_EditBoard, {
-    key: 5
+    key: 4
   })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.isEditTaskVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_EditTask, {
-    key: 6
+    key: 5
   })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64 /* STABLE_FRAGMENT */);
 }
 
@@ -21929,19 +21803,24 @@ var _hoisted_1 = {
   "class": "drop-down-conatiner"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
-    "class": "body-l edit-p",
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "grey-box light",
     onClick: _cache[0] || (_cache[0] = function ($event) {
+      return _ctx.toggleBoardDropDown();
+    })
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+    "class": "body-l edit-p",
+    onClick: _cache[1] || (_cache[1] = function ($event) {
       _ctx.toggleEditBoard();
       _ctx.toggleBoardDropDown();
     })
   }, " Edit Board"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
     "class": "body-l delete-p",
-    onClick: _cache[1] || (_cache[1] = function ($event) {
+    onClick: _cache[2] || (_cache[2] = function ($event) {
       _ctx.toggleDeleteBoard();
       _ctx.toggleBoardDropDown();
     })
-  }, " Delete Board")]);
+  }, " Delete Board")])], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
@@ -21973,7 +21852,7 @@ var _hoisted_4 = {
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_TaskWidget = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("TaskWidget");
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.column.name), 1 /* TEXT */)]), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.column.tasks, function (task) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.column.name) + " (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.totalTasks) + ") ", 1 /* TEXT */)]), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.column.tasks, function (task) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_TaskWidget, {
       key: "".concat(task.task_id, "-").concat(task.column_id),
       task: task
@@ -22011,9 +21890,6 @@ var _hoisted_4 = {
 var _hoisted_5 = {
   "class": "button-bottom-flex"
 };
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-  "class": "btn-secondary"
-}, " Cancel", -1 /* HOISTED */);
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _ctx$activeBoard;
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
@@ -22026,7 +21902,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[1] || (_cache[1] = function () {
       return $options.deleteActiveBoard && $options.deleteActiveBoard.apply($options, arguments);
     })
-  }, " Delete"), _hoisted_6])])])], 64 /* STABLE_FRAGMENT */);
+  }, " Delete"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    "class": "btn-secondary",
+    onClick: _cache[2] || (_cache[2] = function () {
+      return _ctx.toggleDeleteBoard && _ctx.toggleDeleteBoard.apply(_ctx, arguments);
+    })
+  }, " Cancel")])])])], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
@@ -22047,63 +21928,68 @@ __webpack_require__.r(__webpack_exports__);
 var _hoisted_1 = {
   "class": "view-widget-modal"
 };
-var _hoisted_2 = {
-  "class": "add-edit-board-container"
-};
-var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
   "class": "heading-l"
 }, "Edit Board", -1 /* HOISTED */);
-var _hoisted_4 = {
+var _hoisted_3 = {
   "class": "form-group"
 };
-var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "boardName"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
   "class": "body-m"
-}, "Board Name")], -1 /* HOISTED */);
-var _hoisted_6 = ["placeholder"];
-var _hoisted_7 = {
+}, "Name")], -1 /* HOISTED */);
+var _hoisted_5 = ["placeholder"];
+var _hoisted_6 = {
   "class": "form-group"
 };
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
   "class": "body-m"
 }, "Columns")], -1 /* HOISTED */);
-var _hoisted_9 = ["onUpdate:modelValue"];
-var _hoisted_10 = ["onClick"];
-var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+var _hoisted_8 = ["onUpdate:modelValue"];
+var _hoisted_9 = ["onClick"];
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   "class": "btn-primary-s",
   type: "submit"
 }, "Save Changes", -1 /* HOISTED */);
-var _hoisted_12 = {
+var _hoisted_11 = {
   key: 0
 };
-var _hoisted_13 = {
+var _hoisted_12 = {
   "class": "view-widget-modal"
 };
-var _hoisted_14 = {
+var _hoisted_13 = {
   "class": "delete-container"
 };
-var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
+var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
   "class": "heading-l"
 }, "Delete this column?", -1 /* HOISTED */);
-var _hoisted_16 = {
+var _hoisted_15 = {
   "class": "body-l"
 };
-var _hoisted_17 = {
+var _hoisted_16 = {
   "class": "button-bottom-flex"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _$data$board$columns$;
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "grey-box",
-    onClick: _cache[0] || (_cache[0] = function () {
-      return _ctx.toggleEditBoard && _ctx.toggleEditBoard.apply(_ctx, arguments);
-    })
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.boards, function (board) {
+    var _ctx$activeBoard;
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+      "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["grey-box", {
+        active: ((_ctx$activeBoard = _ctx.activeBoard) === null || _ctx$activeBoard === void 0 ? void 0 : _ctx$activeBoard.board_id) === board.board_id
+      }]),
+      key: board.board_id,
+      onClick: _cache[0] || (_cache[0] = function ($event) {
+        return _ctx.toggleEditBoard(), _ctx.refreshBoardData();
+      })
+    }, null, 2 /* CLASS */);
+  }), 128 /* KEYED_FRAGMENT */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(['add-edit-board-container', _ctx.isDarkMode ? 'add-edit-board-container-dark' : ''])
+  }, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
     onSubmit: _cache[3] || (_cache[3] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.submitBoardUpdate && $options.submitBoardUpdate.apply($options, arguments);
     }, ["prevent"]))
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "class": "body-l",
     type: "text",
     id: "boardName",
@@ -22112,7 +21998,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     required: "",
     placeholder: _ctx.activeBoard.name
-  }, null, 8 /* PROPS */, _hoisted_6), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.board.name]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.board.columns, function (column, index) {
+  }, null, 8 /* PROPS */, _hoisted_5), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.board.name]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.board.columns, function (column, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
       key: index,
       "class": "columns"
@@ -22123,25 +22009,25 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         return column.name = $event;
       },
       required: ""
-    }, null, 8 /* PROPS */, _hoisted_9), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, column.name]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    }, null, 8 /* PROPS */, _hoisted_8), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, column.name]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
       onClick: function onClick($event) {
         return $options.prepareToRemoveColumn(index);
       },
       src: "/assets/icon-cross.svg",
       alt: "light theme"
-    }, null, 8 /* PROPS */, _hoisted_10)]);
+    }, null, 8 /* PROPS */, _hoisted_9)]);
   }), 128 /* KEYED_FRAGMENT */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "btn-secondary",
     type: "button",
     onClick: _cache[2] || (_cache[2] = function () {
       return $options.addColumn && $options.addColumn.apply($options, arguments);
     })
-  }, "+ Add New Column")]), _hoisted_11], 32 /* NEED_HYDRATION */)])]), $data.showDeleteConfirmation ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  }, "+ Add New Column")]), _hoisted_10], 32 /* NEED_HYDRATION */)], 2 /* CLASS */)]), $data.showDeleteConfirmation ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "grey-box higher",
     onClick: _cache[4] || (_cache[4] = function ($event) {
       return $data.showDeleteConfirmation = false;
     })
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_16, " Are you sure you want to delete the '" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(((_$data$board$columns$ = $data.board.columns[$data.columnIndexToDelete]) === null || _$data$board$columns$ === void 0 ? void 0 : _$data$board$columns$.name) || '') + "' Column? This action will remove all tasks within the column and cannot be reversed. ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [_hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_15, " Are you sure you want to delete the '" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(((_$data$board$columns$ = $data.board.columns[$data.columnIndexToDelete]) === null || _$data$board$columns$ === void 0 ? void 0 : _$data$board$columns$.name) || '') + "' Column? This action will remove all tasks within the column and cannot be reversed. ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "btn-destructive",
     onClick: _cache[5] || (_cache[5] = function () {
       return $options.deleteActiveColumn && $options.deleteActiveColumn.apply($options, arguments);
@@ -22172,38 +22058,34 @@ __webpack_require__.r(__webpack_exports__);
 var _hoisted_1 = {
   "class": "view-widget-modal"
 };
-var _hoisted_2 = {
-  "class": "add-edit-board-container"
-};
-var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
   "class": "heading-l"
 }, "Edit Task", -1 /* HOISTED */);
-var _hoisted_4 = {
+var _hoisted_3 = {
   "class": "form-group"
 };
-var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "taskName"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
   "class": "body-m"
-}, "Title")], -1 /* HOISTED */);
-var _hoisted_6 = ["placeholder"];
+}, "Task Title")], -1 /* HOISTED */);
+var _hoisted_5 = {
+  "class": "form-group"
+};
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "description"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+  "class": "body-m"
+}, "Task Description")], -1 /* HOISTED */);
 var _hoisted_7 = {
   "class": "form-group"
 };
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  "class": "body-m",
-  "for": "description"
-}, "Description", -1 /* HOISTED */);
-var _hoisted_9 = ["placeholder"];
-var _hoisted_10 = {
-  "class": "form-group"
-};
-var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
   "class": "body-m"
 }, "Subtasks")], -1 /* HOISTED */);
-var _hoisted_12 = ["onUpdate:modelValue"];
-var _hoisted_13 = ["onClick"];
-var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+var _hoisted_9 = ["onUpdate:modelValue"];
+var _hoisted_10 = ["onClick"];
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   "class": "btn-primary-s",
   type: "submit"
 }, "Save Changes", -1 /* HOISTED */);
@@ -22213,30 +22095,30 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[0] || (_cache[0] = function () {
       return _ctx.toggleEditTask && _ctx.toggleEditTask.apply(_ctx, arguments);
     })
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(['add-edit-board-container', _ctx.isDarkMode ? 'add-edit-board-container-dark' : ''])
+  }, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
     onSubmit: _cache[4] || (_cache[4] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
-      return _ctx.submitTaskUpdate && _ctx.submitTaskUpdate.apply(_ctx, arguments);
+      return $options.submitTaskUpdate && $options.submitTaskUpdate.apply($options, arguments);
     }, ["prevent"]))
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "class": "body-l",
     type: "text",
-    id: "TaskName",
+    id: "taskName",
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
       return $data.task.title = $event;
     }),
-    required: "",
-    placeholder: _ctx.activeTask.title
-  }, null, 8 /* PROPS */, _hoisted_6), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.task.title]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
+    required: ""
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.task.title]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
     "class": "description body-l",
     id: "description",
     rows: "4",
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
       return $data.task.description = $event;
-    }),
-    placeholder: _ctx.activeTask.description
-  }, null, 8 /* PROPS */, _hoisted_9), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.task.description]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.task.subtasks, function (subtask, index) {
+    })
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.task.description]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.task.subtasks, function (subtask, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
-      key: index,
+      key: subtask.subtask_id || index,
       "class": "subtasks"
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
       "class": "body-l",
@@ -22245,20 +22127,20 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         return subtask.title = $event;
       },
       required: ""
-    }, null, 8 /* PROPS */, _hoisted_12), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, subtask.title]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    }, null, 8 /* PROPS */, _hoisted_9), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, subtask.title]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
       onClick: function onClick($event) {
-        return $options.removeSubtask(index);
+        return $options.deleteSubtask(index);
       },
       src: "/assets/icon-cross.svg",
       alt: "delete subtask"
-    }, null, 8 /* PROPS */, _hoisted_13)]);
+    }, null, 8 /* PROPS */, _hoisted_10)]);
   }), 128 /* KEYED_FRAGMENT */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "btn-secondary",
     type: "button",
     onClick: _cache[3] || (_cache[3] = function () {
       return $options.addSubtask && $options.addSubtask.apply($options, arguments);
     })
-  }, "+ Add New Subtask")]), _hoisted_14], 32 /* NEED_HYDRATION */)])])], 64 /* STABLE_FRAGMENT */);
+  }, "+ Add New Subtask")]), _hoisted_11], 32 /* NEED_HYDRATION */)], 2 /* CLASS */)])], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
@@ -22284,11 +22166,11 @@ var _hoisted_2 = {
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(['task-widget-container', _ctx.isDarkMode ? 'task-widget-container-dark' : '']),
-    onClick: _cache[0] || (_cache[0] = function ($event) {
-      return $options.selectTask(), _ctx.toggleViewTask();
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(['task-widget-container', $setup.isDarkMode ? 'task-widget-container-dark' : '']),
+    onClick: _cache[0] || (_cache[0] = function () {
+      return $setup.handleClick && $setup.handleClick.apply($setup, arguments);
     })
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", _hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.task.title), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.completedSubtasksCount) + " of " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.totalSubtasksCount) + " subtasks complete!", 1 /* TEXT */)], 2 /* CLASS */);
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", _hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.task.title), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.completedSubtasksCount) + " of " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.totalSubtasksCount) + " subtasks complete!", 1 /* TEXT */)], 2 /* CLASS */);
 }
 
 /***/ }),
@@ -22319,31 +22201,33 @@ var _hoisted_2 = /*#__PURE__*/_withScopeId(function () {
   }, "No have not seclted a board. click on the sidebar to view or create a board.", -1 /* HOISTED */);
 });
 var _hoisted_3 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    "class": "btn-primary-s"
-  }, " + Add New Board", -1 /* HOISTED */);
-});
-var _hoisted_4 = [_hoisted_2, _hoisted_3];
-var _hoisted_5 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     src: "/assets/icon-show-sidebar.svg",
     alt: "light theme"
   }, null, -1 /* HOISTED */);
 });
-var _hoisted_6 = [_hoisted_5];
+var _hoisted_4 = [_hoisted_3];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_board = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("board");
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+  var _component_AddBoard = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("AddBoard");
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(['content-div', _ctx.isDarkMode ? 'content-div-dark' : '', _ctx.isSidebarVisible ? '' : 'content-expanded'])
   }, [_ctx.activeBoard ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_board, {
     key: _ctx.activeBoard.id,
     board: _ctx.activeBoard
-  }, null, 8 /* PROPS */, ["board"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !_ctx.activeBoard ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [].concat(_hoisted_4))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "toggle-sidebar-btn",
+  }, null, 8 /* PROPS */, ["board"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !_ctx.activeBoard ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    "class": "btn-primary-s",
     onClick: _cache[0] || (_cache[0] = function () {
+      return _ctx.toggleAddBoardForm && _ctx.toggleAddBoardForm.apply(_ctx, arguments);
+    })
+  }, " + Add New Board")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "toggle-sidebar-btn",
+    onClick: _cache[1] || (_cache[1] = function () {
       return _ctx.toggleSidebar && _ctx.toggleSidebar.apply(_ctx, arguments);
     })
-  }, [].concat(_hoisted_6))], 2 /* CLASS */);
+  }, [].concat(_hoisted_4))], 2 /* CLASS */), _ctx.isAddBoardVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_AddBoard, {
+    key: 0
+  })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
@@ -22391,17 +22275,15 @@ var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
   alt: "Mobile Menu Button"
 }, null, -1 /* HOISTED */);
 var _hoisted_10 = [_hoisted_7, _hoisted_8, _hoisted_9];
-var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_11 = {
+  key: 0,
   "class": "side-flex"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-  "class": "btn-primary-s mobile-add-btn"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+};
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
   src: "/assets/icon-add-task-mobile.svg",
   alt: "Mobile Logo"
-})]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  src: "/assets/icon-vertical-ellipsis.svg",
-  alt: "Board Icon"
-})], -1 /* HOISTED */);
+}, null, -1 /* HOISTED */);
+var _hoisted_13 = [_hoisted_12];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _ctx$activeBoard;
   var _component_BoardDropDown = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("BoardDropDown");
@@ -22426,7 +22308,18 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return _ctx.toggleMobileSidebar && _ctx.toggleMobileSidebar.apply(_ctx, arguments);
     }),
     "class": "side-flex mobile-menu-click"
-  }, [].concat(_hoisted_10)), _hoisted_11])], 2 /* CLASS */)), _ctx.isBoardDropDownVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_BoardDropDown, {
+  }, [].concat(_hoisted_10)), _ctx.activeBoard != null ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    "class": "btn-primary-s mobile-add-btn",
+    onClick: _cache[3] || (_cache[3] = function () {
+      return _ctx.toggleAddTask && _ctx.toggleAddTask.apply(_ctx, arguments);
+    })
+  }, [].concat(_hoisted_13)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    src: "/assets/icon-vertical-ellipsis.svg",
+    alt: "Board Icon",
+    onClick: _cache[4] || (_cache[4] = function () {
+      return _ctx.toggleBoardDropDown && _ctx.toggleBoardDropDown.apply(_ctx, arguments);
+    })
+  })])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])], 2 /* CLASS */)), _ctx.isBoardDropDownVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_BoardDropDown, {
     key: 2
   })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64 /* STABLE_FRAGMENT */);
 }
@@ -22457,7 +22350,10 @@ var _hoisted_4 = {
   "class": "boards-flex"
 };
 var _hoisted_5 = ["onClick"];
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+var _hoisted_6 = {
+  "class": "item-container"
+};
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   "class": "board-icon",
   width: "16",
   height: "16",
@@ -22465,7 +22361,7 @@ var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
   d: "M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z"
 })], -1 /* HOISTED */);
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   "class": "create-board-icon",
   width: "16",
   height: "16",
@@ -22473,42 +22369,46 @@ var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
   d: "M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z"
 })], -1 /* HOISTED */);
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "+ Create New Board", -1 /* HOISTED */);
-var _hoisted_9 = [_hoisted_7, _hoisted_8];
-var _hoisted_10 = {
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "+ Create New Board", -1 /* HOISTED */);
+var _hoisted_10 = [_hoisted_8, _hoisted_9];
+var _hoisted_11 = {
   "class": "bottom-div"
 };
-var _hoisted_11 = {
+var _hoisted_12 = {
   "class": "toggle-theme-div"
 };
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
   src: "/assets/icon-light-theme.svg",
   alt: "light theme"
 }, null, -1 /* HOISTED */);
-var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "switch-circle"
 }, null, -1 /* HOISTED */);
-var _hoisted_14 = [_hoisted_13];
-var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+var _hoisted_15 = [_hoisted_14];
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
   src: "/assets/icon-dark-theme.svg",
   alt: "Dark Theme"
 }, null, -1 /* HOISTED */);
-var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
   src: "/assets/icon-hide-sidebar.svg",
   alt: "Toggle Sidebar"
 }, null, -1 /* HOISTED */);
-var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
+var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
   "class": "heading-m"
 }, " Hide Sidebar", -1 /* HOISTED */);
-var _hoisted_18 = [_hoisted_16, _hoisted_17];
-var _hoisted_19 = ["src"];
-var _hoisted_20 = {
+var _hoisted_19 = [_hoisted_17, _hoisted_18];
+var _hoisted_20 = ["src"];
+var _hoisted_21 = {
   key: 2
 };
-var _hoisted_21 = {
+var _hoisted_22 = {
   "class": "boards-flex"
 };
-var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+var _hoisted_23 = ["onClick"];
+var _hoisted_24 = {
+  "class": "item-container"
+};
+var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   "class": "board-icon",
   width: "16",
   height: "16",
@@ -22516,33 +22416,31 @@ var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
   d: "M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z"
 })], -1 /* HOISTED */);
-var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Board 1", -1 /* HOISTED */);
-var _hoisted_24 = [_hoisted_22, _hoisted_23];
-var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "create-board-div"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   "class": "create-board-icon",
   width: "16",
   height: "16",
   xmlns: "http://www.w3.org/2000/svg"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
   d: "M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z"
-})]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "+ Create New Board")], -1 /* HOISTED */);
-var _hoisted_26 = {
+})], -1 /* HOISTED */);
+var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "+ Create New Board", -1 /* HOISTED */);
+var _hoisted_28 = [_hoisted_26, _hoisted_27];
+var _hoisted_29 = {
   "class": "bottom-div"
 };
-var _hoisted_27 = {
+var _hoisted_30 = {
   "class": "toggle-theme-div"
 };
-var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+var _hoisted_31 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
   src: "/assets/icon-light-theme.svg",
   alt: "light theme"
 }, null, -1 /* HOISTED */);
-var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_32 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "switch-circle"
 }, null, -1 /* HOISTED */);
-var _hoisted_30 = [_hoisted_29];
-var _hoisted_31 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+var _hoisted_33 = [_hoisted_32];
+var _hoisted_34 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
   src: "/assets/icon-dark-theme.svg",
   alt: "Dark Theme"
 }, null, -1 /* HOISTED */);
@@ -22568,32 +22466,32 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       onClick: function onClick($event) {
         return $options.handleBoardSelection(board);
       }
-    }, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(board.name), 1 /* TEXT */)], 10 /* CLASS, PROPS */, _hoisted_5);
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(board.name), 1 /* TEXT */)])], 10 /* CLASS, PROPS */, _hoisted_5);
   }), 128 /* KEYED_FRAGMENT */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "create-board-div",
     onClick: _cache[0] || (_cache[0] = function () {
       return _ctx.toggleAddBoardForm && _ctx.toggleAddBoardForm.apply(_ctx, arguments);
     })
-  }, [].concat(_hoisted_9))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, [].concat(_hoisted_10))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["toggle-switch", {
       'active': _ctx.isDarkMode
     }]),
     onClick: _cache[1] || (_cache[1] = function () {
       return $options.toggleTheme && $options.toggleTheme.apply($options, arguments);
     })
-  }, [].concat(_hoisted_14), 2 /* CLASS */), _hoisted_15]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  }, [].concat(_hoisted_15), 2 /* CLASS */), _hoisted_16]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "toggle-sidebar-div",
     onClick: _cache[2] || (_cache[2] = function () {
       return _ctx.toggleSidebar && _ctx.toggleSidebar.apply(_ctx, arguments);
     })
-  }, [].concat(_hoisted_18))])])], 2 /* CLASS */)) : !_ctx.isSidebarVisible && !_ctx.isMobileView ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+  }, [].concat(_hoisted_19))])])], 2 /* CLASS */)) : !_ctx.isSidebarVisible && !_ctx.isMobileView ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
     key: 1,
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(['sidebar-div-collapsed', _ctx.isDarkMode ? 'sidebar-collapsed-dark' : ''])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     "class": "logo",
     src: $options.logoUrl,
     alt: "Top Logo"
-  }, null, 8 /* PROPS */, _hoisted_19)], 2 /* CLASS */)) : _ctx.isMobileView && _ctx.isMobileSidebarVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  }, null, 8 /* PROPS */, _hoisted_20)], 2 /* CLASS */)) : _ctx.isMobileView && _ctx.isMobileSidebarVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "grey-box",
     onClick: _cache[6] || (_cache[6] = function () {
       return _ctx.toggleMobileSidebar && _ctx.toggleMobileSidebar.apply(_ctx, arguments);
@@ -22601,25 +22499,34 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(['mobile-menu', _ctx.isDarkMode ? 'mobile-menu-dark' : '']),
     onClick: _cache[5] || (_cache[5] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {}, ["stop"]))
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(['heading-s', {
       'heading-l': _ctx.isDarkMode
     }])
-  }, " ALL BOARDS (2) ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["board-item", {
-      active: _ctx.activeBoard === _ctx.activeBoard
-    }]),
-    onClick: _cache[3] || (_cache[3] = function ($event) {
-      return _ctx.setActiveBoard('Board 1');
+  }, " ALL BOARDS (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.boards.length) + ") ", 3 /* TEXT, CLASS */), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.boards, function (board) {
+    var _ctx$activeBoard2;
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+      "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["board-item", {
+        active: ((_ctx$activeBoard2 = _ctx.activeBoard) === null || _ctx$activeBoard2 === void 0 ? void 0 : _ctx$activeBoard2.board_id) === board.board_id
+      }]),
+      key: board.board_id,
+      onClick: function onClick($event) {
+        return $options.handleBoardSelection(board);
+      }
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [_hoisted_25, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(board.name), 1 /* TEXT */)])], 10 /* CLASS, PROPS */, _hoisted_23);
+  }), 128 /* KEYED_FRAGMENT */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "create-board-div",
+    onClick: _cache[3] || (_cache[3] = function () {
+      return _ctx.toggleAddBoardForm && _ctx.toggleAddBoardForm.apply(_ctx, arguments);
     })
-  }, [].concat(_hoisted_24), 2 /* CLASS */), _hoisted_25]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [_hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, [].concat(_hoisted_28))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_30, [_hoisted_31, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["toggle-switch", {
       'active': _ctx.isDarkMode
     }]),
     onClick: _cache[4] || (_cache[4] = function () {
       return $options.toggleTheme && $options.toggleTheme.apply($options, arguments);
     })
-  }, [].concat(_hoisted_30), 2 /* CLASS */), _hoisted_31])])], 2 /* CLASS */)])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true);
+  }, [].concat(_hoisted_33), 2 /* CLASS */), _hoisted_34])])], 2 /* CLASS */)])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true);
 }
 
 /***/ }),
@@ -22641,13 +22548,13 @@ var _hoisted_1 = {
   "class": "view-widget-modal"
 };
 var _hoisted_2 = {
-  "class": "add-edit-board-container"
-};
-var _hoisted_3 = {
   "class": "side-flex space-bottom"
 };
-var _hoisted_4 = {
+var _hoisted_3 = {
   "class": "heading-l"
+};
+var _hoisted_4 = {
+  key: 0
 };
 var _hoisted_5 = {
   "class": "body-l form-group description"
@@ -22673,29 +22580,60 @@ var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   "class": "body-m",
   "for": "status-select"
 }, "Status", -1 /* HOISTED */);
-var _hoisted_14 = ["value"];
-var _hoisted_15 = {
+var _hoisted_14 = {
+  key: 0,
+  disabled: "",
+  value: "",
+  selected: ""
+};
+var _hoisted_15 = ["value"];
+var _hoisted_16 = {
   key: 0
 };
-var _hoisted_16 = {
-  "class": "drop-down-conatiner-task"
+var _hoisted_17 = {
+  "class": "view-widget-modal"
 };
-var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
-  "class": "body-l delete-p"
-}, " Delete Task", -1 /* HOISTED */);
+var _hoisted_18 = {
+  "class": "delete-container"
+};
+var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
+  "class": "heading-l"
+}, "Delete this Task?", -1 /* HOISTED */);
+var _hoisted_20 = {
+  "class": "body-l"
+};
+var _hoisted_21 = {
+  "class": "button-bottom-flex"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _$options$activeTask, _$options$activeTask2;
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "grey-box",
-    onClick: _cache[0] || (_cache[0] = function () {
-      return _ctx.toggleViewTask && _ctx.toggleViewTask.apply(_ctx, arguments);
+    onClick: _cache[0] || (_cache[0] = function ($event) {
+      return _ctx.toggleViewTask(), _ctx.refreshBoardData();
     })
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.activeTask.title), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-    onClick: _cache[1] || (_cache[1] = function ($event) {
-      return $data.dropdownVisible = true;
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(['add-edit-board-container', _ctx.isDarkMode ? 'add-edit-board-container-dark' : ''])
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$options$activeTask = $options.activeTask) === null || _$options$activeTask === void 0 ? void 0 : _$options$activeTask.title), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    onClick: _cache[1] || (_cache[1] = function () {
+      return _ctx.toggleTaskDropdown && _ctx.toggleTaskDropdown.apply(_ctx, arguments);
     }),
     src: "/assets/icon-vertical-ellipsis.svg",
-    alt: "Board Icon"
-  })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.activeTask.description), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_8, "Subtasks (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.completedSubtasksCount) + " of " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.totalSubtasksCount) + ")", 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_9, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.activeTaskSubtasks, function (subtask) {
+    alt: "Board Icon",
+    "class": "drop-btn"
+  })]), _ctx.isTaskDropdownVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(['drop-down-conatiner-task', _ctx.isDarkMode ? 'drop-down-conatiner-task-dark' : ''])
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+    "class": "edit-p",
+    onClick: _cache[2] || (_cache[2] = function ($event) {
+      return _ctx.toggleEditTask(), _ctx.toggleTaskDropdown, _ctx.toggleViewTask();
+    })
+  }, " Edit Task"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+    "class": "delete-p",
+    onClick: _cache[3] || (_cache[3] = function ($event) {
+      return $data.showDeleteConfirmation = true;
+    })
+  }, " Delete Task")], 2 /* CLASS */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$options$activeTask2 = $options.activeTask) === null || _$options$activeTask2 === void 0 ? void 0 : _$options$activeTask2.description), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_8, "Subtasks (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.completedSubtasksCount) + " of " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.totalSubtasksCount) + ")", 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_9, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.activeTaskSubtasks, function (subtask) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", {
       key: subtask.subtask_id,
       "class": "subtask-item"
@@ -22712,24 +22650,34 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       "for": "subtask-".concat(subtask.subtask_id)
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(subtask.title), 9 /* TEXT, PROPS */, _hoisted_11)]);
   }), 128 /* KEYED_FRAGMENT */))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
-    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+    "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
       return $data.selectedColumn = $event;
     }),
-    onChange: _cache[3] || (_cache[3] = function ($event) {
-      return $options.onChangeColumn($options.activeTask.column_id);
+    onChange: _cache[5] || (_cache[5] = function () {
+      return $options.updateTaskColumn && $options.updateTaskColumn.apply($options, arguments);
     }),
-    "class": "column-drop"
-  }, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.columns, function (column) {
+    "class": "status-select body-l"
+  }, [!$data.selectedColumn ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.activeTask.status), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.columns, function (column) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
       key: column.column_id,
       value: column.column_id
-    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(column.name), 9 /* TEXT, PROPS */, _hoisted_14);
-  }), 128 /* KEYED_FRAGMENT */))], 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.selectedColumn]])])])]), $data.dropdownVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
-    "class": "body-l edit-p",
-    onClick: _cache[4] || (_cache[4] = function ($event) {
-      return _ctx.toggleEditTask(), $data.dropdownVisible = false, _ctx.toggleViewTask();
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(column.name), 9 /* TEXT, PROPS */, _hoisted_15);
+  }), 128 /* KEYED_FRAGMENT */))], 544 /* NEED_HYDRATION, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.selectedColumn]])])], 2 /* CLASS */)]), $data.showDeleteConfirmation ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "grey-box higher",
+    onClick: _cache[6] || (_cache[6] = function ($event) {
+      return $data.showDeleteConfirmation = false;
     })
-  }, " Edit Task"), _hoisted_17])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64 /* STABLE_FRAGMENT */);
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [_hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_20, " Are you sure you want to delete the '" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.activeTask.title || '') + "' Task? This action will remove all subtasks within the task and cannot be reversed. ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    "class": "btn-destructive",
+    onClick: _cache[7] || (_cache[7] = function ($event) {
+      return $options.deleteActiveTask($options.activeTask);
+    })
+  }, " Delete"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    "class": "btn-secondary",
+    onClick: _cache[8] || (_cache[8] = function ($event) {
+      return $data.showDeleteConfirmation = false;
+    })
+  }, " Cancel")])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
@@ -22782,13 +22730,6 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw new Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw new Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vuex__WEBPACK_IMPORTED_MODULE_1__.createStore)({
@@ -22799,6 +22740,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     isMobileSidebarVisible: false,
     isAddBoardVisible: false,
     isBoardDropDownVisible: false,
+    isTaskDropdownVisible: false,
     isDeleteBoardVisible: false,
     isAddTaskVisible: false,
     isEditBoardVisible: false,
@@ -22832,6 +22774,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     toggleBoardDropDown: function toggleBoardDropDown(state) {
       state.isBoardDropDownVisible = !state.isBoardDropDownVisible;
+    },
+    toggleTaskDropdown: function toggleTaskDropdown(state) {
+      state.isTaskDropdownVisible = !state.isTaskDropdownVisible;
     },
     toggleDeleteBoard: function toggleDeleteBoard(state) {
       state.isDeleteBoardVisible = !state.isDeleteBoardVisible;
@@ -22884,47 +22829,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     UPDATE_TASK_COLUMN: function UPDATE_TASK_COLUMN(state, _ref2) {
       var taskId = _ref2.taskId,
-        columnId = _ref2.columnId;
-      var taskFound = false;
-      var _iterator = _createForOfIteratorHelper(state.boards),
-        _step;
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var board = _step.value;
-          var _iterator2 = _createForOfIteratorHelper(board.columns),
-            _step2;
-          try {
-            for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-              var column = _step2.value;
-              var taskIndex = column.tasks.findIndex(function (task) {
-                return task.task_id === taskId;
-              });
-              if (taskIndex !== -1) {
-                var _column$tasks$splice = column.tasks.splice(taskIndex, 1),
-                  _column$tasks$splice2 = _slicedToArray(_column$tasks$splice, 1),
-                  task = _column$tasks$splice2[0];
-                task.column_id = columnId;
-                var targetColumn = board.columns.find(function (c) {
-                  return c.column_id === columnId;
-                });
-                if (targetColumn) {
-                  targetColumn.tasks.push(task);
-                  taskFound = true;
-                }
-                break;
-              }
-            }
-          } catch (err) {
-            _iterator2.e(err);
-          } finally {
-            _iterator2.f();
-          }
-          if (taskFound) break;
-        }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
+        columnId = _ref2.columnId,
+        status = _ref2.status;
+      var taskToUpdate = state.activeBoard.columns.flatMap(function (column) {
+        return column.tasks;
+      }).find(function (task) {
+        return task.task_id === taskId;
+      });
+      if (taskToUpdate) {
+        taskToUpdate.column_id = columnId;
+        taskToUpdate.status = status;
       }
     },
     UPDATE_TASK: function UPDATE_TASK(state, updatedTask) {
@@ -22978,6 +22892,26 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         return board.id !== boardId;
       });
     },
+    REMOVE_TASK: function REMOVE_TASK(state, taskId) {
+      state.boards.forEach(function (board) {
+        board.columns.forEach(function (column) {
+          var taskIndex = column.tasks.findIndex(function (task) {
+            return task.task_id === taskId;
+          });
+          if (taskIndex !== -1) {
+            column.tasks.splice(taskIndex, 1);
+          }
+          column.tasks.forEach(function (task) {
+            var subtaskIndex = task.subtasks.findIndex(function (subtask) {
+              return subtask.task_id === taskId;
+            });
+            if (subtaskIndex !== -1) {
+              task.subtasks.splice(subtaskIndex, 1);
+            }
+          });
+        });
+      });
+    },
     DELETE_SUBTASK: function DELETE_SUBTASK(state, subtaskId) {
       state.boards.forEach(function (board) {
         board.columns.forEach(function (column) {
@@ -22993,7 +22927,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       });
     }
   },
-  actions: _defineProperty(_defineProperty({
+  actions: _defineProperty({
     fetchBoards: function fetchBoards(_ref3) {
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var commit, boardsResponse;
@@ -23095,157 +23029,253 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         }, _callee4, null, [[1, 7]]);
       }))();
     },
-    addColumn: function addColumn(_ref7, _ref8) {
+    refreshBoardData: function refreshBoardData(_ref7) {
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
-        var dispatch, columnData, response;
+        var commit, state, response, activeBoard;
         return _regeneratorRuntime().wrap(function _callee5$(_context5) {
           while (1) switch (_context5.prev = _context5.next) {
             case 0:
-              dispatch = _ref7.dispatch;
-              columnData = _ref8.columnData;
-              _context5.prev = 2;
-              _context5.next = 5;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/columns', columnData);
-            case 5:
+              commit = _ref7.commit, state = _ref7.state;
+              _context5.prev = 1;
+              _context5.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/boards');
+            case 4:
               response = _context5.sent;
-              dispatch('fetchBoards');
-              return _context5.abrupt("return", response.data);
-            case 10:
-              _context5.prev = 10;
-              _context5.t0 = _context5["catch"](2);
-              console.error('Error adding column:', _context5.t0);
-              throw _context5.t0;
-            case 14:
+              commit('SET_BOARDS', response.data); // Assuming 'SET_BOARDS' replaces all board data
+
+              // If you want to keep the currently selected board active, find it in the refreshed list
+              if (state.activeBoard) {
+                activeBoard = response.data.find(function (board) {
+                  return board.board_id === state.activeBoard.board_id;
+                });
+                commit('SET_ACTIVE_BOARD', activeBoard || null);
+              }
+              _context5.next = 12;
+              break;
+            case 9:
+              _context5.prev = 9;
+              _context5.t0 = _context5["catch"](1);
+              console.error('Failed to refresh boards:', _context5.t0);
+            case 12:
             case "end":
               return _context5.stop();
           }
-        }, _callee5, null, [[2, 10]]);
+        }, _callee5, null, [[1, 9]]);
       }))();
     },
-    addTask: function addTask(_ref9, _ref10) {
+    deleteTask: function deleteTask(_ref8, taskId) {
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
-        var dispatch, taskData;
+        var commit, state;
         return _regeneratorRuntime().wrap(function _callee6$(_context6) {
           while (1) switch (_context6.prev = _context6.next) {
             case 0:
-              dispatch = _ref9.dispatch;
-              taskData = _ref10.taskData;
-              _context6.prev = 2;
-              _context6.next = 5;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/tasks', taskData);
-            case 5:
-              dispatch('fetchBoards');
-              _context6.next = 11;
+              commit = _ref8.commit, state = _ref8.state;
+              _context6.prev = 1;
+              _context6.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("/api/tasks/".concat(taskId));
+            case 4:
+              commit('REMOVE_TASK', taskId);
+              _context6.next = 10;
               break;
-            case 8:
-              _context6.prev = 8;
-              _context6.t0 = _context6["catch"](2);
-              console.error('Error adding task:', _context6.t0);
-            case 11:
+            case 7:
+              _context6.prev = 7;
+              _context6.t0 = _context6["catch"](1);
+              console.error('Error deleting task:', _context6.t0);
+            case 10:
             case "end":
               return _context6.stop();
           }
-        }, _callee6, null, [[2, 8]]);
+        }, _callee6, null, [[1, 7]]);
       }))();
     },
-    updateTask: function updateTask(_ref11, taskData) {
+    addColumn: function addColumn(_ref9, _ref10) {
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
-        var commit, response;
+        var dispatch, columnData, response;
         return _regeneratorRuntime().wrap(function _callee7$(_context7) {
           while (1) switch (_context7.prev = _context7.next) {
             case 0:
-              commit = _ref11.commit;
-              _context7.prev = 1;
-              _context7.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().patch("/api/tasks/".concat(taskData.task_id), taskData);
-            case 4:
+              dispatch = _ref9.dispatch;
+              columnData = _ref10.columnData;
+              _context7.prev = 2;
+              _context7.next = 5;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/columns', columnData);
+            case 5:
               response = _context7.sent;
-              commit('UPDATE_TASK', response.data);
+              dispatch('fetchBoards');
               return _context7.abrupt("return", response.data);
-            case 9:
-              _context7.prev = 9;
-              _context7.t0 = _context7["catch"](1);
-              console.error('Error updating task:', _context7.t0);
+            case 10:
+              _context7.prev = 10;
+              _context7.t0 = _context7["catch"](2);
+              console.error('Error adding column:', _context7.t0);
               throw _context7.t0;
-            case 13:
+            case 14:
             case "end":
               return _context7.stop();
           }
-        }, _callee7, null, [[1, 9]]);
+        }, _callee7, null, [[2, 10]]);
       }))();
     },
-    updateSubtask: function updateSubtask(_ref12, subtaskData) {
+    addTask: function addTask(_ref11, _ref12) {
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
-        var commit, response;
+        var dispatch, taskData;
         return _regeneratorRuntime().wrap(function _callee8$(_context8) {
           while (1) switch (_context8.prev = _context8.next) {
             case 0:
-              commit = _ref12.commit;
-              _context8.prev = 1;
-              _context8.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().patch("/api/subtasks/".concat(subtaskData.subtask_id), {
-                title: subtaskData.title,
-                isCompleted: subtaskData.isCompleted
-              });
-            case 4:
-              response = _context8.sent;
-              commit('UPDATE_SUBTASK', response.data);
+              dispatch = _ref11.dispatch;
+              taskData = _ref12.taskData;
+              _context8.prev = 2;
+              _context8.next = 5;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/tasks', taskData);
+            case 5:
+              dispatch('fetchBoards');
               _context8.next = 11;
               break;
             case 8:
               _context8.prev = 8;
-              _context8.t0 = _context8["catch"](1);
-              console.error('Error updating subtask:', _context8.t0);
+              _context8.t0 = _context8["catch"](2);
+              console.error('Error adding task:', _context8.t0);
             case 11:
             case "end":
               return _context8.stop();
           }
-        }, _callee8, null, [[1, 8]]);
+        }, _callee8, null, [[2, 8]]);
       }))();
     },
-    deleteSubtask: function deleteSubtask(_ref13, subtaskId) {
+    updateTask: function updateTask(_ref13, taskData) {
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
-        var commit;
+        var commit, response;
         return _regeneratorRuntime().wrap(function _callee9$(_context9) {
           while (1) switch (_context9.prev = _context9.next) {
             case 0:
               commit = _ref13.commit;
               _context9.prev = 1;
               _context9.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("/api/subtasks/".concat(subtaskId));
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().patch("/api/tasks/".concat(taskData.task_id), taskData);
             case 4:
-              commit('DELETE_SUBTASK', subtaskId);
-              _context9.next = 10;
-              break;
-            case 7:
-              _context9.prev = 7;
+              response = _context9.sent;
+              commit('UPDATE_TASK', response.data);
+              return _context9.abrupt("return", response.data);
+            case 9:
+              _context9.prev = 9;
               _context9.t0 = _context9["catch"](1);
-              console.error('Error deleting subtask:', _context9.t0);
-            case 10:
+              console.error('Error updating task:', _context9.t0);
+              throw _context9.t0;
+            case 13:
             case "end":
               return _context9.stop();
           }
-        }, _callee9, null, [[1, 7]]);
+        }, _callee9, null, [[1, 9]]);
       }))();
     },
-    setActiveBoard: function setActiveBoard(_ref14, board) {
-      var commit = _ref14.commit;
+    updateSubtask: function updateSubtask(_ref14, subtaskData) {
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
+        var commit, response;
+        return _regeneratorRuntime().wrap(function _callee10$(_context10) {
+          while (1) switch (_context10.prev = _context10.next) {
+            case 0:
+              commit = _ref14.commit;
+              _context10.prev = 1;
+              _context10.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().patch("/api/subtasks/".concat(subtaskData.subtask_id), {
+                title: subtaskData.title,
+                isCompleted: subtaskData.isCompleted
+              });
+            case 4:
+              response = _context10.sent;
+              commit('UPDATE_SUBTASK', response.data);
+              dispatch('fetchBoards');
+              _context10.next = 12;
+              break;
+            case 9:
+              _context10.prev = 9;
+              _context10.t0 = _context10["catch"](1);
+              console.error('Error updating subtask:', _context10.t0);
+            case 12:
+            case "end":
+              return _context10.stop();
+          }
+        }, _callee10, null, [[1, 9]]);
+      }))();
+    },
+    updateTaskColumn: function updateTaskColumn(_ref15, _ref16) {
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11() {
+        var commit, dispatch, taskId, columnId, status, response;
+        return _regeneratorRuntime().wrap(function _callee11$(_context11) {
+          while (1) switch (_context11.prev = _context11.next) {
+            case 0:
+              commit = _ref15.commit, dispatch = _ref15.dispatch;
+              taskId = _ref16.taskId, columnId = _ref16.columnId, status = _ref16.status;
+              _context11.prev = 2;
+              _context11.next = 5;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().patch("/api/tasks/".concat(taskId), {
+                task_id: taskId,
+                status: status,
+                column_id: columnId
+              });
+            case 5:
+              response = _context11.sent;
+              commit('UPDATE_TASK_COLUMN', {
+                taskId: response.data.task_id,
+                columnId: response.data.column_id,
+                status: response.data.status
+              });
+              dispatch('fetchBoards');
+              _context11.next = 13;
+              break;
+            case 10:
+              _context11.prev = 10;
+              _context11.t0 = _context11["catch"](2);
+              console.error('Error updating task column:', _context11.t0);
+            case 13:
+            case "end":
+              return _context11.stop();
+          }
+        }, _callee11, null, [[2, 10]]);
+      }))();
+    },
+    deleteSubtask: function deleteSubtask(_ref17, subtaskId) {
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
+        var commit;
+        return _regeneratorRuntime().wrap(function _callee12$(_context12) {
+          while (1) switch (_context12.prev = _context12.next) {
+            case 0:
+              commit = _ref17.commit;
+              _context12.prev = 1;
+              _context12.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("/api/subtasks/".concat(subtaskId));
+            case 4:
+              commit('DELETE_SUBTASK', subtaskId);
+              _context12.next = 10;
+              break;
+            case 7:
+              _context12.prev = 7;
+              _context12.t0 = _context12["catch"](1);
+              console.error('Error deleting subtask:', _context12.t0);
+            case 10:
+            case "end":
+              return _context12.stop();
+          }
+        }, _callee12, null, [[1, 7]]);
+      }))();
+    },
+    setActiveBoard: function setActiveBoard(_ref18, board) {
+      var commit = _ref18.commit;
       commit('SET_ACTIVE_BOARD', board);
     },
-    setActiveTask: function setActiveTask(_ref15, task) {
-      var commit = _ref15.commit,
-        dispatch = _ref15.dispatch;
+    setActiveTask: function setActiveTask(_ref19, task) {
+      var commit = _ref19.commit,
+        dispatch = _ref19.dispatch;
       commit('SET_ACTIVE_TASK', task);
       if (task) {
         dispatch('fetchSubtasksForActiveTask', task.task_id);
       }
     },
-    setColumns: function setColumns(_ref16, columns) {
-      var commit = _ref16.commit;
+    setColumns: function setColumns(_ref20, columns) {
+      var commit = _ref20.commit;
       commit('SET_COLUMNS', columns);
     },
-    fetchSubtasksForActiveTask: function fetchSubtasksForActiveTask(_ref17, taskId) {
-      var commit = _ref17.commit;
+    fetchSubtasksForActiveTask: function fetchSubtasksForActiveTask(_ref21, taskId) {
+      var commit = _ref21.commit;
       axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/tasks/".concat(taskId, "/subtasks")).then(function (response) {
         console.log("Subtasks fetched for task ".concat(taskId, ":"), response.data);
         commit('SET_SUBTASKS', response.data);
@@ -23253,8 +23283,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         return console.error(error);
       });
     },
-    fetchSubtasksForTask: function fetchSubtasksForTask(_ref18, taskId) {
-      var commit = _ref18.commit;
+    fetchSubtasksForTask: function fetchSubtasksForTask(_ref22, taskId) {
+      var commit = _ref22.commit;
       axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/tasks/".concat(taskId, "/subtasks")).then(function (response) {
         commit('SET_SUBTASKS', {
           taskId: taskId,
@@ -23264,8 +23294,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         return console.error(error);
       });
     }
-  }, "updateSubtask", function updateSubtask(_ref19, subtask) {
-    var commit = _ref19.commit;
+  }, "updateSubtask", function updateSubtask(_ref23, subtask) {
+    var commit = _ref23.commit;
     console.log("subtask is completed data here", subtask.isCompleted);
     axios__WEBPACK_IMPORTED_MODULE_0___default().patch("/api/subtasks/".concat(subtask.subtask_id), {
       isCompleted: !subtask.isCompleted
@@ -23274,36 +23304,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     })["catch"](function (error) {
       return console.error('Error updating subtask:', error);
     });
-  }), "updateTaskColumn", function updateTaskColumn(_ref20, _ref21) {
-    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
-      var commit, taskId, columnId;
-      return _regeneratorRuntime().wrap(function _callee10$(_context10) {
-        while (1) switch (_context10.prev = _context10.next) {
-          case 0:
-            commit = _ref20.commit;
-            taskId = _ref21.taskId, columnId = _ref21.columnId;
-            _context10.prev = 2;
-            _context10.next = 5;
-            return axios__WEBPACK_IMPORTED_MODULE_0___default().patch("/api/tasks/".concat(taskId, "/updateColumn"), {
-              column_id: columnId
-            });
-          case 5:
-            commit('UPDATE_TASK_COLUMN', {
-              taskId: taskId,
-              columnId: columnId
-            });
-            _context10.next = 11;
-            break;
-          case 8:
-            _context10.prev = 8;
-            _context10.t0 = _context10["catch"](2);
-            console.error('Error updating task column:', _context10.t0);
-          case 11:
-          case "end":
-            return _context10.stop();
-        }
-      }, _callee10, null, [[2, 8]]);
-    }))();
   }),
   getters: {
     isDarkMode: function isDarkMode(state) {
@@ -23356,6 +23356,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     isEditTaskVisible: function isEditTaskVisible(state) {
       return state.isEditTaskVisible;
+    },
+    isTaskDropdownVisible: function isTaskDropdownVisible(state) {
+      return state.isTaskDropdownVisible;
     }
   }
 }));
@@ -23427,7 +23430,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".board-div {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  gap: 24px;\n  justify-content: flex-start;\n  padding: 24px;\n  overflow: scroll;\n  overflow-y: hidden;\n}\n.add-column-div {\n  min-width: 280px;\n  border-radius: 6px;\n  background-color: rgba(228, 235, 250, 0.5);\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-content: center;\n  text-align: center;\n}\n.add-column-div .heading-xl {\n  color: #828FA3;\n}\n.add-column-div-dark {\n  background-color: rgba(43, 44, 55, 0.2);\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".board-div {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  gap: 24px;\n  justify-content: flex-start;\n  padding: 24px;\n  overflow: scroll;\n  overflow-y: hidden;\n}\n.add-column-div {\n  min-width: 280px;\n  border-radius: 6px;\n  background-color: rgba(228, 235, 250, 0.5);\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-content: center;\n  text-align: center;\n}\n.add-column-div .heading-xl {\n  color: #828FA3;\n}\n.add-column-div-dark {\n  background-color: rgba(43, 44, 55, 0.2);\n}\n.add-column-div:hover, .add-column-div-dark:hover {\n  cursor: pointer;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -23451,7 +23454,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".drop-down-conatiner {\n  position: absolute;\n  right: 2rem;\n  top: 7rem;\n  border-radius: 8px;\n  width: 128px;\n  height: 62px;\n  padding: 16px;\n  background-color: #FFFFFF;\n  z-index: 999;\n  text-align: left;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n}\n.edit-p {\n  color: #828FA3;\n}\n.delete-p {\n  color: #EA5555;\n}\n.edit-p:hover, .delete-p:hover {\n  font-weight: bolder;\n  cursor: pointer;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".drop-down-conatiner {\n  position: absolute;\n  right: 2rem;\n  top: 7rem;\n  border-radius: 8px;\n  width: 128px;\n  height: 62px;\n  padding: 16px;\n  background-color: #FFFFFF;\n  z-index: 999;\n  text-align: left;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n}\n.edit-p {\n  color: #828FA3;\n  font-size: 13px;\n  margin-bottom: 0.25rem;\n}\n.delete-p {\n  color: #EA5555;\n  font-size: 13px;\n  margin-bottom: 0.25rem;\n}\n.light {\n  opacity: 0.1;\n}\n.edit-p:hover, .delete-p:hover {\n  font-weight: bolder;\n  cursor: pointer;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -23547,7 +23550,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "/* Your styles here */", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -23619,7 +23622,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".header-div {\n  position: absolute;\n  top: 0;\n  left: 300px;\n  height: 96px;\n  width: calc(100vw - 300px);\n  background-color: white;\n  border-bottom: 0.25px solid #E4EBFA;\n}\n.header-flex {\n  height: 100%;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding-left: 32px;\n  padding-right: 32px;\n}\n.header-div-dark {\n  background-color: #2B2C37;\n  border-bottom: 0.25px solid #3E3F4E;\n}\n.header-div-dark .heading-xl {\n  color: #FFFFFF;\n}\n.dropdown-click:hover {\n  cursor: pointer;\n}\n@media (max-width: 768px) {\n.header-div {\n    left: 260px;\n    height: 80px;\n    width: calc(100vw - 260px);\n}\n.header-div .heading-xl {\n    font-size: 20px;\n}\n}\n.mobile-header-div {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 64px;\n  width: 100vw;\n  background-color: #FFFFFF;\n}\n.mobile-header-div-dark {\n  background-color: #2B2C37;\n}\n.mobile-header-div-dark .heading-l {\n  color: #FFFFFF;\n}\n.mobile-padding {\n  padding-left: 16px;\n  padding-right: 16px;\n  gap: 0.5rem;\n}\n.mobile-add-btn {\n  width: 48px;\n  height: 32px;\n}\n.mobile-menu-click {\n  cursor: pointer;\n}\n@media (max-width: 680px) {\n.side-flex {\n    gap: 0.5rem;\n}\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".header-div {\n  position: absolute;\n  top: 0;\n  left: 300px;\n  height: 96px;\n  width: calc(100vw - 300px);\n  background-color: white;\n  border-bottom: 0.25px solid #E4EBFA;\n}\n.header-flex {\n  height: 100%;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding-left: 32px;\n  padding-right: 32px;\n}\n.header-div-dark {\n  background-color: #2B2C37;\n  border-bottom: 0.25px solid #3E3F4E;\n}\n.header-div-dark .heading-xl {\n  color: #FFFFFF;\n}\n.dropdown-click:hover {\n  cursor: pointer;\n}\n@media (max-width: 768px) {\n.header-div {\n    left: 260px;\n    height: 80px;\n    width: calc(100vw - 260px);\n}\n.header-div .heading-xl {\n    font-size: 20px;\n}\n}\n.mobile-header-div {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 64px;\n  width: 100vw;\n  background-color: #FFFFFF;\n}\n.mobile-header-div-dark {\n  background-color: #2B2C37;\n}\n.mobile-header-div-dark .heading-l {\n  color: #FFFFFF;\n}\n.mobile-padding {\n  padding-left: 16px;\n  padding-right: 16px;\n  gap: 0.5rem;\n}\n.mobile-add-btn {\n  width: 48px;\n  height: 32px;\n}\n.mobile-menu-click {\n  cursor: pointer;\n}\n@media (max-width: 680px) {\n.side-flex {\n    gap: 0.5rem;\n}\n.add-edit-board-container-dark, .add-edit-board-container {\n    max-width: 300px;\n}\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -23643,7 +23646,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".sidebar-div {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 300px;\n  height: 100vh;\n  background-color: #FFFFFF;\n  border-right: 0.25px solid #E4EBFA;\n  z-index: 99;\n}\n.sidebar-div-collapsed {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 96px;\n  width: 300px;\n  border-bottom: 0.25px solid #E4EBFA;\n  background-color: #FFFFFF;\n}\n.logo {\n  position: absolute;\n  top: 2rem;\n  left: 2rem;\n}\n.sidebar-flex {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  height: 100%;\n}\n.top-box {\n  display: flex;\n  flex-direction: column;\n  padding-top: 112px;\n  padding-left: 2rem;\n}\n.boards-flex {\n  display: flex;\n  flex-direction: column;\n}\n.boards-flex .heading-s {\n  padding-bottom: 0.5rem;\n}\n.boards-flex :hover {\n  cursor: pointer;\n}\n.board-item {\n  align-items: center;\n  display: flex;\n  justify-content: center;\n  background-color: transparent;\n  border-radius: 2rem;\n  padding: 0.75rem;\n  gap: 0.75rem;\n  width: 150%;\n  transform: translateX(-40%);\n}\n.board-item .board-icon {\n  fill: #828FA3;\n}\n.board-item h2 {\n  color: #828FA3;\n  font-size: 15px;\n  margin-bottom: 0px;\n}\n.board-item.active {\n  background-color: #635FC7;\n  fill: #FFFFFF;\n}\n.board-item.active h2 {\n  color: #FFFFFF;\n}\n.board-item.active .board-icon {\n  fill: #FFFFFF;\n}\n.create-board-div {\n  margin-top: 0.75rem;\n  align-items: center;\n  display: flex;\n  color: #635FC7;\n  gap: 0.75rem;\n}\n.create-board-div h2 {\n  font-size: 15px;\n  margin-bottom: 0px;\n  font-weight: 700;\n}\n.create-board-div .create-board-icon {\n  fill: #635FC7;\n}\n.bottom-div {\n  display: flex;\n  flex-direction: column;\n  padding: 1rem;\n  padding-bottom: 2rem;\n}\n.bottom-div .toggle-theme-div {\n  background-color: #F4F7FD;\n  border-radius: 0.25rem;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 0.75rem;\n  padding: 1rem;\n}\n.toggle-switch {\n  position: relative;\n  background-color: #A8A4FF;\n  border: none;\n  border-radius: 9999px;\n  width: 50px;\n  height: 25px;\n  padding: 5px;\n  display: flex;\n  align-items: center;\n  transition: background-color 0.3s;\n  cursor: pointer;\n}\n.toggle-switch .switch-circle {\n  position: absolute;\n  left: 5px;\n  background-color: #FFFFFF;\n  border-radius: 50%;\n  width: 20px;\n  height: 20px;\n  transition: transform 0.3s;\n}\n.toggle-switch.active .switch-circle {\n  transform: translateX(20px);\n}\n.toggle-sidebar-div {\n  display: flex;\n  align-content: center;\n  gap: 0.5rem;\n  padding-left: 1rem;\n  padding-top: 1rem;\n}\n.toggle-sidebar-div .heading-m {\n  color: #828FA3;\n}\n.toggle-sidebar-div :hover {\n  cursor: pointer;\n}\n.sidebar-div-dark {\n  background-color: #2B2C37;\n  border-right: 0.25px solid #3E3F4E;\n}\n.sidebar-div-dark .toggle-theme-div {\n  background-color: #20212C;\n}\n.sidebar-collapsed-dark {\n  background-color: #2B2C37;\n  border-bottom: 0.25px solid #3E3F4E;\n}\n@media (max-width: 768px) {\n.sidebar-div-collapsed, .sidebar-div {\n    width: 260px;\n}\n.sidebar-div-collapsed {\n    height: 80px;\n}\n.logo {\n    top: 1.5rem;\n    left: 1.5rem;\n}\n}\n.grey-box {\n  position: absolute;\n  top: 64px;\n  width: 100vw;\n  height: calc(100vh - 60px);\n  background-color: rgba(0, 0, 0, 0.5);\n  z-index: 998;\n  display: flex;\n  align-items: flex-start;\n  justify-content: center;\n}\n.mobile-menu {\n  position: relative;\n  margin-top: 16px;\n  background-color: #FFFFFF;\n  border-radius: 8px;\n  z-index: 999;\n  height: -moz-fit-content;\n  height: fit-content;\n  width: 261px;\n  padding: 16px;\n  overflow: hidden;\n  box-shadow: 0 4px 6px rgba(0, 123, 255, 0.1);\n}\n.mobile-menu-dark {\n  background-color: #3E3F4E;\n}\n.mobile-menu-dark .toggle-theme-div {\n  background-color: #20212C;\n}\n@media (max-width: 680px) {\n.sidebar-div-collapsed, .sidebar-div {\n    width: 260px;\n}\n.bottom-div {\n    margin-top: 2rem;\n    padding-bottom: 0;\n    padding: 0;\n}\n.board-item {\n    transform: translateX(-37.5%);\n}\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".sidebar-div {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 300px;\n  height: 100vh;\n  background-color: #FFFFFF;\n  border-right: 0.25px solid #E4EBFA;\n  z-index: 99;\n}\n.sidebar-div-collapsed {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 96px;\n  width: 300px;\n  border-bottom: 0.25px solid #E4EBFA;\n  background-color: #FFFFFF;\n}\n.logo {\n  position: absolute;\n  top: 2rem;\n  left: 2rem;\n}\n.sidebar-flex {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  height: 100%;\n}\n.top-box {\n  display: flex;\n  flex-direction: column;\n  padding-top: 112px;\n  padding-left: 2rem;\n}\n.boards-flex {\n  display: flex;\n  flex-direction: column;\n}\n.boards-flex .heading-s {\n  padding-bottom: 0.5rem;\n}\n.boards-flex :hover {\n  cursor: pointer;\n}\n.mobile-menu .board-item, .mobile-menu-dark .board-item {\n  transform: translateX(-48px);\n}\n.board-item {\n  position: relative;\n  align-items: center;\n  display: flex;\n  background-color: transparent;\n  justify-content: left;\n  border-radius: 2rem;\n  padding: 0.75rem;\n  padding-left: 3rem;\n  transform: translateX(-3rem);\n  gap: 0.75rem;\n  width: 100%;\n  text-align: left;\n  overflow: hidden;\n}\n.board-item .board-icon {\n  fill: #828FA3;\n}\n.board-item .item-container {\n  display: flex;\n  gap: 0.5rem;\n}\n.board-item h2 {\n  color: #828FA3;\n  font-size: 15px;\n  margin-bottom: 0px;\n}\n.board-item.active {\n  background-color: #635FC7;\n  fill: #FFFFFF;\n}\n.board-item.active h2 {\n  color: #FFFFFF;\n}\n.board-item.active .board-icon {\n  fill: #FFFFFF;\n}\n.create-board-div {\n  margin-top: 0.75rem;\n  align-items: center;\n  display: flex;\n  color: #635FC7;\n  gap: 0.75rem;\n}\n.create-board-div h2 {\n  font-size: 15px;\n  margin-bottom: 0px;\n  font-weight: 700;\n}\n.create-board-div .create-board-icon {\n  fill: #635FC7;\n}\n.bottom-div {\n  display: flex;\n  flex-direction: column;\n  padding: 1rem;\n  padding-bottom: 2rem;\n}\n.bottom-div .toggle-theme-div {\n  background-color: #F4F7FD;\n  border-radius: 0.25rem;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 0.75rem;\n  padding: 1rem;\n}\n.toggle-switch {\n  position: relative;\n  background-color: #A8A4FF;\n  border: none;\n  border-radius: 9999px;\n  width: 50px;\n  height: 25px;\n  padding: 5px;\n  display: flex;\n  align-items: center;\n  transition: background-color 0.3s;\n  cursor: pointer;\n}\n.toggle-switch .switch-circle {\n  position: absolute;\n  left: 5px;\n  background-color: #FFFFFF;\n  border-radius: 50%;\n  width: 20px;\n  height: 20px;\n  transition: transform 0.3s;\n}\n.toggle-switch.active .switch-circle {\n  transform: translateX(20px);\n}\n.toggle-sidebar-div {\n  display: flex;\n  align-content: center;\n  gap: 0.5rem;\n  padding-left: 1rem;\n  padding-top: 1rem;\n}\n.toggle-sidebar-div .heading-m {\n  color: #828FA3;\n}\n.toggle-sidebar-div :hover {\n  cursor: pointer;\n}\n.sidebar-div-dark {\n  background-color: #2B2C37;\n  border-right: 0.25px solid #3E3F4E;\n}\n.sidebar-div-dark .toggle-theme-div {\n  background-color: #20212C;\n}\n.sidebar-collapsed-dark {\n  background-color: #2B2C37;\n  border-bottom: 0.25px solid #3E3F4E;\n}\n@media (max-width: 768px) {\n.sidebar-div-collapsed, .sidebar-div {\n    width: 260px;\n}\n.sidebar-div-collapsed {\n    height: 80px;\n}\n.logo {\n    top: 1.5rem;\n    left: 1.5rem;\n}\n}\n.grey-box {\n  position: absolute;\n  top: 64px;\n  width: 100vw;\n  height: calc(100vh - 60px);\n  background-color: rgba(0, 0, 0, 0.5);\n  z-index: 998;\n  display: flex;\n  align-items: flex-start;\n  justify-content: center;\n}\n.mobile-menu {\n  position: relative;\n  margin-top: 16px;\n  background-color: #FFFFFF;\n  border-radius: 8px;\n  z-index: 999;\n  height: -moz-fit-content;\n  height: fit-content;\n  width: 261px;\n  padding: 16px;\n  overflow: hidden;\n  box-shadow: 0 4px 6px rgba(0, 123, 255, 0.1);\n}\n.mobile-menu-dark {\n  background-color: #3E3F4E;\n}\n.mobile-menu-dark .toggle-theme-div {\n  background-color: #20212C;\n}\n@media (max-width: 680px) {\n.sidebar-div-collapsed, .sidebar-div {\n    width: 260px;\n}\n.bottom-div {\n    margin-top: 2rem;\n    padding-bottom: 0;\n    padding: 0;\n}\n.board-item {\n    transform: translateX(-37.5%);\n}\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -23667,7 +23670,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".subtask-header {\n  font-weight: bold;\n  margin-bottom: 10px;\n}\n.subtasks-list {\n  list-style-type: none;\n  padding: 0;\n}\n.subtask-item {\n  display: flex;\n  align-items: center;\n  margin-bottom: 5px;\n  background-color: #F4F7FD;\n  border-radius: 8px;\n  padding-left: 10px;\n  font-weight: bolder;\n}\n.subtask-item input[type=checkbox] {\n  margin-right: 10px;\n}\n.subtask-item input[type=checkbox]:checked + label {\n  text-decoration: line-through;\n  color: #aaa;\n}\n.space-bottom {\n  margin-bottom: 1rem;\n}\n.column-drop {\n  width: 100%;\n  padding: 5px;\n  padding-right: 10px;\n  border-radius: 8px;\n}\n.drop-down-conatiner-task {\n  position: absolute;\n  right: 11rem;\n  top: 7rem;\n  border-radius: 8px;\n  width: 128px;\n  height: 62px;\n  padding: 16px;\n  background-color: #FFFFFF;\n  z-index: 999;\n  text-align: left;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".subtask-header {\n  font-weight: bold;\n  margin-bottom: 10px;\n}\n.subtasks-list {\n  list-style-type: none;\n  padding: 0px;\n}\n.subtask-item {\n  display: flex;\n  align-items: center;\n  margin-bottom: 5px;\n  background-color: #F4F7FD;\n  border-radius: 5px;\n  font-weight: bold;\n  width: 100%;\n  padding: 5px;\n  padding-left: 10px;\n}\n.subtask-item input[type=checkbox] {\n  margin-right: 10px;\n}\n.subtask-item input[type=checkbox]:checked + label {\n  text-decoration: line-through;\n  color: #aaa;\n}\n.space-bottom {\n  margin-bottom: 1rem;\n}\n.column-drop {\n  width: 100%;\n  padding: 5px;\n  padding-right: 10px;\n  border-radius: 8px;\n}\n.drop-down-conatiner-task {\n  position: absolute;\n  top: 4rem;\n  right: 0rem;\n  border-radius: 8px;\n  width: 128px;\n  height: 62px;\n  padding: 16px;\n  background-color: #FFFFFF;\n  z-index: 999;\n  text-align: left;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n}\n.drop-down-conatiner-task-dark {\n  background-color: #2B2C37;\n}\n.drop-btn:hover {\n  cursor: pointer;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

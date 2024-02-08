@@ -10,7 +10,7 @@
             </p>
             <div class="button-bottom-flex"> 
                 <button class="btn-destructive" @click="deleteActiveBoard"> Delete</button>
-                <button class="btn-secondary"> Cancel</button>
+                <button class="btn-secondary" @click="toggleDeleteBoard"> Cancel</button>
             </div>
 
         </div>

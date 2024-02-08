@@ -41,6 +41,7 @@ Route::post('/subtasks', [SubtaskController::class, 'store']);
 
 Route::delete('/boards/{board}', [BoardController::class, 'destroy']);
 Route::delete('/columns/{column}', [ColumnController::class, 'destroy']);
+Route::delete('/tasks/{task}', [TaskController::class, 'destroy']);
 Route::delete('/subtasks/{subtask}', [SubtaskController::class, 'destroy']);
 
 

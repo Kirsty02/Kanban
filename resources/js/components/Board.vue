@@ -1,19 +1,21 @@
 <template>
-    <div class="board-div" v-if="board && shouldColumnsRefresh" >
+    <div class="board-div" v-if="activeBoard">
 
-      <div v-for="column in board.columns" :key="column.column_id" class="column">
-        <Column :column="column" :selectedColumn="selectedColumn" ></Column>
+      <div v-for="column in activeBoard.columns" :key="`${column.column_id}-${column.board_id}`" class="column">
+        <Column :column="column" ></Column>
       </div>
+
+
 
       
  
   
       <div :class="['add-column-div', isDarkMode ? 'add-column-div-dark' : '']"> 
-          <h2 class="heading-xl"> + New Column</h2>
+          <h2 class="heading-xl" @click="toggleEditBoard();"> + New Column</h2>
       </div>
     </div>
     <ViewTask v-if="isViewTaskVisible"></ViewTask>
-    <AddBoard v-if="isAddBoardVisible"> </AddBoard>
+    
     <DeleteBoard v-if="isDeleteBoardVisible"> </DeleteBoard>
     <AddTask v-if="isAddTaskVisible"> </AddTask>
     <EditBoard v-if="isEditBoardVisible"> </EditBoard>
@@ -23,42 +25,37 @@
   </template>
   
   <script>
-  import { mapActions, mapGetters } from 'vuex';
+  import { mapActions, mapGetters, mapMutations } from 'vuex';
   import Column from './Column.vue';
   import ViewTask from './ViewTask.vue';
-  import AddBoard from './AddBoard.vue';
   import DeleteBoard from './DeleteBoard.vue';
   import AddTask from './AddTask.vue';
   import EditBoard from './EditBoard.vue';
   import EditTask from './EditTask.vue';
+  import { watch, reactive } from 'vue';
   
   export default {
+    props: {
+      board: {
+        type: Object,
+        required: true
+      }
+    },
       components: {
           Column,
           ViewTask,
-          AddBoard,
           DeleteBoard,
           AddTask,
           EditBoard,
           EditTask
       },
-      props: {
-        board: {
-          type: Object,
-          required: true
-        }
-      },
-      data() {
-        return {
-          selectedColumn: null, // Initialize selectedColumn as null
-        };
-      },
       computed: {
-          ...mapGetters(['isDarkMode','isMobileView', 'isMobileSidebarVisible', 'activeTask', 'isAddBoardVisible', 'isDeleteBoardVisible', 'isAddTaskVisible', 'shouldColumnsRefresh', 'isEditBoardVisible','isViewTaskVisible', 'isEditTaskVisible']),
+          ...mapGetters(['isDarkMode','isMobileView', 'isMobileSidebarVisible', 'activeTask', 'isAddBoardVisible', 'isDeleteBoardVisible', 'isAddTaskVisible', 'shouldColumnsRefresh', 'isEditBoardVisible','isViewTaskVisible', 'isEditTaskVisible', 'activeBoard']),
       },
  
       methods:{
         ...mapActions(['fetchBoards']),
+        ...mapMutations(['toggleEditBoard']),
         updateTaskColumn(activeTask, newColumn) {
           if (activeTask && newColumn !== null) {
             // Update the task's column based on the newColumn value
@@ -104,6 +101,11 @@
 
 .add-column-div-dark{
     background-color: rgb($platinum-darkest, 0.2);
+}
+
+.add-column-div:hover, .add-column-div-dark:hover{
+  cursor: pointer;
+
 }
 
 </style>

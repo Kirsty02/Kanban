@@ -1,11 +1,11 @@
 <template>
-  <div class="grey-box"  @click="toggleEditBoard" > </div>
+  <div class="grey-box" v-for="board in boards" :key="board.board_id" :class="{ active: activeBoard?.board_id === board.board_id }" @click="toggleEditBoard(), refreshBoardData()" > </div>
   <div class="view-widget-modal"> 
-    <div class="add-edit-board-container">
+    <div  :class="['add-edit-board-container', isDarkMode ? 'add-edit-board-container-dark' : '']" >
       <h2 class="heading-l">Edit Board</h2>
       <form @submit.prevent="submitBoardUpdate">
         <div class="form-group">
-          <label for="boardName"><p class="body-m">Board Name</p></label>
+          <label for="boardName"><p class="body-m">Name</p></label>
           <input class="body-l" type="text" id="boardName" v-model="board.name" required :placeholder="activeBoard.name">
         </div>
         <div class="form-group">
@@ -53,10 +53,10 @@
       };
     },
     computed: {
-      ...mapGetters(['activeBoard']),
+      ...mapGetters(['activeBoard', 'isDarkMode', 'boards']),
     },
     methods: {
-      ...mapActions(['updateBoard', 'fetchBoards']),
+      ...mapActions(['updateBoard', 'fetchBoards', 'setActiveBoard', 'refreshBoardData']),
       ...mapMutations(['toggleEditBoard']),
       addColumn() {
         this.board.columns.push({ name: '', isNew: true }); // Mark new columns
@@ -69,17 +69,23 @@
         this.showDeleteConfirmation = true;
       },
       deleteActiveColumn() {
-        const column = this.board.columns[this.columnIndexToDelete];
-        if (column && column.column_id) {
-          axios.delete(`/api/columns/${column.column_id}`)
+        if (this.board.columns[this.columnIndexToDelete].column_id) {
+          const columnId = this.board.columns[this.columnIndexToDelete].column_id;
+          axios.delete(`/api/columns/${columnId}`)
             .then(() => {
-              this.removeColumn(this.columnIndexToDelete);
+              this.removeColumn(this.columnIndexToDelete); 
             })
-            .catch(error => console.error('Error deleting column:', error))
+            .catch(error => {
+              console.error('Error deleting column:', error);
+            })
             .finally(() => {
               this.showDeleteConfirmation = false;
               this.columnIndexToDelete = null;
             });
+        } else {
+          this.removeColumn(this.columnIndexToDelete);
+          this.showDeleteConfirmation = false;
+          this.columnIndexToDelete = null;
         }
       },
       submitBoardUpdate() {
@@ -109,8 +115,9 @@
             return Promise.all([...newColumnPromises, ...updateColumnPromises]);
           })
           .then(() => {
-            this.fetchBoards();
+            this.refreshBoardData();
             this.toggleEditBoard();
+            
           })
           .catch(error => {
             console.error('Error updating board or columns:', error);
@@ -119,7 +126,7 @@
     },
     created() {
       if (this.activeBoard) {
-        this.board = JSON.parse(JSON.stringify(this.activeBoard)); // Deep clone to avoid direct mutation
+        this.board = JSON.parse(JSON.stringify(this.activeBoard)); 
       }
     },
   };

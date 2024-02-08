@@ -1,7 +1,7 @@
 <template>
   <div class="grey-box"  @click="toggleAddBoardForm" > </div>
   <div class="view-widget-modal"> 
-    <div class="add-edit-board-container">
+    <div :class="['add-edit-board-container', isDarkMode ? 'add-edit-board-container-dark' : '']" >
       <h2 class="heading-l">Add New Board</h2>
       <form @submit.prevent="createBoard">
         <div class="form-group">
@@ -24,7 +24,7 @@
   </template>
   
   <script>
-  import { mapMutations, mapActions} from 'vuex';
+  import { mapMutations, mapActions, mapGetters} from 'vuex';
   import axios from 'axios';
   export default {
     data() {
@@ -36,8 +36,11 @@
         }
         };
         },
+        computed: {
+          ...mapGetters(['isDarkMode', 'boards']),
+        },
         methods: {
-          ...mapActions(['fetchBoards', 'addBoard', 'setActiveBoard']), 
+          ...mapActions(['fetchBoards', 'addBoard', 'setActiveBoard', 'refreshBoardData']), 
           ...mapMutations(['toggleAddBoardForm']),
           addColumn() {
             this.board.columns.push({ name: '' });
@@ -58,10 +61,9 @@
                 });
                 }
               }
-              this.fetchBoards();
-              this.setActiveBoard(boardResponse.data);
-              this.fetchBoards();
+              this.refreshBoardData();
               this.toggleAddBoardForm();
+              this.setActiveBoard();
             }catch(error){
               console.error('Error creating board and columns:', error);
             }

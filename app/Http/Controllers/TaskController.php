@@ -54,6 +54,14 @@ class TaskController extends Controller
         return response()->json($task);
     }
 
+    public function destroy($taskId)
+    {
+        $task = Task::findOrFail($taskId);
+        $task->delete();
+
+        return response()->json(['message' => 'task deleted successfully']);
+    }
+
 
 
 

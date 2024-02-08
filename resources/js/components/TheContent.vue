@@ -3,23 +3,26 @@
         <board v-if="activeBoard" :key="activeBoard.id" :board="activeBoard"></board>
         <div v-if="!activeBoard" class="boards-div">
             <h2 class="heading-l">No have not seclted a board. click on the sidebar to view or create a board.</h2>
-            <button class="btn-primary-s"> + Add New Board</button>
+            <button class="btn-primary-s" @click="toggleAddBoardForm"> + Add New Board</button>
         </div>
       <div class="toggle-sidebar-btn" @click="toggleSidebar">
         <img src="/assets/icon-show-sidebar.svg" alt="light theme">
       </div>
     </div>
+    <AddBoard v-if="isAddBoardVisible"> </AddBoard>
   </template>
   
 
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import Board from './Board.vue';
+import AddBoard from './AddBoard.vue';
 
 
 export default {
     components: {
-        Board
+        Board,
+        AddBoard
     },
     created(){
         this.fetchBoards();
@@ -27,10 +30,10 @@ export default {
     },
     methods: {
         ...mapActions(['fetchBoards']), 
-        ...mapMutations(['toggleSidebar']),
+        ...mapMutations(['toggleSidebar','toggleAddBoardForm']),
     },
     computed: {
-        ...mapGetters(['isDarkMode', 'isSidebarVisible', 'isMobileView', 'boards', 'activeBoard']),
+        ...mapGetters(['isDarkMode', 'isSidebarVisible', 'isMobileView', 'boards', 'activeBoard', 'isAddBoardVisible']),
     },
 };
 
