@@ -25,7 +25,6 @@ These features aim to make task management simple and efficient. Kanban's visual
 ## Screenshots
 ![Screenshot 1](./screenshots/kanban1.png)
 ![Screenshot 2](./screenshots/kanban2.png)
-![Screenshot 3](./screenshots/kanban3.png)
 ![Screenshot 4](./screenshots/kanban4.png)
 ![Screenshot 5](./screenshots/kanban5.png)
 ![Screenshot 6](./screenshots/kanban6.png)
