@@ -23,11 +23,15 @@ The Kanban Task Management Platform provides a structured and streamlined worksp
 These features aim to make task management simple and efficient. Kanban's visual design, coupled with customisable workflows and dynamic user interactions, promotes greater organisation and improved project visibility.  The combined technologies create a powerful, user-friendly, and highly adaptable application suited for both individual and team use.
 
 ## Screenshots
-![A screenshot showing the dark mode feature](./screenshots/darkModeKanban.png)
-![A screenshot showing the edit task feature](./screenshots/editTaskKanban.png)
-![A screenshot showing the mobile view](./screenshots/mobileViewKanban.png)
-![A screenshot showing the create board feature](./screenshots/createBoardKanban.png)
-![A screenshot showing the task detail feature](./screenshots/taskDetailKanban.png)
+![Screenshot 1](./screenshots/kanban1.png)
+![Screenshot 1](./screenshots/kanban2.png)
+![Screenshot 1](./screenshots/kanban3.png)
+![Screenshot 1](./screenshots/kanban4.png)
+![Screenshot 1](./screenshots/kanban5.png)
+![Screenshot 1](./screenshots/kanban6.png)
+![Screenshot 1](./screenshots/kanban7.png)
+![Screenshot 1](./screenshots/kanban8.png)
+![Screenshot 1](./screenshots/kanban9.png)
 
 ## Link to Demo: 
 
